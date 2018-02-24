@@ -11,7 +11,8 @@ class RainworksProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rainworks: []
+      rainworks: [],
+      loading: false
     };
   }
   
@@ -20,15 +21,16 @@ class RainworksProvider extends Component {
   }
   
   loadRainworks() {
+    this.setState({ loading: true });
     fetch(RAINWORKS_URL)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ rainworks: data })
+        this.setState({ rainworks: data, loading: false });
       });
   }
   
   render() {
-    return this.props.children(this.state.rainworks);
+    return this.props.children(this.state.rainworks, this.state.loading);
   }
 }
 
