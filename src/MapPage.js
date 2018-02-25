@@ -1,9 +1,10 @@
 import { MapView } from 'expo';
-import { Content, View } from 'native-base';
+import { Content } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import DetailsPage from './DetailsPage';
+import UploaderTest from './UploaderTest';
 
 export default class MapPage extends Component {
   static propTypes = {
@@ -58,13 +59,11 @@ export default class MapPage extends Component {
           {this.state.currentlySelected && (
             <DetailsPage
               rainwork={this.state.currentlySelected}
-              onClose={() => {
-                console.log('closing');
-                this.unselect();
-              }}
+              onClose={() => this.unselect()}
             />
           )}
         </Modal>
+        <UploaderTest/>
       </Content>
     );
   }
@@ -78,5 +77,5 @@ const styles = StyleSheet.create({
   },
   mapView: {
     flex: 1
-  }
+  },
 });

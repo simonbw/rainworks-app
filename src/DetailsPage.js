@@ -11,6 +11,9 @@ const DetailsPage = (props) => {
   const createdDate = moment(rainwork.created_at)
     .format('MMM DD, YYYY');
   
+  const source = rainwork.image_url ?
+    { uri: rainwork.image_url }
+    : require('../rainwork_placeholder.png');
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
@@ -32,7 +35,7 @@ const DetailsPage = (props) => {
                 flex: 1,
               }}
               resizeMode={'cover'}
-              source={require('../rainwork_placeholder.png')}
+              source={source}
             />
           </CardItem>
           <CardItem>
