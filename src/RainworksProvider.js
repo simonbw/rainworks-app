@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-let RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/rainworks';
+const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/rainworks';
 
 class RainworksProvider extends Component {
   static propTypes = {

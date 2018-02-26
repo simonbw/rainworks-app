@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import DetailsPage from './DetailsPage';
-import UploaderTest from './UploaderTest';
+import UploadPage from './UploadPage';
 
 export default class MapPage extends Component {
   static propTypes = {
@@ -63,7 +63,7 @@ export default class MapPage extends Component {
             />
           )}
         </Modal>
-        <UploaderTest/>
+        <UploadPage/>
       </Content>
     );
   }
