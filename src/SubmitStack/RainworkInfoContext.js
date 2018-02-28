@@ -1,9 +1,9 @@
 import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { uploadFile } from '../util';
+import { getDeviceId, uploadFile } from '../util';
 
-const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/rainworks';
+const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/submissions';
 
 const Context = createContext({});
 export const RainworkInfoConsumer = Context.Consumer;
@@ -43,12 +43,13 @@ export class RainworkInfoProvider extends Component {
   
   getPostData = () => {
     return {
-      creatorEmail: this.state.creatorEmail,
-      creatorName: this.state.creatorName,
+      creator_email: this.state.creatorEmail,
+      creator_name: this.state.creatorName,
       description: this.state.description,
       name: this.state.name,
       lat: this.state.lat,
       lng: this.state.lng,
+      device_id: getDeviceId(),
     }
   };
   

@@ -17,6 +17,13 @@ const SuccessScreen = ({ navigation }) => (
     >
       <Text>Back To Map</Text>
     </Button>
+    <Button
+      onPress={() => {
+        navigation.popToTop();
+      }}
+    >
+      <Text>Submit Another Rainwork</Text>
+    </Button>
   </View>
 );
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, withNavigation } from 'react-navigation';
 import DrawerMenuButton from '../MapStack/DrawerMenuButton';
 import GuidelinesScreen from './GuidelinesScreen';
 import InfoScreen from './InfoScreen';
 import LocationSelectScreen from './LocationSelectScreen';
-import { RainworkInfoProvider } from './RainworkInfoContext';
 import SuccessScreen from './SuccessScreen';
 
 export const GUIDELINES_SCREEN = 'GUIDELINES_SCREEN';
@@ -12,7 +11,7 @@ export const LOCATION_SELECT_SCREEN = 'LOCATION_SELECT_SCREEN';
 export const INFO_SCREEN = 'INFO_SCREEN';
 export const SUCCESS_SCREEN = 'SUCCESS_SCREEN';
 
-const Navigator = StackNavigator({
+export default withNavigation(StackNavigator({
   [GUIDELINES_SCREEN]: { screen: GuidelinesScreen },
   [LOCATION_SELECT_SCREEN]: { screen: LocationSelectScreen },
   [INFO_SCREEN]: { screen: InfoScreen },
@@ -27,10 +26,4 @@ const Navigator = StackNavigator({
     }
     return options;
   }
-});
-
-export default () => (
-  <RainworkInfoProvider>
-    <Navigator/>
-  </RainworkInfoProvider>
-);
+}));

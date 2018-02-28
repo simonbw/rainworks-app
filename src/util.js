@@ -1,7 +1,13 @@
+import Expo from 'expo';
+
 export function makeQueryString(params) {
   return '?' + Object.entries(params)
     .map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value))
     .join('&');
+}
+
+export function getDeviceId() {
+  return Expo.Constants.deviceId;
 }
 
 export function uploadFile(url, file, onProgress = () => null) {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/rainworks';
+const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/active-rainworks';
 
 // TODO: probably separate this out by context
 
