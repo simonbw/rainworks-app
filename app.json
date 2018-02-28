@@ -5,7 +5,7 @@
     "privacy": "unlisted",
     "description": "View the location of rainworks around the world. https://rain.works/",
     "sdkVersion": "25.0.0",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "orientation": "portrait"
   }
 }
