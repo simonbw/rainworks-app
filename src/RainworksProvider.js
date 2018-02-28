@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/rainworks';
 
+// TODO: probably separate this out by context
+
 class RainworksProvider extends Component {
   static propTypes = {
     children: PropTypes.func.isRequired,

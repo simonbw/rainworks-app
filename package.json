@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
+    "create-react-context": "^0.2.0",
     "exp": "^49.2.2",
     "expo": "^25.0.0",
     "moment": "^2.20.1",
@@ -27,6 +28,7 @@
     "prop-types": "^15.6.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
-    "react-native-aws3": "^0.0.8"
+    "react-native-aws3": "^0.0.8",
+    "react-navigation": "^1.2.0"
   }
 }
