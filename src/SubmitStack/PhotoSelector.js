@@ -7,6 +7,7 @@ export default class PhotoSelector extends Component {
   static propTypes = {
     imageUri: PropTypes.string,
     setImageUri: PropTypes.func.isRequired,
+    onSelect: PropTypes.func,
   };
   
   constructor(props) {

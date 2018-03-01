@@ -1,55 +1,114 @@
-import { Form, Input, Item, Label, View } from 'native-base';
+import { Button, Container, Content, Form, Input, Item, Label, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { SUCCESS_SCREEN } from './index';
 import PhotoSelector from './PhotoSelector';
 import { RainworkInfoConsumer } from './RainworkInfoContext';
-import SubmitButton from './SubmitButton';
 
-const UnconnectedInfoScreen = (props) => (
-  <View style={{ flex: 1 }}>
-    <ScrollView style={{ flex: 1 }}>
-      <PhotoSelector setImageUri={props.setImageUri} imageUri={props.imageUri}/>
-      <Form style={{ flex: 1 }}>
-        <Item stackedLabel>
-          <Label>Rainwork Name</Label>
-          <Input value={props.name} onChangeText={props.setName}/>
-        </Item>
-        <Item stackedLabel>
-          <Label>Creator's Name</Label>
-          <Input value={props.creatorName} onChangeText={props.setCreatorName}/>
-        </Item>
-        <Item stackedLabel>
-          <Label>Your Email</Label>
-          <Input value={props.creatorEmail} onChangeText={props.setCreatorEmail}/>
-        </Item>
-        <Item stackedLabel>
-          <Label>Rainwork Description</Label>
-          <Input multiline style={{ minHeight: 40 }} value={props.description} onChangeText={props.setDescription}/>
-        </Item>
-      </Form>
-    </ScrollView>
-    <SubmitButton disabled={!(props.imageUri && props.name)}/>
-  </View>
-);
+class UnconnectedInfoScreen extends Component {
+  static propTypes = {
+    creatorEmail: PropTypes.string.isRequired,
+    creatorName: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    imageUri: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    setCreatorEmail: PropTypes.func.isRequired,
+    setCreatorName: PropTypes.func.isRequired,
+    setDescription: PropTypes.func.isRequired,
+    setImageUri: PropTypes.func.isRequired,
+    setName: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired,
+    navigation: PropTypes.object.isRequired,
+  };
+  
+  canSubmit() {
+    return Boolean(!this.props.submitting && this.props.imageUri && this.props.name);
+  }
+  
+  submit = async () => {
+    const success = await this.props.submit();
+    if (success) {
+      this.props.navigation.replace(SUCCESS_SCREEN);
+    }
+  };
+  
+  render() {
+    return (
+      <Container>
+        <Content style={{ flex: 1 }} behavior="padding">
+          <PhotoSelector
+            imageUri={this.props.imageUri}
+            setImageUri={(imageUri) => {
+              this.props.setImageUri(imageUri);
+              if (!this.props.name) {
+                this._nameInput.focus();
+              }
+            }}
+          />
+          <Form style={{ flex: 1 }}>
+            <Item stackedLabel>
+              <Label>Rainwork Name</Label>
+              <Input
+                ref={c => {
+                  this._nameInput = c && c._root;
+                }}
+                returnKeyType={'next'}
+                value={this.props.name}
+                onChangeText={this.props.setName}
+                onSubmitEditing={() => this._creatorInput.focus()}
+              />
+            </Item>
+            <Item stackedLabel>
+              <Label>Creator's Name</Label>
+              <Input
+                ref={c => {
+                  this._creatorInput = c && c._root;
+                }}
+                returnKeyType={'next'}
+                value={this.props.creatorName}
+                onChangeText={this.props.setCreatorName}
+                onSubmitEditing={() => this._descriptionInput.focus()}
+              />
+            </Item>
+            <Item bordered stackedLabel>
+              <Label>Rainwork Description</Label>
+              <Input
+                ref={c => {
+                  this._descriptionInput = c && c._root;
+                }}
+                autogrow
+                submitOnBlur
+                value={this.props.description}
+                returnKeyType={this.canSubmit() ? 'send' : undefined}
+                maxHeight={200}
+                onChangeText={this.props.setDescription}
+                onSubmitEditing={() => this.canSubmit() && this.submit()}
+              />
+            </Item>
+          </Form>
+          <View style={{ height: 60 }}/>
+        </Content>
+        
+        <View style={{ position: 'absolute', bottom: 12, right: 12 }}>
+          {this.props.submitting ? (
+            <ActivityIndicator size={'large'}/>
+          ) : (
+            <Button onPress={this.submit} disabled={!this.canSubmit()}>
+              <Text>Submit</Text>
+            </Button>
+          )}
+        </View>
+      </Container>
+    );
+  }
+}
 
-UnconnectedInfoScreen.propTypes = {
-  creatorEmail: PropTypes.string.isRequired,
-  creatorName: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  imageUri: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  setCreatorEmail: PropTypes.func.isRequired,
-  setCreatorName: PropTypes.func.isRequired,
-  setDescription: PropTypes.func.isRequired,
-  setImageUri: PropTypes.func.isRequired,
-  setName: PropTypes.func.isRequired,
-};
-
-const InfoScreen = () => (
+const InfoScreen = ({ navigation }) => (
   <RainworkInfoConsumer>
     {(props) => (
-      <UnconnectedInfoScreen {...props}/>
+      <UnconnectedInfoScreen {...props} navigation={navigation}/>
     )}
   </RainworkInfoConsumer>
 );

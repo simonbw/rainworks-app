@@ -5,9 +5,9 @@ import { withNavigation } from 'react-navigation';
 import { SUCCESS_SCREEN } from './index';
 import { RainworkInfoConsumer } from './RainworkInfoContext';
 
-const SubmitButton = withNavigation(({ navigation, disabled }) => (
+const SubmitButton = withNavigation(({ navigation, disabled, submit }) => (
   <RainworkInfoConsumer>
-    {({ submitting, submit }) => (
+    {({ submitting }) => (
       <Button
         style={{ position: 'absolute', bottom: 12, right: 12 }}
         onPress={async () => {
