@@ -49,7 +49,7 @@ class UnconnectedInfoScreen extends Component {
           />
           <Form style={{ flex: 1 }}>
             <Item stackedLabel>
-              <Label>Rainwork Name</Label>
+              <Label>Rainwork Title</Label>
               <Input
                 ref={c => {
                   this._nameInput = c && c._root;
@@ -61,7 +61,7 @@ class UnconnectedInfoScreen extends Component {
               />
             </Item>
             <Item stackedLabel>
-              <Label>Creator's Name</Label>
+              <Label>Creator (optional)</Label>
               <Input
                 ref={c => {
                   this._creatorInput = c && c._root;
@@ -73,7 +73,7 @@ class UnconnectedInfoScreen extends Component {
               />
             </Item>
             <Item bordered stackedLabel>
-              <Label>Rainwork Description</Label>
+              <Label>Description (optional)</Label>
               <Input
                 ref={c => {
                   this._descriptionInput = c && c._root;
