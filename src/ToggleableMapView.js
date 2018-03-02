@@ -1,12 +1,22 @@
 import { MapView } from 'expo';
-import { Icon } from 'native-base';
+import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { LocationConsumer } from './LocationContext';
+
+const locationToRegion = (l) => {
+  return {
+    latitude: l.latitude,
+    longitude: l.longitude,
+    latitudeDelta: 0.025,
+    longitudeDelta: 0.025,
+  }
+};
 
 class ToggleableMapView extends Component {
   static propTypes = {
-    initialMapType: PropTypes.oneOf('hybrid', 'standard'),
+    initialMapType: PropTypes.oneOf(['hybrid', 'standard']),
     children: PropTypes.node,
   };
   
@@ -17,6 +27,17 @@ class ToggleableMapView extends Component {
     }
   }
   
+  async componentDidMount() {
+    // const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    // if (status === 'granted') {
+    //   const userLocation = (await Location.getCurrentPositionAsync({})).coords;
+    //   if (userLocation) {
+    //     const region = locationToRegion(userLocation);
+    //     this._mapRef.animateToRegion(region);
+    //   }
+    // }
+  }
+  
   toggleMapType = () => {
     const mapType = this.state.mapType === 'hybrid' ? 'standard' : 'hybrid';
     this.setState({ mapType })
@@ -25,30 +46,82 @@ class ToggleableMapView extends Component {
   render() {
     const { initialMapType, children, ...otherProps } = this.props;
     return (
-      <Fragment>
-        <MapView style={{ flex: 1 }} mapType={this.state.mapType} {...otherProps}>
-          {this.props.children || null}
-        </MapView>
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            backgroundColor: '#6AF',
-            borderRadius: 100,
-            height: 36,
-            width: 36,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          activeOpacity={0.4}
-          onPress={this.toggleMapType}
-        >
-          <Icon name={'eye'}/>
-        </TouchableOpacity>
-      </Fragment>
+      <LocationConsumer>
+        {(userLocation) => {
+          const userRegion = userLocation ? locationToRegion(userLocation.coords) : undefined;
+          return (
+            <Fragment>
+              <MapView
+                ref={(r) => this._mapRef = r}
+                style={{ flex: 1 }}
+                mapType={this.state.mapType}
+                {...otherProps}
+                initialRegion={userRegion}
+              >
+                {userRegion && (
+                  <MapView.Marker coordinate={userRegion}>
+                    <View style={styles.currentLocationMarker}/>
+                  </MapView.Marker>
+                )}
+                {this.props.children || null}
+              </MapView>
+              <View style={styles.buttonSheet}>
+                {userRegion && (
+                  <TouchableOpacity
+                    style={styles.button}
+                    activeOpacity={0.4}
+                    onPress={() => this._mapRef.animateToRegion(userRegion)}
+                  >
+                    <Icon name={'locate'} style={{ color: '#4F8EF7' }}/>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity
+                  style={styles.button}
+                  activeOpacity={0.4}
+                  onPress={this.toggleMapType}
+                >
+                  <Icon name={'eye'}/>
+                </TouchableOpacity>
+              </View>
+            </Fragment>
+          );
+        }}
+      </LocationConsumer>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  buttonSheet: {
+    bottom: 0,
+    justifyContent: 'flex-end',
+    left: 0,
+    position: 'absolute',
+    padding: 6,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: 100,
+    height: 48,
+    justifyContent: 'center',
+    margin: 3,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    width: 48,
+  },
+  currentLocationMarker: {
+    backgroundColor: '#4F8EF7',
+    borderColor: '#FFF',
+    borderRadius: 12,
+    borderWidth: StyleSheet.hairlineWidth * 5,
+    height: 16,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    width: 16,
+  }
+});
 
 export default ToggleableMapView;

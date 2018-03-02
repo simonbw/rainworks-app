@@ -1,9 +1,12 @@
 import React from 'react';
+import { LocationProvider } from './LocationContext';
 import MainNavigator from './MainNavigator';
-import { RainworkInfoProvider } from './SubmitStack/RainworkInfoContext';
+import { SubmissionProvider } from './SubmitStack/SubmissionContext';
 
 export default () => (
-  <RainworkInfoProvider>
-    <MainNavigator/>
-  </RainworkInfoProvider>
+  <SubmissionProvider>
+    <LocationProvider>
+      <MainNavigator/>
+    </LocationProvider>
+  </SubmissionProvider>
 );

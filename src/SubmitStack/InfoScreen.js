@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { SUCCESS_SCREEN } from './index';
 import PhotoSelector from './PhotoSelector';
-import { RainworkInfoConsumer } from './RainworkInfoContext';
+import { SubmissionConsumer } from './SubmissionContext';
 
 class UnconnectedInfoScreen extends Component {
   static propTypes = {
@@ -106,11 +106,11 @@ class UnconnectedInfoScreen extends Component {
 }
 
 const InfoScreen = ({ navigation }) => (
-  <RainworkInfoConsumer>
+  <SubmissionConsumer>
     {(props) => (
       <UnconnectedInfoScreen {...props} navigation={navigation}/>
     )}
-  </RainworkInfoConsumer>
+  </SubmissionConsumer>
 );
 
 InfoScreen.navigationOptions = {

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withNavigation } from 'react-navigation';
 import { SUCCESS_SCREEN } from './index';
-import { RainworkInfoConsumer } from './RainworkInfoContext';
+import { SubmissionConsumer } from './SubmissionContext';
 
 const SubmitButton = withNavigation(({ navigation, disabled, submit }) => (
-  <RainworkInfoConsumer>
+  <SubmissionConsumer>
     {({ submitting }) => (
       <Button
         style={{ position: 'absolute', bottom: 12, right: 12 }}
@@ -21,7 +21,7 @@ const SubmitButton = withNavigation(({ navigation, disabled, submit }) => (
         <Text>Submit</Text>
       </Button>
     )}
-  </RainworkInfoConsumer>
+  </SubmissionConsumer>
 ));
 
 SubmitButton.propTypes = {

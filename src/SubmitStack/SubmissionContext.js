@@ -6,9 +6,9 @@ import { getDeviceId, uploadFile } from '../util';
 const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/submissions';
 
 const Context = createContext({});
-export const RainworkInfoConsumer = Context.Consumer;
+export const SubmissionConsumer = Context.Consumer;
 
-export class RainworkInfoProvider extends Component {
+export class SubmissionProvider extends Component {
   static propTypes = {
     children: PropTypes.node
   };

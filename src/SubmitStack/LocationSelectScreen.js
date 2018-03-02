@@ -4,7 +4,7 @@ import React from 'react';
 import { withNavigation } from 'react-navigation';
 import ToggleableMapView from '../ToggleableMapView';
 import { INFO_SCREEN } from './index';
-import { RainworkInfoConsumer } from './RainworkInfoContext';
+import { SubmissionConsumer } from './SubmissionContext';
 
 const UnconnectedLocationSelectScreen = ({ navigation, setLocation, lat, lng }) => (
   <View style={{ flex: 1 }}>
@@ -26,7 +26,7 @@ const UnconnectedLocationSelectScreen = ({ navigation, setLocation, lat, lng }) 
 );
 
 const LocationSelectScreen = withNavigation(({ navigation }) => (
-  <RainworkInfoConsumer>
+  <SubmissionConsumer>
     {({ setLocation, lat, lng }) => (
       <UnconnectedLocationSelectScreen
         navigation={navigation}
@@ -35,7 +35,7 @@ const LocationSelectScreen = withNavigation(({ navigation }) => (
         lng={lng}
       />
     )}
-  </RainworkInfoConsumer>
+  </SubmissionConsumer>
 ));
 
 LocationSelectScreen.navigationOptions = {
