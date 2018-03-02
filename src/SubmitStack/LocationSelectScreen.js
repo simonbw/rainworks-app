@@ -2,22 +2,20 @@ import { MapView } from 'expo';
 import { Button, Text, View } from 'native-base';
 import React from 'react';
 import { withNavigation } from 'react-navigation';
+import ToggleableMapView from '../ToggleableMapView';
 import { INFO_SCREEN } from './index';
 import { RainworkInfoConsumer } from './RainworkInfoContext';
 
 const UnconnectedLocationSelectScreen = ({ navigation, setLocation, lat, lng }) => (
   <View style={{ flex: 1 }}>
-    <MapView
-      style={{ flex: 1 }}
-      onRegionChange={(region) => setLocation(region.latitude, region.longitude)}
-    >
+    <ToggleableMapView onRegionChange={(region) => setLocation(region.latitude, region.longitude)}>
       <MapView.Marker
         coordinate={{
           latitude: lat,
           longitude: lng,
         }}
       />
-    </MapView>
+    </ToggleableMapView>
     <Button
       style={{ position: 'absolute', bottom: 12, right: 12 }}
       onPress={() => navigation.navigate(INFO_SCREEN)}
