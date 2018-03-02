@@ -8,6 +8,16 @@ const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/submissions';
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
 
+const DEFAULT_RAINWORK_DATA = {
+  name: '',
+  description: '',
+  creatorName: '',
+  creatorEmail: '',
+  lat: 0,
+  lng: 0,
+  imageUri: null,
+};
+
 export class SubmissionProvider extends Component {
   static propTypes = {
     children: PropTypes.node
@@ -18,13 +28,7 @@ export class SubmissionProvider extends Component {
     this.state = {
       submitting: false,
       submitError: null,
-      name: '',
-      description: '',
-      creatorName: '',
-      creatorEmail: '',
-      lat: 0,
-      lng: 0,
-      imageUri: null,
+      ...DEFAULT_RAINWORK_DATA
     }
   }
   
@@ -84,7 +88,7 @@ export class SubmissionProvider extends Component {
       this.setState({ submitting: true });
       const uploadUrl = await this.postToApi();
       await this.uploadImage(uploadUrl);
-      this.setState({ submitting: false });
+      this.setState({ submitting: false, ...DEFAULT_RAINWORK_DATA });
     } catch (error) { // Some API error
       console.error(error);
       this.setState({ submitting: false, submitError: error });

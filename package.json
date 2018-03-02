@@ -27,7 +27,7 @@
     "native-base": "^2.3.9",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
-    "react-native": "0.52.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
     "react-native-aws3": "^0.0.8",
     "react-navigation": "^1.2.0"
   }
