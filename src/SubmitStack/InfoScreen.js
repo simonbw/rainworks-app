@@ -2,7 +2,7 @@ import { Button, Container, Content, Form, Input, Item, Label, Text, View } from
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { SUCCESS_SCREEN } from './index';
+import { SUBMISSIONS_SCREEN } from '../MainNavigator';
 import PhotoSelector from './PhotoSelector';
 import { SubmissionConsumer } from './SubmissionContext';
 
@@ -30,7 +30,7 @@ class UnconnectedInfoScreen extends Component {
   submit = async () => {
     const success = await this.props.submit();
     if (success) {
-      this.props.navigation.replace(SUCCESS_SCREEN);
+      this.props.navigation.navigate(SUBMISSIONS_SCREEN);
     }
   };
   
