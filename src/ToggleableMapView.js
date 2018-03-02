@@ -72,7 +72,7 @@ class ToggleableMapView extends Component {
                     activeOpacity={0.4}
                     onPress={() => this._mapRef.animateToRegion(userRegion)}
                   >
-                    <Icon name={'locate'} style={{ color: '#4F8EF7' }}/>
+                    <Icon name="locate" style={{ color: '#4F8EF7' }}/>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity
@@ -80,7 +80,7 @@ class ToggleableMapView extends Component {
                   activeOpacity={0.4}
                   onPress={this.toggleMapType}
                 >
-                  <Icon name={'eye'}/>
+                  <Icon name="eye"/>
                 </TouchableOpacity>
               </View>
             </Fragment>
