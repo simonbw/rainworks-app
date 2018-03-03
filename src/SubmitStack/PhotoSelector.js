@@ -18,12 +18,14 @@ export default class PhotoSelector extends Component {
   openPhotoSelect = async () => {
     console.log('openPhotoSelect');
     
-    const selection = new Promise((resolve) => {
+    const selection = await new Promise((resolve) => {
       ActionSheet.show({
         options: ['Take Photo', 'Choose From Library', 'Cancel'],
         cancelButtonIndex: 2,
       }, resolve);
     });
+    
+    console.log(selection);
     
     if (selection === 0) {
       await this.takePhoto();
