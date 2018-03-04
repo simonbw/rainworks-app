@@ -2,8 +2,8 @@ import { Button, Icon } from 'native-base';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { SUBMIT_STACK } from '../MainNavigator';
-import DetailsScreen from '../MapStack/DetailsScreen';
 import DrawerMenuButton from '../MapStack/DrawerMenuButton';
+import SubmissionDetailsScreen from './SubmissionDetailsScreen';
 import SubmissionsList from './SubmissionsList';
 
 const NewSubmissionButton = ({ navigation }) => (
@@ -25,7 +25,13 @@ export default StackNavigator({
     })
   },
   [SUBMISSION_DETAILS_SCREEN]: {
-    screen: DetailsScreen,
+    screen: SubmissionDetailsScreen,
+    navigationOptions: ({ navigation }) => {
+      const rainwork = navigation.state.params.rainwork;
+      return ({
+        title: `${rainwork['name']}`
+      });
+    }
   },
 }, {
   initialScreen: SUBMISSIONS_LIST_SCREEN,

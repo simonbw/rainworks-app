@@ -1,58 +1,63 @@
-import { MapView } from 'expo';
 import { View } from 'native-base';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { ActivityIndicator } from 'react-native';
-import RainworksProvider from '../RainworksProvider';
+import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
 import ToggleableMapView from '../ToggleableMapView';
-import DrawerMenuButton from './DrawerMenuButton';
-import { MAP_DETAILS_SCREEN } from './index';
+import RainworkMarker from './RainworkMarker';
 
-const MapScreen = (props) => (
-  <View
-    style={{
-      alignItems: 'stretch',
-      flex: 1,
-      justifyContent: 'flex-end'
-    }}
-  >
-    <RainworksProvider>
-      {(rainworks, loading) => (
+class MapScreen extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    rainworks: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    refresh: PropTypes.func.isRequired
+  };
+  
+  componentDidMount() {
+    if (!this.props.loading) {
+      this.props.refresh();
+    }
+  }
+  
+  render() {
+    return (
+      <View
+        style={{
+          alignItems: 'stretch',
+          flex: 1,
+          justifyContent: 'flex-end'
+        }}
+      >
         <Fragment>
           <ToggleableMapView>
-            {rainworks.map((rainwork) => (
-              <MapView.Marker
-                coordinate={{
-                  latitude: rainwork.lat,
-                  longitude: rainwork.lng,
-                }} key={rainwork.id}
-                onPress={() => props.navigation.navigate(MAP_DETAILS_SCREEN, { rainwork })}
+            {this.props.rainworks.map((rainwork) => (
+              <RainworkMarker
+                rainwork={rainwork}
+                key={rainwork['id']}
               />
             ))}
           </ToggleableMapView>
-          {loading && (
+          {this.props.loading && (
             <ActivityIndicator
               size={'large'}
               style={{
                 position: 'absolute',
-                bottom: 12,
-                left: 12,
+                top: 12,
+                right: 12,
               }}
             />
           )}
         </Fragment>
-      )}
-    </RainworksProvider>
-  </View>
+      </View>
+    );
+  };
+}
+
+export default ({ navigation }) => (
+  <ActiveRainworksConsumer>
+    {({ rainworks, loading, refresh }) => (
+      <MapScreen navigation={navigation} rainworks={rainworks} loading={loading} refresh={refresh}/>
+    )}
+  </ActiveRainworksConsumer>
 );
-
-MapScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
-};
-
-MapScreen.navigationOptions = {
-  title: 'Rainworks',
-  headerLeft: <DrawerMenuButton/>
-};
-
-export default MapScreen;

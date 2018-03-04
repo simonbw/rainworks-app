@@ -1,4 +1,4 @@
-import Expo from 'expo';
+import { Notifications, Permissions } from 'expo';
 
 export function makeQueryString(params) {
   return '?' + Object.entries(params)
@@ -32,4 +32,21 @@ export function uploadFile(url, file, onProgress = () => null) {
     xhr.setRequestHeader('Content-Type', file.type);
     xhr.send(file);
   });
+}
+
+export async function registerDeviceId() {
+  const status = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  const body = JSON.stringify({
+    device_uuid: getDeviceId(),
+    push_token: status === 'granted' ? Notifications.getExpoPushTokenAsync() : null,
+  });
+  const result = await fetch('http://rainworks-backend.herokuapp.com/api/devices', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body
+  });
+  if (!result.ok) {
+    throw new Error('Device Registration Failed', result);
+  }
+  return await result.json();
 }

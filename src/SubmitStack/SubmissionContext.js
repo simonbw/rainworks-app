@@ -1,9 +1,8 @@
 import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { SUBMIT_URL } from '../urls';
 import { getDeviceId, uploadFile } from '../util';
-
-const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/submissions';
 
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
@@ -53,21 +52,21 @@ export class SubmissionProvider extends Component {
       name: this.state.name,
       lat: this.state.lat,
       lng: this.state.lng,
-      device_id: getDeviceId(),
+      device_uuid: getDeviceId(),
     }
   };
   
   postToApi = async () => {
     const body = JSON.stringify(this.getPostData());
-    console.log(`POST to ${RAINWORKS_URL} with data ${body}`);
-    const apiPostResult = await fetch(RAINWORKS_URL, {
+    console.log(`POST to ${SUBMIT_URL} with data ${body}`);
+    const apiPostResult = await fetch(SUBMIT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body
     });
     
     if (!apiPostResult.ok) {
-      throw new Error('API Error: ', apiPostResult.errorMessage);
+      throw new Error(`API Error: ${apiPostResult.errorMessage}`);
     }
     
     const responseData = await apiPostResult.json();

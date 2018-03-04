@@ -3,7 +3,7 @@ import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { LocationConsumer } from './LocationContext';
+import { LocationConsumer } from './contexts/LocationContext';
 
 const locationToRegion = (l) => {
   return {
@@ -25,17 +25,6 @@ class ToggleableMapView extends Component {
     this.state = {
       mapType: this.props.initialMapType || 'standard'
     }
-  }
-  
-  async componentDidMount() {
-    // const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    // if (status === 'granted') {
-    //   const userLocation = (await Location.getCurrentPositionAsync({})).coords;
-    //   if (userLocation) {
-    //     const region = locationToRegion(userLocation);
-    //     this._mapRef.animateToRegion(region);
-    //   }
-    // }
   }
   
   toggleMapType = () => {

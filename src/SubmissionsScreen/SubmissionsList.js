@@ -1,58 +1,34 @@
-import { View } from 'native-base';
+import { Text, View } from 'native-base';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { getDeviceId } from '../util';
+import { SubmissionsConsumer } from '../contexts/SubmissionsContext';
 import SubmissionsListItem, { ITEM_HEIGHT } from './SubmissionsListItem';
 
-const RAINWORKS_URL = 'https://rainworks-backend.herokuapp.com/api/submissions';
 // noinspection JSSuspiciousNameCombination
 const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
 
-export default class SubmissionsList extends Component {
-  static propTypes = {};
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      submissions: [],
-      loading: false
-    }
-  }
-  
-  async componentDidMount() {
-    await this.loadSubmissions();
-  }
-  
-  fetchSubmissions = async () => {
-    const response = await fetch(RAINWORKS_URL + `/${getDeviceId()}`);
-    if (!response.ok) {
-      throw new Error('Api Error', response.errorText);
-    }
-    return await response.json();
+class UnconnectedSubmissionsList extends Component {
+  static propTypes = {
+    submissions: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    refresh: PropTypes.func.isRequired,
   };
   
-  loadSubmissions = async () => {
-    this.setState({ loading: true });
-    try {
-      const submissions = await this.fetchSubmissions();
-      this.setState({ submissions });
-      return true;
-    } catch (e) {
-      console.error(e);
-      return false;
-    } finally {
-      this.setState({ loading: false });
+  componentDidMount() {
+    if (!this.props.loading) {
+      this.refresh();
     }
-  };
+  }
   
   render() {
     return (
       <View style={{ flex: 1 }}>
         <FlatList
-          data={this.state.submissions}
+          data={this.props.submissions}
           keyExtractor={(item) => item.id}
-          onRefresh={this.loadSubmissions}
-          refreshing={this.state.loading}
+          onRefresh={this.props.refresh}
+          refreshing={this.props.loading}
           renderItem={({ item }) => <SubmissionsListItem rainwork={item}/>}
           ItemSeparatorComponent={() =>
             <View style={{ height: SEPARATOR_HEIGHT, backgroundColor: '#BBB' }}/>
@@ -60,8 +36,21 @@ export default class SubmissionsList extends Component {
           getItemLayout={(data, index) => (
             { length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + SEPARATOR_HEIGHT) * index, index }
           )}
+          ListEmptyComponent={() => (
+            <View style={{ padding: 12 }}>
+              <Text>You have no submissions</Text>
+            </View>
+          )}
         />
       </View>
     );
   }
 }
+
+export default () => (
+  <SubmissionsConsumer>
+    {({ submissions, loading, refresh }) => (
+      <UnconnectedSubmissionsList submissions={submissions} loading={loading} refresh={refresh}/>
+    )}
+  </SubmissionsConsumer>
+)
