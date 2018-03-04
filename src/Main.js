@@ -2,8 +2,9 @@ import { Root } from 'native-base';
 import React from 'react';
 import { ActiveRainworksProvider } from './contexts/ActiveRainworksContext';
 import { LocationProvider } from './contexts/LocationContext';
-import MainNavigator from './MainNavigator';
 import { ReportsProvider } from './contexts/ReportsContext';
+import { SubmissionsProvider } from './contexts/SubmissionsContext';
+import MainNavigator from './MainNavigator';
 import { SubmissionProvider } from './SubmitStack/SubmissionContext';
 
 export default () => (
@@ -12,7 +13,9 @@ export default () => (
       <LocationProvider>
         <ActiveRainworksProvider>
           <ReportsProvider>
-            <MainNavigator/>
+            <SubmissionsProvider>
+              <MainNavigator/>
+            </SubmissionsProvider>
           </ReportsProvider>
         </ActiveRainworksProvider>
       </LocationProvider>

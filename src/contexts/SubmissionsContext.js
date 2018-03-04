@@ -1,7 +1,8 @@
 import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { RAINWORKS_URL } from '../urls';
+import { SUBMISSIONS_URL } from '../urls';
+import { getDeviceId, makeQueryString } from '../util';
 
 const Context = createContext({});
 
@@ -24,17 +25,17 @@ export class SubmissionsProvider extends Component {
     await this.loadSubmissions();
   }
   
-  async loadSubmissions() {
+  loadSubmissions = async () => {
     this.setState({ loading: true });
-    const response = await fetch(RAINWORKS_URL);
+    const response = await fetch(SUBMISSIONS_URL + makeQueryString({ device_uuid: getDeviceId() }));
     const submissions = await response.json();
     this.setState({ submissions, loading: false });
-  }
+  };
   
   getProviderValue() {
     return {
       ...this.state,
-      refresh: () => this.loadSubmissions()
+      refresh: this.loadSubmissions,
     }
   }
   
