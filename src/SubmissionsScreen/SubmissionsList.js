@@ -17,7 +17,7 @@ class UnconnectedSubmissionsList extends Component {
   
   componentDidMount() {
     if (!this.props.loading) {
-      this.refresh();
+      this.props.refresh();
     }
   }
   
