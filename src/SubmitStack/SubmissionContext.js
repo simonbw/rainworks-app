@@ -2,7 +2,7 @@ import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SUBMIT_URL } from '../urls';
-import { getDeviceId, uploadFile } from '../util';
+import { getDeviceId, showError, showSuccess, uploadFile } from '../util';
 
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
@@ -58,7 +58,6 @@ export class SubmissionProvider extends Component {
   
   postToApi = async () => {
     const body = JSON.stringify(this.getPostData());
-    console.log(`POST to ${SUBMIT_URL} with data ${body}`);
     const apiPostResult = await fetch(SUBMIT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -66,20 +65,19 @@ export class SubmissionProvider extends Component {
     });
     
     if (!apiPostResult.ok) {
-      throw new Error(`API Error: ${apiPostResult.errorMessage}`);
+      throw new Error('Error Submitting Rainwork');
     }
     
     const responseData = await apiPostResult.json();
-    console.log(responseData);
     return responseData['image_upload_url'];
   };
   
   uploadImage = async (uploadUrl) => {
     const file = { uri: this.state.imageUri, type: 'image/jpg' };
-    const s3Result = await uploadFile(uploadUrl, file, () => console.log('progress...'));
-    console.log(s3Result);
-    // TODO: Throw error on upload fail
-    // TODO: Progress stuff
+    const response = await uploadFile(uploadUrl, file, (e) => console.log('progress...', e.loaded, e.total));
+    if (response.status >= 400) {
+      throw new Error('Upload Error', response.errorMessage);
+    }
   };
   
   submit = async () => {
@@ -88,8 +86,9 @@ export class SubmissionProvider extends Component {
       const uploadUrl = await this.postToApi();
       await this.uploadImage(uploadUrl);
       this.setState({ submitting: false, ...DEFAULT_RAINWORK_DATA });
+      showSuccess('Rainwork Submitted');
     } catch (error) { // Some API error
-      console.error(error);
+      showError('Error Submitting Rainwork');
       this.setState({ submitting: false, submitError: error });
       return false;
     }

@@ -2,6 +2,7 @@ import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { RAINWORKS_URL } from '../urls';
+import { showError } from '../util';
 
 const Context = createContext({});
 
@@ -24,17 +25,21 @@ export class ActiveRainworksProvider extends Component {
     await this.loadRainworks();
   }
   
-  async loadRainworks() {
+  loadRainworks = async () => {
     this.setState({ loading: true });
     const response = await fetch(RAINWORKS_URL);
-    const data = await response.json();
-    this.setState({ rainworks: data, loading: false });
-  }
+    if (!response.ok) {
+      showError('Loading rainworks failed')
+    } else {
+      const data = await response.json();
+      this.setState({ rainworks: data, loading: false });
+    }
+  };
   
   getProviderValue() {
     return {
       ...this.state,
-      refresh: () => this.loadRainworks()
+      refresh: this.loadRainworks
     }
   }
   

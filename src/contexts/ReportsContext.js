@@ -2,7 +2,7 @@ import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { REPORTS_URL } from '../urls';
-import { getDeviceId, makeQueryString } from '../util';
+import { getDeviceId, makeQueryString, showError } from '../util';
 
 const Context = createContext({});
 
@@ -22,21 +22,18 @@ export class ReportsProvider extends Component {
   }
   
   async componentDidMount() {
-    try {
-      await this.loadReports();
-    } catch (e) {
-      console.error(e);
-    }
+    await this.loadReports();
   }
   
   loadReports = async () => {
     this.setState({ loading: true });
     const response = await fetch(REPORTS_URL + makeQueryString({ device_uuid: getDeviceId() }));
     if (!response.ok) {
-      throw new Error(response.errorMessage);
+      showError('Loading Reports Failed');
+    } else {
+      const reports = await response.json();
+      this.setState({ reports, loading: false });
     }
-    const reports = await response.json();
-    this.setState({ reports, loading: false });
   };
   
   submitReport = async (rainworkId, reportType) => {
@@ -51,7 +48,7 @@ export class ReportsProvider extends Component {
       body
     });
     if (!response.ok) {
-      console.error(response);
+      showError('Submitting Report Failed')
     } else {
       const report = await response.json();
       this.setState({ reports: this.state.reports.concat([report]) })

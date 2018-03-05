@@ -2,7 +2,7 @@ import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SUBMISSIONS_URL } from '../urls';
-import { getDeviceId, makeQueryString } from '../util';
+import { getDeviceId, makeQueryString, showError } from '../util';
 
 const Context = createContext({});
 
@@ -28,8 +28,12 @@ export class SubmissionsProvider extends Component {
   loadSubmissions = async () => {
     this.setState({ loading: true });
     const response = await fetch(SUBMISSIONS_URL + makeQueryString({ device_uuid: getDeviceId() }));
-    const submissions = await response.json();
-    this.setState({ submissions, loading: false });
+    if (!response.ok) {
+      showError('Loading Submissions Failed');
+    } else {
+      const submissions = await response.json();
+      this.setState({ submissions, loading: false });
+    }
   };
   
   getProviderValue() {

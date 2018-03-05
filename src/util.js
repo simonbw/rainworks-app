@@ -1,4 +1,5 @@
 import { Notifications, Permissions } from 'expo';
+import { Toast } from "native-base";
 
 export function makeQueryString(params) {
   return '?' + Object.entries(params)
@@ -49,4 +50,24 @@ export async function registerDeviceId() {
     throw new Error('Device Registration Failed', result);
   }
   return await result.json();
+}
+
+export function showError(errorMessage) {
+  Toast.show({
+    text: errorMessage,
+    position: 'bottom',
+    buttonText: 'X',
+    duration: 10 * 1000,
+    type: 'warning',
+  });
+}
+
+export function showSuccess(message) {
+  Toast.show({
+    text: message,
+    position: 'bottom',
+    buttonText: 'X',
+    duration: 5 * 1000,
+    type: 'success',
+  });
 }

@@ -23,11 +23,8 @@ export class LocationProvider extends Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
       await Location.watchPositionAsync({}, (userLocation) => {
-        console.log('User Position Updated', userLocation);
         this.setState({ userLocation });
       });
-    } else {
-      console.log('Location Permission Denied')
     }
   }
   
