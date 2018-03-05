@@ -60,10 +60,20 @@ export class ReportsProvider extends Component {
       (report) => report['report_type'] === reportType && report['rainwork_id'] === rainworkId);
   };
   
+  hasReport = (rainworkId, reportType) => {
+    if (!reportType) { // Any type
+      return this.state.reports.some((report) => report['rainwork_id'] === rainworkId);
+    } else {
+      return this.state.reports.some((report) =>
+        report['report_type'] === reportType && report['rainwork_id'] === rainworkId);
+    }
+  };
+  
   getProviderValue() {
     return {
       ...this.state,
       getReport: this.getReport,
+      hasReport: this.hasReport,
       refresh: this.loadReports,
       submitReport: this.submitReport,
     }

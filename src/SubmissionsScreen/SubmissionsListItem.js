@@ -34,7 +34,7 @@ const SubmissionsListItem = ({ navigation, rainwork }) => (
       </View>
       <View style={styles.main}>
         <Text style={styles.name}>{rainwork['name']}</Text>
-        <Text style={styles.date}>{moment(rainwork['created_at']).format('MMM DD, YYYY')}</Text>
+        <Text style={styles.date}>{moment(rainwork['created_at']).format('MMM DD, YYYY, h:mm a')}</Text>
         <Text style={[styles.statusText, styles[rainwork['approval_status']]]}>{rainwork['approval_status']}</Text>
       </View>
       <Right/>

@@ -1,7 +1,7 @@
-import { Button, Container, Content, Form, Input, Item, Label, Text, View } from 'native-base';
+import { Button, Container, Content, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StyleSheet, TextInput } from 'react-native';
 import { SUBMISSIONS_SCREEN } from '../MainNavigator';
 import PhotoSelector from './PhotoSelector';
 import { SubmissionConsumer } from './SubmissionContext';
@@ -47,47 +47,44 @@ class UnconnectedInfoScreen extends Component {
               }
             }}
           />
-          <Form style={{ flex: 1 }}>
-            <Item stackedLabel>
-              <Label>Rainwork Title</Label>
-              <Input
-                ref={c => {
-                  this._nameInput = c && c._root;
-                }}
+          <View style={styles.form}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Rainwork Title</Text>
+              <TextInput
+                ref={c => this._nameInput = c}
+                style={styles.textInput}
                 returnKeyType={'next'}
                 value={this.props.name}
                 onChangeText={this.props.setName}
                 onSubmitEditing={() => this._creatorInput.focus()}
               />
-            </Item>
-            <Item stackedLabel>
-              <Label>Creator (optional)</Label>
-              <Input
-                ref={c => {
-                  this._creatorInput = c && c._root;
-                }}
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Creator (optional)</Text>
+              <TextInput
+                ref={c => this._creatorInput = c}
+                style={styles.textInput}
                 returnKeyType={'next'}
                 value={this.props.creatorName}
                 onChangeText={this.props.setCreatorName}
                 onSubmitEditing={() => this._descriptionInput.focus()}
               />
-            </Item>
-            <Item bordered stackedLabel>
-              <Label>Description (optional)</Label>
-              <Input
-                ref={c => {
-                  this._descriptionInput = c && c._root;
-                }}
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Description (optional)</Text>
+              <TextInput
+                ref={c => this._descriptionInput = c}
+                style={[styles.textInput, styles.multiline]}
                 autogrow
-                submitOnBlur
+                multiline
+                blurOnSubmit
                 value={this.props.description}
                 returnKeyType={this.canSubmit() ? 'send' : undefined}
-                maxHeight={200}
                 onChangeText={this.props.setDescription}
                 onSubmitEditing={() => this.canSubmit() && this.submit()}
               />
-            </Item>
-          </Form>
+            </View>
+          </View>
           <View style={{ height: 60 }}/>
         </Content>
         
@@ -104,6 +101,26 @@ class UnconnectedInfoScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  form: {
+    padding: 12,
+  },
+  inputGroup: {
+    marginBottom: 12,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '200'
+  },
+  textInput: {
+    fontSize: 20,
+    paddingVertical: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
+    borderBottomColor: '#BBB'
+  },
+  multiline: {},
+});
 
 const InfoScreen = ({ navigation }) => (
   <SubmissionConsumer>

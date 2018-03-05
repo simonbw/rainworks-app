@@ -36,10 +36,15 @@ export class ActiveRainworksProvider extends Component {
     }
   };
   
+  refreshRainwork = async (rainworkId) => {
+  
+  };
+  
   getProviderValue() {
     return {
       ...this.state,
-      refresh: this.loadRainworks
+      refreshAll: this.loadRainworks,
+      refreshRainwork: this.refreshRainwork,
     }
   }
   

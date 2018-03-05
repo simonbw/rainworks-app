@@ -1,7 +1,7 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import DetailsScreen from './DetailsScreen';
-import DrawerMenuButton from './DrawerMenuButton';
+import DrawerMenuButton from '../DrawerMenuButton';
 import MapScreen from './MapScreen';
 
 export const MAP_SCREEN = 'MAP_SCREEN';
@@ -12,6 +12,7 @@ export default StackNavigator({
     screen: MapScreen,
     navigationOptions: {
       title: 'Rainworks',
+      headerBackTitle: 'Map',
       headerLeft: <DrawerMenuButton/>
     }
   },

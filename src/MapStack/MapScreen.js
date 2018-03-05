@@ -11,12 +11,12 @@ class MapScreen extends Component {
     navigation: PropTypes.object.isRequired,
     rainworks: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    refresh: PropTypes.func.isRequired
+    refreshAll: PropTypes.func.isRequired
   };
   
   componentDidMount() {
     if (!this.props.loading) {
-      this.props.refresh();
+      this.props.refreshAll();
     }
   }
   
@@ -56,8 +56,8 @@ class MapScreen extends Component {
 
 export default ({ navigation }) => (
   <ActiveRainworksConsumer>
-    {({ rainworks, loading, refresh }) => (
-      <MapScreen navigation={navigation} rainworks={rainworks} loading={loading} refresh={refresh}/>
+    {({ rainworks, loading, refreshAll }) => (
+      <MapScreen navigation={navigation} rainworks={rainworks} loading={loading} refreshAll={refreshAll}/>
     )}
   </ActiveRainworksConsumer>
 );

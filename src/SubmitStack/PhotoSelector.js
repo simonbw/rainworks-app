@@ -47,7 +47,7 @@ export default class PhotoSelector extends Component {
   render() {
     const source = this.props.imageUri ?
       { uri: this.props.imageUri }
-      : require('../../rainwork_placeholder.png');
+      : require('../../assets/rainwork_placeholder.png');
     return (
       <TouchableHighlight onPress={this.openPhotoSelect}>
         <Image

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StackNavigator, withNavigation } from 'react-navigation';
-import DrawerMenuButton from '../MapStack/DrawerMenuButton';
+import DrawerMenuButton from '../DrawerMenuButton';
 import GuidelinesScreen from './GuidelinesScreen';
 import InfoScreen from './InfoScreen';
 import LocationSelectScreen from './LocationSelectScreen';

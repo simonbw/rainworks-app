@@ -1,12 +1,10 @@
 import { Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
 import { SubmissionsConsumer } from '../contexts/SubmissionsContext';
+import Divider, { DIVIDER_HEIGHT } from '../Divider';
 import SubmissionsListItem, { ITEM_HEIGHT } from './SubmissionsListItem';
-
-// noinspection JSSuspiciousNameCombination
-const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
 
 class UnconnectedSubmissionsList extends Component {
   static propTypes = {
@@ -30,11 +28,9 @@ class UnconnectedSubmissionsList extends Component {
           onRefresh={this.props.refresh}
           refreshing={this.props.loading}
           renderItem={({ item }) => <SubmissionsListItem rainwork={item}/>}
-          ItemSeparatorComponent={() =>
-            <View style={{ height: SEPARATOR_HEIGHT, backgroundColor: '#BBB' }}/>
-          }
+          ItemSeparatorComponent={Divider}
           getItemLayout={(data, index) => (
-            { length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + SEPARATOR_HEIGHT) * index, index }
+            { length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + DIVIDER_HEIGHT) * index, index }
           )}
           ListEmptyComponent={() => (
             <View style={{ padding: 12 }}>

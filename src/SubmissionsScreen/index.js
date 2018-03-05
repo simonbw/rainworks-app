@@ -2,7 +2,7 @@ import { Button, Icon } from 'native-base';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { SUBMIT_STACK } from '../MainNavigator';
-import DrawerMenuButton from '../MapStack/DrawerMenuButton';
+import DrawerMenuButton from '../DrawerMenuButton';
 import SubmissionDetailsScreen from './SubmissionDetailsScreen';
 import SubmissionsList from './SubmissionsList';
 
