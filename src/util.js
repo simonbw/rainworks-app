@@ -1,5 +1,6 @@
 import { Notifications, Permissions } from 'expo';
 import { Toast } from "native-base";
+import { CacheManager } from 'react-native-expo-image-cache';
 
 export function makeQueryString(params) {
   return '?' + Object.entries(params)
@@ -70,4 +71,13 @@ export function showSuccess(message) {
     duration: 5 * 1000,
     type: 'success',
   });
+}
+
+function getCachedUri(stateUri, uri, fallbackUri, listener) {
+  if ((typeof stateUri === 'string') && stateUri)
+    return stateUri;
+  else {
+    CacheManager.cache(uri, listener)
+  }
+  return fallbackUri
 }

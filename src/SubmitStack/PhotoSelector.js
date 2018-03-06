@@ -1,8 +1,8 @@
 import { ImagePicker } from 'expo';
-import { ActionSheet } from 'native-base';
+import { ActionSheet, Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, TouchableHighlight } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class PhotoSelector extends Component {
   static propTypes = {
@@ -45,19 +45,35 @@ export default class PhotoSelector extends Component {
   };
   
   render() {
-    const source = this.props.imageUri ?
-      { uri: this.props.imageUri }
-      : require('../../assets/rainwork_placeholder.png');
     return (
-      <TouchableHighlight onPress={this.openPhotoSelect}>
-        <Image
-          source={source}
-          style={{
-            width: null,
-            height: 240,
-          }}
-        />
-      </TouchableHighlight>
+      <TouchableOpacity onPress={this.openPhotoSelect} activeOpacity={0.8}>
+        {this.props.imageUri ? (
+          <Image
+            source={{ uri: this.props.imageUri }}
+            style={styles.image}
+          />
+        ) : (
+          <View style={styles.placeholder}>
+            <Icon name="camera" style={{ color: '#FFF', fontSize: 96 }}/>
+          </View>
+        )}
+      </TouchableOpacity>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  image: {
+    backgroundColor: '#666',
+    height: 240,
+    width: null,
+  },
+  placeholder: {
+    alignItems: 'center',
+    backgroundColor: '#666',
+    flexDirection: 'row',
+    height: 240,
+    justifyContent: 'center',
+    width: null,
+  },
+});

@@ -1,6 +1,8 @@
+import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { Image, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
+import { CacheManager, Image } from "react-native-expo-image-cache";
 import ImageView from 'react-native-image-view';
 
 class DetailsImage extends Component {
@@ -11,29 +13,40 @@ class DetailsImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      cachedUri: null,
     }
   }
   
+  async componentDidMount() {
+    const cachedUri = await new Promise(resolve => CacheManager.cache(this.props.imageUrl, resolve));
+    this.setState({ cachedUri })
+  }
+  
   render() {
-    const imageSource = { uri: this.props.imageUrl, cache: 'force-cache' };
-    return (
+    return this.state.cachedUri ? (
       <Fragment>
         <TouchableHighlight onPress={() => this.setState({ open: true })}>
           <Image
             style={styles.image}
             resizeMode={'cover'}
             resizeMethod={'scale'}
-            source={imageSource}
+            uri={this.props.imageUrl}
           />
         </TouchableHighlight>
         <ImageView
           isVisible={this.state.open}
-          source={imageSource}
+          source={{ uri: this.state.cachedUri }}
           onClose={() => this.setState({ open: false })}
           animationType={'fade'}
+          imageHeight={undefined} // everything seems to work fine with these being undefined
+          imageWidth={undefined}
         />
       </Fragment>
+    ) : (
+      <View style={styles.placeholder}>
+        <Icon name="image" style={{ color: '#FFF', fontSize: 96 }}/>
+      </View>
     );
   }
 }
@@ -45,25 +58,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#333',
   },
-  modal: {
-    backgroundColor: '#000',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    color: '#FFF',
-    fontSize: 48,
-  },
-  loadingContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
+  placeholder: {
+    width: null,
+    height: 240,
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#333',
   },
 });
 
