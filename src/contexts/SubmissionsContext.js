@@ -17,7 +17,7 @@ export class SubmissionsProvider extends Component {
     super(props);
     this.state = {
       submissions: [],
-      loading: false
+      loading: false,
     };
   }
   

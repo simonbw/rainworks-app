@@ -81,3 +81,5 @@ function getCachedUri(stateUri, uri, fallbackUri, listener) {
   }
   return fallbackUri
 }
+
+export const COMMON_DATE_FORMAT = 'MMM DD, YYYY';

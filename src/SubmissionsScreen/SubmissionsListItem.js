@@ -2,7 +2,7 @@ import moment from 'moment/moment';
 import { Icon, Right, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { SUBMISSION_DETAILS_SCREEN } from './index';
 
@@ -34,7 +34,7 @@ const SubmissionsListItem = ({ navigation, rainwork }) => (
       </View>
       <View style={styles.main}>
         <Text style={styles.name}>{rainwork['name']}</Text>
-        <Text style={styles.date}>{moment(rainwork['created_at']).format('MMM DD, YYYY, h:mm a')}</Text>
+        <Text style={styles.date}>Submitted on {moment(rainwork['created_at']).format('MMM DD, YYYY, h:mm a')}</Text>
         <Text style={[styles.statusText, styles[rainwork['approval_status']]]}>{rainwork['approval_status']}</Text>
       </View>
       <Right/>

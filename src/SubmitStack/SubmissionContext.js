@@ -1,21 +1,20 @@
 import createContext from 'create-react-context';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SUBMIT_URL } from '../urls';
-import { getDeviceId, showError, showSuccess, uploadFile } from '../util';
+import { COMMON_DATE_FORMAT, getDeviceId, showError, showSuccess, uploadFile } from '../util';
 
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
 
-const DEFAULT_RAINWORK_DATA = {
-  name: '',
-  description: '',
-  creatorName: '',
-  creatorEmail: '',
-  lat: 0,
-  lng: 0,
-  imageUri: null,
-};
+function calculateProgress(posted, parsed, uploadProgress = 0) {
+  let total = 0;
+  total += posted ? 0.08 : 0;
+  total += parsed ? 0.02 : 0;
+  total += 0.9 * uploadProgress;
+  return total;
+}
 
 export class SubmissionProvider extends Component {
   static propTypes = {
@@ -24,10 +23,22 @@ export class SubmissionProvider extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getResetState();
+  }
+  
+  getResetState() {
+    return {
       submitting: false,
+      uploadProgress: 0,
       submitError: null,
-      ...DEFAULT_RAINWORK_DATA
+      name: '',
+      description: '',
+      creatorName: '',
+      creatorEmail: '',
+      lat: 0,
+      lng: 0,
+      imageUri: null,
+      installationDate: moment().format(COMMON_DATE_FORMAT),
     }
   }
   
@@ -37,9 +48,10 @@ export class SubmissionProvider extends Component {
       setCreatorEmail: (creatorEmail) => this.setState({ creatorEmail }),
       setCreatorName: (creatorName) => this.setState({ creatorName }),
       setDescription: (description) => this.setState({ description }),
-      setName: (name) => this.setState({ name }),
       setImageUri: (imageUri) => this.setState({ imageUri }),
+      setInstallationDate: (installationDate) => this.setState({ installationDate }),
       setLocation: (lat, lng) => this.setState({ lat, lng }),
+      setName: (name) => this.setState({ name }),
       submit: () => this.submit(),
     };
   }
@@ -52,6 +64,7 @@ export class SubmissionProvider extends Component {
       name: this.state.name,
       lat: this.state.lat,
       lng: this.state.lng,
+      installation_date: moment(this.state.installationDate, COMMON_DATE_FORMAT).toISOString(),
       device_uuid: getDeviceId(),
     }
   };
@@ -68,16 +81,24 @@ export class SubmissionProvider extends Component {
       throw new Error('Error Submitting Rainwork');
     }
     
+    this.setState({ uploadProgress: calculateProgress(true, false, 0) });
     const responseData = await apiPostResult.json();
+    this.setState({ uploadProgress: calculateProgress(true, true, 0) });
     return responseData['image_upload_url'];
   };
   
   uploadImage = async (uploadUrl) => {
     const file = { uri: this.state.imageUri, type: 'image/jpg' };
-    const response = await uploadFile(uploadUrl, file, (e) => console.log('progress...', e.loaded, e.total));
+    const response = await uploadFile(
+      uploadUrl,
+      file,
+      ({ loaded, total }) => this.setState({ uploadProgress: calculateProgress(true, true, loaded / total) })
+    );
     if (response.status >= 400) {
+      console.log(response);
       throw new Error('Upload Error', response.errorMessage);
     }
+    this.setState({ uploadProgress: calculateProgress(true, true, 1) });
   };
   
   submit = async () => {
@@ -85,10 +106,11 @@ export class SubmissionProvider extends Component {
       this.setState({ submitting: true });
       const uploadUrl = await this.postToApi();
       await this.uploadImage(uploadUrl);
-      this.setState({ submitting: false, ...DEFAULT_RAINWORK_DATA });
+      this.setState(this.getResetState());
       showSuccess('Rainwork Submitted');
     } catch (error) { // Some API error
       showError('Error Submitting Rainwork');
+      console.error(error);
       this.setState({ submitting: false, submitError: error });
       return false;
     }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import Divider from '../Divider';
+import { COMMON_DATE_FORMAT } from '../util';
 import DetailsImage from './DetailsImage';
 import { FoundItSection } from './FoundItSection';
 
@@ -15,7 +16,7 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
       <Text style={styles.subtitle}>
         Created by <Text style={styles.creator}>{rainwork['creator_name']}</Text>
         {' '}
-        on <Text style={styles.createdDate}>{moment(rainwork['created_at']).format('MMM DD, YYYY')}</Text>
+        on <Text style={styles.createdDate}>{moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}</Text>
       </Text>
       
       <Divider/>

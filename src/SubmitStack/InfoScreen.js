@@ -1,25 +1,20 @@
 import { Button, Container, Content, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, TextInput } from 'react-native';
+import { Platform, ProgressBarAndroid, ProgressViewIOS, StyleSheet } from 'react-native';
 import { SUBMISSIONS_SCREEN } from '../MainNavigator';
+import { CreatorInput, DescriptionInput, InstallationDateInput, TitleInput } from './InfoScreenForm';
 import PhotoSelector from './PhotoSelector';
 import { SubmissionConsumer } from './SubmissionContext';
 
 class UnconnectedInfoScreen extends Component {
   static propTypes = {
-    creatorEmail: PropTypes.string.isRequired,
-    creatorName: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
     imageUri: PropTypes.string,
     name: PropTypes.string.isRequired,
-    setCreatorEmail: PropTypes.func.isRequired,
-    setCreatorName: PropTypes.func.isRequired,
-    setDescription: PropTypes.func.isRequired,
     setImageUri: PropTypes.func.isRequired,
-    setName: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
+    uploadProgress: PropTypes.number.isRequired,
     navigation: PropTypes.object.isRequired,
   };
   
@@ -34,69 +29,48 @@ class UnconnectedInfoScreen extends Component {
     }
   };
   
+  componentDidMount() {
+    if (!this.props.imageUri) {
+      this._photoSelector.openPhotoSelect();
+    }
+  }
+  
   render() {
     return (
       <Container>
         <Content style={{ flex: 1 }} behavior="padding">
           <PhotoSelector
+            ref={(c) => this._photoSelector = c}
             imageUri={this.props.imageUri}
             setImageUri={(imageUri) => {
               this.props.setImageUri(imageUri);
               if (!this.props.name) {
-                this._nameInput.focus();
+                this._titleInput.focus();
               }
             }}
           />
           <View style={styles.form}>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Rainwork Title</Text>
-              <TextInput
-                ref={c => this._nameInput = c}
-                style={styles.textInput}
-                returnKeyType={'next'}
-                value={this.props.name}
-                onChangeText={this.props.setName}
-                onSubmitEditing={() => this._creatorInput.focus()}
-              />
-            </View>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Creator (optional)</Text>
-              <TextInput
-                ref={c => this._creatorInput = c}
-                style={styles.textInput}
-                returnKeyType={'next'}
-                value={this.props.creatorName}
-                onChangeText={this.props.setCreatorName}
-                onSubmitEditing={() => this._descriptionInput.focus()}
-              />
-            </View>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Description (optional)</Text>
-              <TextInput
-                ref={c => this._descriptionInput = c}
-                style={[styles.textInput, styles.multiline]}
-                autogrow
-                multiline
-                blurOnSubmit
-                value={this.props.description}
-                returnKeyType={this.canSubmit() ? 'send' : undefined}
-                onChangeText={this.props.setDescription}
-                onSubmitEditing={() => this.canSubmit() && this.submit()}
-              />
-            </View>
+            <TitleInput inputRef={c => this._titleInput = c} onComplete={() => this._datePicker.onPressDate()}/>
+            <InstallationDateInput inputRef={c => this._datePicker = c}/>
+            <CreatorInput/>
+            <DescriptionInput/>
           </View>
           <View style={{ height: 60 }}/>
         </Content>
         
-        <View style={{ position: 'absolute', bottom: 12, right: 12 }}>
-          {this.props.submitting ? (
-            <ActivityIndicator size={'large'}/>
-          ) : (
-            <Button onPress={this.submit} disabled={!this.canSubmit()}>
+        {this.props.submitting ?
+          Platform.select({
+            'android': (
+              <ProgressBarAndroid progress={this.props.uploadProgress} style={styles.progressViewAndroid}/>
+            ),
+            'ios': (
+              <ProgressViewIOS progress={this.props.uploadProgress} style={styles.progressViewIOS}/>
+            ),
+          }) : (
+            <Button style={styles.submitButton} onPress={this.submit} disabled={!this.canSubmit()}>
               <Text>Submit</Text>
             </Button>
           )}
-        </View>
       </Container>
     );
   }
@@ -106,20 +80,14 @@ const styles = StyleSheet.create({
   form: {
     padding: 12,
   },
-  inputGroup: {
-    marginBottom: 12,
+  submitButton: { position: 'absolute', bottom: 12, right: 12 },
+  progressViewAndroid: {},
+  progressViewIOS: {
+    position: 'absolute',
+    bottom: 12,
+    left: 12,
+    right: 12,
   },
-  label: {
-    fontSize: 14,
-    fontWeight: '200'
-  },
-  textInput: {
-    fontSize: 20,
-    paddingVertical: 8,
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#BBB'
-  },
-  multiline: {},
 });
 
 const InfoScreen = ({ navigation }) => (
