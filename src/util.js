@@ -36,20 +36,16 @@ export function uploadFile(url, file, onProgress = () => null) {
   });
 }
 
-export async function registerDeviceId() {
-  const status = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  const body = JSON.stringify({
-    device_uuid: getDeviceId(),
-    push_token: status === 'granted' ? Notifications.getExpoPushTokenAsync() : null,
-  });
+export async function registerForPushNotifications() {
+  const permissionStatus = await Permissions.askAsync(Permissions.NOTIFICATIONS);
   const result = await fetch('http://rainworks-backend.herokuapp.com/api/devices', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body
+    body: JSON.stringify({
+      device_uuid: getDeviceId(),
+      push_token: permissionStatus === 'granted' ? Notifications.getExpoPushTokenAsync() : null,
+    })
   });
-  if (!result.ok) {
-    throw new Error('Device Registration Failed', result);
-  }
   return await result.json();
 }
 

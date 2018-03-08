@@ -3,7 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SUBMIT_URL } from '../urls';
-import { COMMON_DATE_FORMAT, getDeviceId, showError, showSuccess, uploadFile } from '../util';
+import { COMMON_DATE_FORMAT, getDeviceId, registerForPushNotifications, showError, showSuccess, uploadFile } from '../util';
 
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
@@ -114,6 +114,7 @@ export class SubmissionProvider extends Component {
       this.setState({ submitting: false, submitError: error });
       return false;
     }
+    registerForPushNotifications().catch((e) => console.error());
     return true;
   };
   
