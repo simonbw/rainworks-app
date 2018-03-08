@@ -1,7 +1,7 @@
 import { Icon } from 'native-base';
 import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
-import AboutScreen from './AboutScreen';
+import AboutStack from './AboutStack';
 import MapStack from './MapStack';
 import SubmissionsScreen from './SubmissionsScreen';
 import SubmitStack from './SubmitStack';
@@ -40,7 +40,7 @@ export default DrawerNavigator({
     }
   },
   [ABOUT_SCREEN]: {
-    screen: AboutScreen,
+    screen: AboutStack,
     navigationOptions: {
       drawerLabel: 'About Rainworks',
       drawerIcon: () => (

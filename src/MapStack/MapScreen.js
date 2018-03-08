@@ -1,6 +1,6 @@
 import { View } from 'native-base';
 import PropTypes from 'prop-types';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
 import ToggleableMapView from '../ToggleableMapView';
@@ -29,26 +29,24 @@ class MapScreen extends Component {
           justifyContent: 'flex-end'
         }}
       >
-        <Fragment>
-          <ToggleableMapView>
-            {this.props.rainworks.map((rainwork) => (
-              <RainworkMarker
-                rainwork={rainwork}
-                key={rainwork['id']}
-              />
-            ))}
-          </ToggleableMapView>
-          {this.props.loading && (
-            <ActivityIndicator
-              size={'large'}
-              style={{
-                position: 'absolute',
-                top: 12,
-                right: 12,
-              }}
+        <ToggleableMapView>
+          {this.props.rainworks.map((rainwork) => (
+            <RainworkMarker
+              rainwork={rainwork}
+              key={rainwork['id']}
             />
-          )}
-        </Fragment>
+          ))}
+        </ToggleableMapView>
+        {this.props.loading && (
+          <ActivityIndicator
+            size={'large'}
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+            }}
+          />
+        )}
       </View>
     );
   };

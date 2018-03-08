@@ -8,7 +8,20 @@
     "version": "0.0.19",
     "orientation": "portrait",
     "splash": {
-      "image": "./assets/splash.png"
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FFFFFF"
+    },
+    "primaryColor": "#14a9e6",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#14a9e6"
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
+        "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find rainworks near you."
+      }
     }
   }
 }
