@@ -35,6 +35,7 @@ class Preloader extends Component {
   cacheAssets = async () => {
     await Promise.all([
       Expo.Font.loadAsync({
+        'Rainworks': require('../assets/Rainworks.ttf'),
         'Roboto': require('native-base/Fonts/Roboto.ttf'),
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       }),

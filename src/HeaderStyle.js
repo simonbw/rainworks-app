@@ -4,11 +4,15 @@ const headerStyles = StyleSheet.create({
   header: {
     backgroundColor: '#14a9e6',
   },
+  headerTitle: {
+    fontFamily: 'Rainworks'
+  }
 });
 
 export const defaultStackNavigatorConfig = {
   navigationOptions: {
     headerStyle: headerStyles.header,
+    headerTitleStyle: headerStyles.headerTitle,
     headerTintColor: '#FFFFFF',
   }
 };
