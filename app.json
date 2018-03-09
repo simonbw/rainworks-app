@@ -19,7 +19,9 @@
     },
     "assetBundlePatterns": [
       "assets/*",
-      "node_modules/react-navigation/src/views/assets/*.png"
+      "node_modules/react-navigation/src/views/assets/*.png",
+      "node_modules/native-base/Fonts/Roboto.ttf",
+      "node_modules/native-base/Fonts/Roboto_medium.ttf"
     ],
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",

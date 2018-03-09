@@ -5,7 +5,8 @@ const headerStyles = StyleSheet.create({
     backgroundColor: '#14a9e6',
   },
   headerTitle: {
-    fontFamily: 'Rainworks'
+    fontFamily: 'Rainworks',
+    fontWeight: 'normal',
   }
 });
 
