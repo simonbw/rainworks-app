@@ -18,7 +18,8 @@
       "backgroundColor": "#14a9e6"
     },
     "assetBundlePatterns": [
-      "assets/*"
+      "assets/*",
+      "node_modules/react-navigation/src/views/assets/*.png"
     ],
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
