@@ -35,9 +35,10 @@ export const InstallationDateInput = () => (
             dateText: styles.dateText,
             btnTextConfirm: styles.btnTextConfirm,
           }}
-          disabled={submitting}
           date={installationDate}
+          disabled={submitting}
           format={COMMON_DATE_FORMAT}
+          maxDate={new Date()}
           mode={'date'}
           onDateChange={(d) => setInstallationDate(d)}
           showIcon={false}
