@@ -1,5 +1,6 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
+import { defaultStackNavigatorConfig } from '../HeaderStyle';
 import DetailsScreen from './DetailsScreen';
 import DrawerMenuButton from '../DrawerMenuButton';
 import MapScreen from './MapScreen';
@@ -26,5 +27,6 @@ export default StackNavigator({
     }
   },
 }, {
+  ...defaultStackNavigatorConfig,
   initialRoute: MAP_SCREEN,
 });

@@ -52,6 +52,7 @@ export class ReportsProvider extends Component {
     } else {
       const report = await response.json();
       this.setState({ reports: this.state.reports.concat([report]) })
+      return report;
     }
   };
   

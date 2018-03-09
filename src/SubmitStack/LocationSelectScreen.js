@@ -1,6 +1,7 @@
-import { MapView } from 'expo';
+import { Asset } from 'expo';
 import { Button, Text, View } from 'native-base';
 import React from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ToggleableMapView from '../ToggleableMapView';
 import { INFO_SCREEN } from './index';
@@ -8,14 +9,25 @@ import { SubmissionConsumer } from './SubmissionContext';
 
 const UnconnectedLocationSelectScreen = ({ navigation, setLocation, lat, lng }) => (
   <View style={{ flex: 1 }}>
-    <ToggleableMapView onRegionChange={(region) => setLocation(region.latitude, region.longitude)}>
-      <MapView.Marker
-        coordinate={{
-          latitude: lat,
-          longitude: lng,
+    <ToggleableMapView
+      onRegionChangeComplete={(region) => setLocation(region.latitude, region.longitude)}
+    />
+    <View
+      pointerEvents="none"
+      style={[StyleSheet.absoluteFill, {
+        justifyContent: 'center',
+        alignItems: 'center'
+      }]}
+    >
+      <Image
+        style={{
+          height: Asset.fromModule(require('../../assets/pin.png')).height / 2,
+          width: Asset.fromModule(require('../../assets/pin.png')).width / 2,
+          top: -Asset.fromModule(require('../../assets/pin.png')).height / 4,
         }}
+        source={Asset.fromModule(require('../../assets/pin.png'))}
       />
-    </ToggleableMapView>
+    </View>
     <Button
       style={{ position: 'absolute', bottom: 12, right: 12 }}
       onPress={() => navigation.navigate(INFO_SCREEN)}

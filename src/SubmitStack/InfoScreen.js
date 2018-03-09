@@ -50,8 +50,8 @@ class UnconnectedInfoScreen extends Component {
             }}
           />
           <View style={styles.form}>
-            <TitleInput inputRef={c => this._titleInput = c} onComplete={() => this._datePicker.onPressDate()}/>
-            <InstallationDateInput inputRef={c => this._datePicker = c}/>
+            <TitleInput inputRef={c => this._titleInput = c}/>
+            <InstallationDateInput/>
             <CreatorInput/>
             <DescriptionInput/>
           </View>

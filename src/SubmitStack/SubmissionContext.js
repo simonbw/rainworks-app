@@ -114,7 +114,7 @@ export class SubmissionProvider extends Component {
       this.setState({ submitting: false, submitError: error });
       return false;
     }
-    registerForPushNotifications().catch((e) => console.error());
+    registerForPushNotifications().catch((e) => console.error(e));
     return true;
   };
   

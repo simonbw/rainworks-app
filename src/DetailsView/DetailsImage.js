@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
     width: null,
     height: 240,
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: '#666',
   },
   placeholder: {
     width: null,
     height: 240,
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: '#666',
   },
 });
 

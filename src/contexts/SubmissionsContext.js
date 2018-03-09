@@ -32,7 +32,7 @@ export class SubmissionsProvider extends Component {
       showError('Loading Submissions Failed');
     } else {
       const submissions = await response.json();
-      submissions.sort((a, b) => new Date(a['created_at']) - new Date(b['created_at']));
+      submissions.sort((a, b) => new Date(b['created_at']) - new Date(a['created_at']));
       this.setState({ submissions, loading: false });
     }
   };

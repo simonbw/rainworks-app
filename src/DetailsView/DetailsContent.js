@@ -6,7 +6,8 @@ import { ScrollView, StyleSheet } from 'react-native';
 import Divider from '../Divider';
 import { COMMON_DATE_FORMAT } from '../util';
 import DetailsImage from './DetailsImage';
-import { FoundItSection } from './FoundItSection';
+import ReportButtons from './ReportButtons';
+import ReportsText from './ReportsText';
 
 const DetailsContent = ({ rainwork, includeReports = false }) => (
   <ScrollView style={{ backgroundColor: '#FFF' }}>
@@ -14,7 +15,10 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
     <View style={styles.textContainer}>
       <Text style={styles.title}>{rainwork['name']}</Text>
       <Text style={styles.subtitle}>
-        Created by <Text style={styles.creator}>{rainwork['creator_name']}</Text>
+        Created
+        {rainwork['creator_name'] && (
+          <Fragment> by <Text style={styles.creator}>{rainwork['creator_name']}</Text></Fragment>
+        )}
         {' '}
         on <Text style={styles.createdDate}>{moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}</Text>
       </Text>
@@ -29,11 +33,10 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
       ) : null}
       
       {includeReports && (
-        <FoundItSection
-          rainworkId={rainwork['id']}
-          foundItCount={rainwork['found_it_count']}
-          style={styles.foundItSection}
-        />
+        <View style={styles.foundItSection}>
+          <ReportsText rainwork={rainwork}/>
+          <ReportButtons rainwork={rainwork}/>
+        </View>
       )}
     </View>
   </ScrollView>

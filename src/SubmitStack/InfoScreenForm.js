@@ -5,7 +5,7 @@ import DatePicker from 'react-native-datepicker';
 import { COMMON_DATE_FORMAT } from '../util';
 import { SubmissionConsumer } from './SubmissionContext';
 
-export const TitleInput = ({ inputRef, onComplete }) => (
+export const TitleInput = ({ inputRef }) => (
   <SubmissionConsumer>
     {({ submitting, name, setName }) => (
       <View style={styles.inputGroup}>
@@ -13,9 +13,7 @@ export const TitleInput = ({ inputRef, onComplete }) => (
         <TextInput
           disabled={submitting}
           onChangeText={setName}
-          onSubmitEditing={onComplete ? onComplete : undefined}
           ref={inputRef}
-          returnKeyType={'next'}
           style={styles.textInput}
           value={name}
         />
@@ -24,7 +22,7 @@ export const TitleInput = ({ inputRef, onComplete }) => (
   </SubmissionConsumer>
 );
 
-export const InstallationDateInput = ({ inputRef }) => (
+export const InstallationDateInput = () => (
   <SubmissionConsumer>
     {({ submitting, installationDate, setInstallationDate }) => (
       <View style={styles.inputGroup}>
@@ -42,7 +40,6 @@ export const InstallationDateInput = ({ inputRef }) => (
           format={COMMON_DATE_FORMAT}
           mode={'date'}
           onDateChange={(d) => setInstallationDate(d)}
-          ref={inputRef}
           showIcon={false}
           style={styles.datePicker}
         />
@@ -59,7 +56,6 @@ export const CreatorInput = () => (
         <TextInput
           disabled={submitting}
           onChangeText={setCreatorName}
-          returnKeyType={'next'}
           style={styles.textInput}
           value={creatorName}
         />

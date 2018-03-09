@@ -2,6 +2,8 @@ import { Notifications, Permissions } from 'expo';
 import { Toast } from "native-base";
 import { CacheManager } from 'react-native-expo-image-cache';
 
+export const COMMON_DATE_FORMAT = 'MMM Do, YYYY';
+
 export function makeQueryString(params) {
   return '?' + Object.entries(params)
     .map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value))
@@ -38,15 +40,19 @@ export function uploadFile(url, file, onProgress = () => null) {
 
 export async function registerForPushNotifications() {
   const permissionStatus = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  const result = await fetch('http://rainworks-backend.herokuapp.com/api/devices', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      device_uuid: getDeviceId(),
-      push_token: permissionStatus === 'granted' ? Notifications.getExpoPushTokenAsync() : null,
-    })
-  });
-  return await result.json();
+  if (permissionStatus === 'granted') {
+    const url = `https://rainworks-backend.herokuapp.com/api/devices/${encodeURIComponent(getDeviceId())}`;
+    console.log('register device url:', url);
+    const result = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        push_token: await Notifications.getExpoPushTokenAsync(),
+      })
+    });
+    return await result.json();
+  }
+  return null;
 }
 
 export function showError(errorMessage) {
@@ -78,4 +84,19 @@ function getCachedUri(stateUri, uri, fallbackUri, listener) {
   return fallbackUri
 }
 
-export const COMMON_DATE_FORMAT = 'MMM DD, YYYY';
+export function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = deg2rad(lat2-lat1);  // deg2rad below
+  const dLon = deg2rad(lon2-lon1);
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+  ;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}

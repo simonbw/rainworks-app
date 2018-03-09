@@ -1,14 +1,19 @@
 import { Button, Icon } from 'native-base';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { SUBMIT_STACK } from '../MainNavigator';
 import DrawerMenuButton from '../DrawerMenuButton';
+import { defaultStackNavigatorConfig } from '../HeaderStyle';
+import { SUBMIT_STACK } from '../MainNavigator';
 import SubmissionDetailsScreen from './SubmissionDetailsScreen';
 import SubmissionsList from './SubmissionsList';
 
-const NewSubmissionButton = ({ navigation }) => (
-  <Button transparent onPress={() => navigation.navigate(SUBMIT_STACK)}>
-    <Icon name="create"/>
+const NewSubmissionButton = ({ navigation, tintColor = '#FFFFFF' }) => (
+  <Button
+    transparent
+    style={{ height: '100%' }}
+    onPress={() => navigation.navigate(SUBMIT_STACK)}
+  >
+    <Icon name="create" style={{ color: tintColor }}/>
   </Button>
 );
 
@@ -34,5 +39,6 @@ export default StackNavigator({
     }
   },
 }, {
+  ...defaultStackNavigatorConfig,
   initialScreen: SUBMISSIONS_LIST_SCREEN,
 });

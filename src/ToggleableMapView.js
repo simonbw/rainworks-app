@@ -42,10 +42,12 @@ class ToggleableMapView extends Component {
             <Fragment>
               <MapView
                 ref={(r) => this._mapRef = r}
-                style={{ flex: 1 }}
+                style={StyleSheet.absoluteFillObject}
                 mapType={this.state.mapType}
                 {...otherProps}
                 initialRegion={userRegion}
+                showsUserLocation={false}
+                showsMyLocationButton={false}
               >
                 {userRegion && (
                   <MapView.Marker coordinate={userRegion}>
