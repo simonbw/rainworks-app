@@ -9,14 +9,14 @@ const LocationRestricted = (props) => {
     <LocationConsumer>
       {(userLocation) => {
         if (!userLocation) {
-          return props.outside;
+          return props.renderNoLocationServices === undefined ? props.renderOutside : props.renderNoLocationServices;
         }
         const { latitude, longitude } = userLocation.coords;
         const distance = getDistanceFromLatLonInKm(props.lat, props.lng, latitude, longitude);
         if (distance <= props.maximumDistance) {
-          return props.inside;
+          return props.renderInside;
         } else {
-          return props.outside;
+          return props.renderOutside;
         }
       }}
     </LocationConsumer>
@@ -24,8 +24,9 @@ const LocationRestricted = (props) => {
 };
 
 LocationRestricted.propTypes = {
-  inside: PropTypes.node.isRequired,
-  outside: PropTypes.node.isRequired,
+  renderInside: PropTypes.node.isRequired,
+  renderOutside: PropTypes.node.isRequired,
+  renderNoLocationServices: PropTypes.node,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
   maximumDistance: PropTypes.number.isRequired,

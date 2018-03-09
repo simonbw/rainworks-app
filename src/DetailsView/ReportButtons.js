@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ReportsConsumer } from '../contexts/ReportsContext';
+import LocationRestricted from '../LocationRestricted';
 import { showSuccess } from '../util';
 
 const MISSING_TEXT = 'It\s Not Here';
@@ -11,45 +12,56 @@ const INAPPROPRIATE_TEXT = 'It\'s Inappropriate';
 const CANCEL_TEXT = 'Cancel';
 
 const ReportButtons = ({ rainwork }) => (
-  <ReportsConsumer>
-    {({ getReport, hasReport, submitReport }) => {
-      const hasFoundIt = hasReport(rainwork['id'], 'found_it');
-      const hasMissing = hasReport(rainwork['id'], 'missing');
-      const hasFaded = hasReport(rainwork['id'], 'faded');
-      const hasInappropriate = hasReport(rainwork['id'], 'inappropriate');
-      return (
-        <View>
-          {!hasFoundIt && !hasMissing && (
-            <Button
-              block
-              success
-              style={styles.button}
-              onPress={() => submitReport(rainwork['id'], 'found_it')}
-            >
-              <Text>I Found It!</Text>
-            </Button>
-          )}
-          {(!hasMissing || !hasFaded || !hasInappropriate) && (
-            <Button
-              block
-              danger
-              bordered
-              style={styles.button}
-              onPress={async () => {
-                const reportType = await pickReport(hasMissing, hasFaded, hasInappropriate);
-                if (reportType) {
-                  await submitReport(rainwork['id'], reportType);
-                  showSuccess('Report Submitted');
-                }
-              }}
-            >
-              <Text>Report Rainwork</Text>
-            </Button>
-          )}
-        </View>
-      );
-    }}
-  </ReportsConsumer>
+  <LocationRestricted
+    renderInside={(
+      <ReportsConsumer>
+        {({ getReport, hasReport, submitReport }) => {
+          const hasFoundIt = hasReport(rainwork['id'], 'found_it');
+          const hasMissing = hasReport(rainwork['id'], 'missing');
+          const hasFaded = hasReport(rainwork['id'], 'faded');
+          const hasInappropriate = hasReport(rainwork['id'], 'inappropriate');
+          return (
+            <View>
+              {!hasFoundIt && !hasMissing && (
+                <Button
+                  block
+                  success
+                  style={styles.button}
+                  onPress={() => submitReport(rainwork['id'], 'found_it')}
+                >
+                  <Text>I Found It!</Text>
+                </Button>
+              )}
+              {(!hasMissing || !hasFaded || !hasInappropriate) && (
+                <Button
+                  block
+                  danger
+                  bordered
+                  style={styles.button}
+                  onPress={async () => {
+                    const reportType = await pickReport(hasMissing, hasFaded, hasInappropriate);
+                    if (reportType) {
+                      await submitReport(rainwork['id'], reportType);
+                      showSuccess('Report Submitted');
+                    }
+                  }}
+                >
+                  <Text>Report Rainwork</Text>
+                </Button>
+              )}
+            </View>
+          );
+        }}
+      </ReportsConsumer>
+    )}
+    renderOutside={(
+      <Text>Get closer to this rainwork to mark it as found.</Text>
+    )}
+    lat={rainwork['lat']}
+    lng={rainwork['lng']}
+    maximumDistance={1.0}
+  />
+
 );
 
 const pickReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
