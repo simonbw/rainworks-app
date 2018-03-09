@@ -1,8 +1,9 @@
 import moment from 'moment/moment';
-import { Text, View } from 'native-base';
+import { Button, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
+import openMap from 'react-native-open-maps';
 import Divider from '../Divider';
 import { COMMON_DATE_FORMAT } from '../util';
 import DetailsImage from './DetailsImage';
@@ -38,6 +39,17 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
           <ReportButtons rainwork={rainwork}/>
         </View>
       )}
+      
+      <Divider/>
+      
+      <View style={styles.openInMapsContainer}>
+        <Button
+          transparent
+          onPress={() => openMap({ latitude: rainwork['lat'], longitude: rainwork['lng'] })}
+        >
+          <Text>Open in Maps</Text>
+        </Button>
+      </View>
     </View>
   </ScrollView>
 );
@@ -68,6 +80,11 @@ const styles = StyleSheet.create({
   foundItSection: {
     paddingVertical: 12,
   },
+  openInMapsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingVertical: 12,
+  }
 });
 
 export default DetailsContent;

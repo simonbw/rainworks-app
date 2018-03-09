@@ -1,6 +1,7 @@
 import { AppLoading, Asset } from 'expo';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import { showError } from './util';
 
 class Preloader extends Component {

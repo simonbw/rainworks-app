@@ -8,6 +8,7 @@ import { SubmissionsProvider } from './contexts/SubmissionsContext';
 import MainNavigator from './MainNavigator';
 import Preloader from './Preloader';
 import { SubmissionProvider } from './SubmitStack/SubmissionContext';
+import WelcomeScreen from './WelcomeScreen';
 
 export default () => (
   <Root>
@@ -23,6 +24,7 @@ export default () => (
             <ReportsProvider>
               <SubmissionsProvider>
                 <MainNavigator/>
+                <WelcomeScreen/>
               </SubmissionsProvider>
             </ReportsProvider>
           </ActiveRainworksProvider>
