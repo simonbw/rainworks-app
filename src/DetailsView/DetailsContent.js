@@ -6,12 +6,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 import openMap from 'react-native-open-maps';
 import Divider from '../Divider';
 import { MAP_SCREEN } from '../MapStack';
-import { COMMON_DATE_FORMAT } from '../util';
+import { COMMON_DATE_FORMAT, rainworkToCoords } from '../util';
 import DetailsImage from './DetailsImage';
 import ReportButtons from './ReportButtons';
 import ReportsText from './ReportsText';
 
-const DetailsContent = ({ rainwork, navigation, includeReports = false }) => (
+const DetailsContent = ({ rainwork, navigation, includeReports = false, includeFindOnMap = false, includeOpenInMaps = false }) => (
   <ScrollView style={{ backgroundColor: '#FFF' }}>
     <DetailsImage imageUrl={rainwork['image_url']}/>
     <View style={styles.textContainer}>
@@ -42,26 +42,37 @@ const DetailsContent = ({ rainwork, navigation, includeReports = false }) => (
         </Fragment>
       )}
       
-      <Divider/>
-      <View style={styles.openInMapsContainer}>
-        <Button
-          transparent
-          onPress={() => openMap({ latitude: rainwork['lat'], longitude: rainwork['lng'] })}
-        >
-          <Text>Open in Maps</Text>
-        </Button>
-      </View>
+      {(includeFindOnMap || includeOpenInMaps) && (
+        <Fragment>
+          <Divider/>
+          <View style={styles.mapButtonsRow}>
+            {includeFindOnMap ? (
+              <Button bordered onPress={() => navigation.navigate(MAP_SCREEN, { selectedRainwork: rainwork })}>
+                <Text>Find on Map</Text>
+              </Button>
+            ) : (
+              <View/>
+            )}
+            {includeOpenInMaps ? (
+              <Button bordered onPress={() => openMap(rainworkToCoords(rainwork))}>
+                <Text>Open in Maps</Text>
+              </Button>
+            ) : (
+              <View/>
+            )}
+          </View>
+        </Fragment>
+      )}
     </View>
-    <Button bordered onPress={() => navigation.navigate(MAP_SCREEN, { selectedRainwork: rainwork })}>
-      <Text>Find on Map</Text>
-    </Button>
   </ScrollView>
 );
 
 DetailsContent.propTypes = {
-  rainwork: PropTypes.object.isRequired,
+  includeFindOnMap: PropTypes.bool,
+  includeOpenInMaps: PropTypes.bool,
   includeReports: PropTypes.bool,
   navigation: PropTypes.object,
+  rainwork: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -86,9 +97,9 @@ const styles = StyleSheet.create({
   foundItSection: {
     paddingVertical: 12,
   },
-  openInMapsContainer: {
+  mapButtonsRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingVertical: 12,
   }
 });

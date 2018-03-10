@@ -97,6 +97,19 @@ export function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   return R * c;
 }
 
-function deg2rad(deg) {
+export function deg2rad(deg) {
   return deg * (Math.PI/180)
+}
+
+export function coordsToRegion(l) {
+  return {
+    latitude: l.latitude,
+    longitude: l.longitude,
+    latitudeDelta: 0.025,
+    longitudeDelta: 0.025,
+  }
+}
+
+export function rainworkToCoords(r) {
+  return { latitude: r['lat'], longitude: r['lng'] };
 }

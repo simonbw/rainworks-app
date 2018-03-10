@@ -1,15 +1,14 @@
 import React from 'react';
 import DetailsContent from '../DetailsView/DetailsContent';
 
-const GalleryDetailsScreen = ({ navigation }) => {
+const MapDetailsScreen = ({ navigation }) => {
   const rainwork = navigation.state.params.rainwork;
   return <DetailsContent
-    navigation={navigation}
+    includeReports
+    includeOpenInMaps
     rainwork={rainwork}
-    includeReports={false}
-    includeFindOnMap={true}
-    includeOpenInMaps={true}
+    navigation={navigation}
   />;
 };
 
-export default GalleryDetailsScreen;
+export default MapDetailsScreen;

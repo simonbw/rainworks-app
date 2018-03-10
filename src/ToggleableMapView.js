@@ -4,19 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { LocationConsumer } from './contexts/LocationContext';
-
-function coordsToRegion(l) {
-  return {
-    latitude: l.latitude,
-    longitude: l.longitude,
-    latitudeDelta: 0.025,
-    longitudeDelta: 0.025,
-  }
-}
-
-function rainworkToCoords(r) {
-  return { latitude: r['lat'], longitude: r['lng'] };
-}
+import { coordsToRegion, rainworkToCoords } from './util';
 
 class ToggleableMapView extends Component {
   static propTypes = {

@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import DrawerMenuButton from '../DrawerMenuButton';
 import { defaultStackNavigatorConfig } from '../HeaderStyle';
-import DetailsScreen from './DetailsScreen';
+import DetailsScreen from './MapDetailsScreen';
 import MapScreen from './MapScreen';
 
 export const MAP_SCREEN = 'MAP_SCREEN';
