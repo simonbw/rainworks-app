@@ -7,8 +7,8 @@ const headerStyles = StyleSheet.create({
     padding: 0,
   },
   headerTitle: {
-    fontFamily: 'Rainworks',
-    fontWeight: 'normal',
+    // fontFamily: 'Rainworks',
+    // fontWeight: 'normal',
   }
 });
 

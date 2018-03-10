@@ -15,9 +15,9 @@ class WelcomeScreen extends Component {
   }
   
   async checkIfSeen() {
-    // if (__DEV__) {
-    //   return false;
-    // }
+    if (__DEV__) {
+      return false;
+    }
     try {
       return await AsyncStorage.getItem(SEEN_KEY) != null;
     } catch (error) {

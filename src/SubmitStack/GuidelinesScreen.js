@@ -1,6 +1,7 @@
 import { Button, Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import Link from '../Link';
 import { LOCATION_SELECT_SCREEN } from './index';
 
 const BulletPoint = ({ children }) => (
@@ -10,6 +11,10 @@ const BulletPoint = ({ children }) => (
 const GuidelinesScreen = ({ navigation }) => (
   <View style={{ flex: 1 }}>
     <View style={styles.contentContainer}>
+      <Text style={styles.paragraph}>
+        Before you can submit a rainwork location to the map, you must make a rainwork. You can learn how
+        at <Link url={'https://www.rain.works/how'}>www.rain.works/how</Link>.
+      </Text>
       <Text style={styles.paragraph}>
         The purpose of rainworks is to make rainy days something to look forward to.
         For that reason we have the following rules:
@@ -27,6 +32,7 @@ const GuidelinesScreen = ({ navigation }) => (
     </View>
     <View>
       <Button
+        transparent
         onPress={() => navigation.navigate(LOCATION_SELECT_SCREEN)}
         style={{ position: 'absolute', bottom: 12, right: 12 }}
       >
@@ -47,9 +53,10 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
+    marginBottom: 12,
   },
   bulletList: {
-    marginVertical: 12,
+    marginBottom: 12,
     paddingLeft: 12,
   },
   bulletPoint: {
