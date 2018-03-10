@@ -1,7 +1,7 @@
 import { Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import { SubmissionsConsumer } from '../contexts/SubmissionsContext';
 import Divider, { DIVIDER_HEIGHT } from '../Divider';
 import SubmissionsListItem, { ITEM_HEIGHT } from './SubmissionsListItem';
@@ -32,6 +32,7 @@ class UnconnectedSubmissionsList extends Component {
           getItemLayout={(data, index) => (
             { length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + DIVIDER_HEIGHT) * index, index }
           )}
+          initialNumToRender={Math.ceil(Dimensions.get('window').height / ITEM_HEIGHT)}
           ListEmptyComponent={() => (
             <View style={{ padding: 12 }}>
               <Text>You have no submissions</Text>

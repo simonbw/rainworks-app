@@ -18,7 +18,7 @@ const NewSubmissionButton = ({ navigation, tintColor = '#FFFFFF' }) => (
 );
 
 export const SUBMISSIONS_LIST_SCREEN = 'SUBMISSIONS_LIST_SCREEN';
-export const SUBMISSION_DETAILS_SCREEN = 'SUBMISSIONS_DETAILS_SCREEN';
+export const SUBMISSION_DETAILS_SCREEN = 'SUBMISSION_DETAILS_SCREEN';
 
 export default StackNavigator({
   [SUBMISSIONS_LIST_SCREEN]: {

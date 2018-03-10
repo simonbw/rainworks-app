@@ -42,7 +42,7 @@ class Preloader extends Component {
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       }),
       Asset.loadAsync([
-        require('../assets/pin.png'),
+        require('../assets/pin_unfound.png'),
         require('../assets/pin_found.png'),
         require('../assets/header.png'),
         require('react-navigation/src/views/assets/back-icon.png'),

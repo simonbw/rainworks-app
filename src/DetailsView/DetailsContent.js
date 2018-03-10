@@ -5,12 +5,13 @@ import React, { Fragment } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import openMap from 'react-native-open-maps';
 import Divider from '../Divider';
+import { MAP_SCREEN } from '../MapStack';
 import { COMMON_DATE_FORMAT } from '../util';
 import DetailsImage from './DetailsImage';
 import ReportButtons from './ReportButtons';
 import ReportsText from './ReportsText';
 
-const DetailsContent = ({ rainwork, includeReports = false }) => (
+const DetailsContent = ({ rainwork, navigation, includeReports = false }) => (
   <ScrollView style={{ backgroundColor: '#FFF' }}>
     <DetailsImage imageUrl={rainwork['image_url']}/>
     <View style={styles.textContainer}>
@@ -24,24 +25,24 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
         on <Text style={styles.createdDate}>{moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}</Text>
       </Text>
       
-      <Divider/>
-      
       {rainwork['description'] ? (
         <Fragment>
-          <Text style={styles.description}>{rainwork['description']}</Text>
           <Divider/>
+          <Text style={styles.description}>{rainwork['description']}</Text>
         </Fragment>
       ) : null}
       
       {includeReports && (
-        <View style={styles.foundItSection}>
-          <ReportsText rainwork={rainwork}/>
-          <ReportButtons rainwork={rainwork}/>
-        </View>
+        <Fragment>
+          <Divider/>
+          <View style={styles.foundItSection}>
+            <ReportsText rainwork={rainwork}/>
+            <ReportButtons rainwork={rainwork}/>
+          </View>
+        </Fragment>
       )}
       
       <Divider/>
-      
       <View style={styles.openInMapsContainer}>
         <Button
           transparent
@@ -51,24 +52,29 @@ const DetailsContent = ({ rainwork, includeReports = false }) => (
         </Button>
       </View>
     </View>
+    <Button bordered onPress={() => navigation.navigate(MAP_SCREEN, { selectedRainwork: rainwork })}>
+      <Text>Find on Map</Text>
+    </Button>
   </ScrollView>
 );
 
 DetailsContent.propTypes = {
   rainwork: PropTypes.object.isRequired,
   includeReports: PropTypes.bool,
+  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    padding: 12,
+    padding: 16,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
+    paddingBottom: 6,
   },
   subtitle: {
-    paddingVertical: 12,
+    paddingBottom: 12,
   },
   creator: {
     fontStyle: 'italic',

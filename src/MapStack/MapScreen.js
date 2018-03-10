@@ -20,6 +20,14 @@ class MapScreen extends Component {
     }
   }
   
+  getSelectedRainwork() {
+    const params = this.props.navigation.state.params;
+    if (params) {
+      return params.selectedRainwork;
+    }
+    return undefined;
+  }
+  
   render() {
     return (
       <View
@@ -29,7 +37,7 @@ class MapScreen extends Component {
           justifyContent: 'flex-end'
         }}
       >
-        <ToggleableMapView>
+        <ToggleableMapView selectedRainwork={this.getSelectedRainwork()}>
           {this.props.rainworks.map((rainwork) => (
             <RainworkMarker
               rainwork={rainwork}

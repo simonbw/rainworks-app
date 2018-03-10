@@ -5,19 +5,24 @@ import React, { Component, Fragment } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { LocationConsumer } from './contexts/LocationContext';
 
-const locationToRegion = (l) => {
+function coordsToRegion(l) {
   return {
     latitude: l.latitude,
     longitude: l.longitude,
     latitudeDelta: 0.025,
     longitudeDelta: 0.025,
   }
-};
+}
+
+function rainworkToCoords(r) {
+  return { latitude: r['lat'], longitude: r['lng'] };
+}
 
 class ToggleableMapView extends Component {
   static propTypes = {
     initialMapType: PropTypes.oneOf(['hybrid', 'standard']),
     children: PropTypes.node,
+    selectedRainwork: PropTypes.object,
   };
   
   constructor(props) {
@@ -34,10 +39,12 @@ class ToggleableMapView extends Component {
   
   render() {
     const { initialMapType, children, ...otherProps } = this.props;
+    const selectedRainwork = this.props.selectedRainwork;
+    const selectedRegion = selectedRainwork && coordsToRegion(rainworkToCoords(selectedRainwork));
     return (
       <LocationConsumer>
         {(userLocation) => {
-          const userRegion = userLocation ? locationToRegion(userLocation.coords) : undefined;
+          const userRegion = userLocation ? coordsToRegion(userLocation.coords) : undefined;
           return (
             <Fragment>
               <MapView
@@ -45,7 +52,7 @@ class ToggleableMapView extends Component {
                 style={StyleSheet.absoluteFillObject}
                 mapType={this.state.mapType}
                 {...otherProps}
-                initialRegion={userRegion}
+                initialRegion={selectedRegion || userRegion}
                 showsUserLocation={false}
                 showsMyLocationButton={false}
               >

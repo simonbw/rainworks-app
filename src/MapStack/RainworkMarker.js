@@ -23,11 +23,11 @@ const RainworkMarker = ({ rainwork, navigation }) => (
             }}
             image={hasReport(rainwork['id'], 'found_it') ?
               Asset.fromModule(require('../../assets/pin_found.png')) :
-              Asset.fromModule(require('../../assets/pin.png'))
+              Asset.fromModule(require('../../assets/pin_unfound.png'))
             }
             centerOffset={{
               x: 0,
-              y: -Asset.fromModule(require('../../assets/pin.png')).height / 4,
+              y: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 4,
             }}
           >
             <MapView.Callout
