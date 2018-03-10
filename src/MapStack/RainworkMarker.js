@@ -6,46 +6,56 @@ import React, { Fragment } from 'react';
 import { StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
+import { ReportsConsumer } from '../contexts/ReportsContext';
 import { COMMON_DATE_FORMAT } from '../util';
 import { MAP_DETAILS_SCREEN } from './index';
 
 const RainworkMarker = ({ rainwork, navigation }) => (
-  <ActiveRainworksConsumer>
-    {({ refreshRainwork }) => (
-      <MapView.Marker
-        flat
-        coordinate={{
-          latitude: rainwork['lat'],
-          longitude: rainwork['lng'],
-        }}
-        image={require('../../assets/pin.png')}
-        centerOffset={{
-          x: 0,
-          y: -Asset.fromModule(require('../../assets/pin.png')).height / 4,
-        }}
-      >
-        <MapView.Callout
-          onPress={() => {
-            refreshRainwork(rainwork['id']);
-            navigation.navigate(MAP_DETAILS_SCREEN, { rainwork });
-          }}
-        >
-          <View style={styles.tooltip}>
-            <Text style={styles.title}>{rainwork['name']}</Text>
-            <Text style={styles.subtitle}>
-              Created
-              {rainwork['creator_name'] && (
-                <Fragment> by <Text style={styles.creator}>{rainwork['creator_name']}</Text></Fragment>
-              )}
-              {' '}
-              on <Text style={styles.createdDate}>{moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}</Text>
-            </Text>
-            <Text style={styles.tapToView}>tap to view</Text>
-          </View>
-        </MapView.Callout>
-      </MapView.Marker>
+  <ReportsConsumer>
+    {({ hasReport }) => (
+      <ActiveRainworksConsumer>
+        {({ refreshRainwork }) => (
+          <MapView.Marker
+            flat
+            coordinate={{
+              latitude: rainwork['lat'],
+              longitude: rainwork['lng'],
+            }}
+            image={hasReport(rainwork['id'], 'found_it') ?
+              Asset.fromModule(require('../../assets/pin_found.png')) :
+              Asset.fromModule(require('../../assets/pin.png'))
+            }
+            centerOffset={{
+              x: 0,
+              y: -Asset.fromModule(require('../../assets/pin.png')).height / 4,
+            }}
+          >
+            <MapView.Callout
+              onPress={() => {
+                refreshRainwork(rainwork['id']);
+                navigation.navigate(MAP_DETAILS_SCREEN, { rainwork });
+              }}
+            >
+              <View style={styles.tooltip}>
+                <Text style={styles.title}>{rainwork['name']}</Text>
+                <Text style={styles.subtitle}>
+                  Created
+                  {rainwork['creator_name'] && (
+                    <Fragment> by <Text style={styles.creator}>{rainwork['creator_name']}</Text></Fragment>
+                  )}
+                  {' '}
+                  on <Text style={styles.createdDate}>
+                  {moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}
+                </Text>
+                </Text>
+                <Text style={styles.tapToView}>tap to view</Text>
+              </View>
+            </MapView.Callout>
+          </MapView.Marker>
+        )}
+      </ActiveRainworksConsumer>
     )}
-  </ActiveRainworksConsumer>
+  </ReportsConsumer>
 );
 
 RainworkMarker.propTypes = {
@@ -61,8 +71,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
   },
-  creator: {
-  },
+  creator: {},
   subtitle: {
     // paddingVertical: 6,
   },

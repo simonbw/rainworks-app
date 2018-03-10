@@ -32,7 +32,6 @@ const GuidelinesScreen = ({ navigation }) => (
     </View>
     <View>
       <Button
-        transparent
         onPress={() => navigation.navigate(LOCATION_SELECT_SCREEN)}
         style={{ position: 'absolute', bottom: 12, right: 12 }}
       >

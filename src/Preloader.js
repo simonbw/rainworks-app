@@ -24,9 +24,10 @@ class Preloader extends Component {
     return (
       <AppLoading
         startAsync={this.cacheAssets}
-        onError={() => {
+        onError={(e) => {
           this.setState({ ready: true });
           showError('Error loading resources');
+          console.error(e);
         }}
         onFinish={() => this.setState({ ready: true })}
       />
@@ -41,7 +42,8 @@ class Preloader extends Component {
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       }),
       Asset.loadAsync([
-        require('../assets/icon.png'),
+        require('../assets/pin.png'),
+        require('../assets/pin_found.png'),
         require('../assets/header.png'),
         require('react-navigation/src/views/assets/back-icon.png'),
         require('react-navigation/src/views/assets/back-icon-mask.png'),

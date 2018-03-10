@@ -45,7 +45,7 @@ class DetailsImage extends Component {
       </Fragment>
     ) : (
       <View style={styles.placeholder}>
-        <Icon name="image" style={{ color: '#FFF', fontSize: 96 }}/>
+        <Icon name="image" style={{ color: '#BBB', fontSize: 96 }}/>
       </View>
     );
   }
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
     width: null,
     height: 240,
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#666',
   },
 });
