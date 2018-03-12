@@ -2,7 +2,10 @@ import { ImagePicker } from 'expo';
 import { ActionSheet, Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ImageEditor, StyleSheet, TouchableOpacity } from 'react-native';
+import { showError } from '../util';
+
+const MAXIMUM_DIMENSION = 1024;
 
 export default class PhotoSelector extends Component {
   static propTypes = {
@@ -23,26 +26,49 @@ export default class PhotoSelector extends Component {
       }, resolve);
     });
     
-    if (selection === 0) {
-      await this.takePhoto();
-    } else if (selection === 1) {
-      await this.pickImage();
+    if (selection === 0) { // Take Photo
+      await this.setImage(await ImagePicker.launchCameraAsync({}));
+    } else if (selection === 1) { // Choose From Library
+      await this.setImage(await ImagePicker.launchImageLibraryAsync({}));
     }
   };
   
-  pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({});
+  async setImage(result) {
     if (!result.cancelled) {
-      this.props.setImageUri(result.uri);
+      const { uri, height, width } = result;
+      const largestSide = Math.max(height, width);
+      
+      if (largestSide > MAXIMUM_DIMENSION) {
+        
+        const scale = Math.min(MAXIMUM_DIMENSION / largestSide, 1);
+        
+        try {
+          const croppedUri = await new Promise((resolve, reject) => {
+            ImageEditor.cropImage(
+              uri,
+              {
+                offset: { x: 0, y: 0 },
+                size: { height, width },
+                displaySize: {
+                  height: Math.round(height * scale),
+                  width: Math.round(width * scale)
+                },
+                resizeMode: 'cover',
+              },
+              resolve,
+              reject
+            );
+          });
+          this.props.setImageUri(croppedUri);
+        } catch (e) {
+          showError('Failed to resize image');
+          console.error(e);
+        }
+      } else {
+        this.props.setImageUri(uri);
+      }
     }
-  };
-  
-  takePhoto = async () => {
-    const result = await ImagePicker.launchCameraAsync({});
-    if (!result.cancelled) {
-      this.props.setImageUri(result.uri);
-    }
-  };
+  }
   
   render() {
     return (

@@ -2,8 +2,11 @@ import createContext from 'create-react-context';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { ImageStore } from 'react-native';
 import { SUBMIT_URL } from '../urls';
-import { COMMON_DATE_FORMAT, getDeviceId, registerForPushNotifications, showError, showSuccess, uploadFile } from '../util';
+import {
+  COMMON_DATE_FORMAT, getDeviceId, registerForPushNotifications, showError, showSuccess, uploadFile
+} from '../util';
 
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
@@ -99,6 +102,7 @@ export class SubmissionProvider extends Component {
       throw new Error('Upload Error', response.errorMessage);
     }
     this.setState({ uploadProgress: calculateProgress(true, true, 1) });
+    ImageStore.removeImageForTag(this.state);
   };
   
   submit = async () => {
