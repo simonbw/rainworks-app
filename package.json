@@ -28,6 +28,7 @@
     "prop-types": "^15.6.0",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-autolink": "^1.4.0",
     "react-native-aws3": "^0.0.8",
     "react-native-datepicker": "^1.6.0",
     "react-native-expo-image-cache": "^1.1.0",

@@ -3,8 +3,10 @@ import { Button, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
+import Autolink from 'react-native-autolink';
 import openMap from 'react-native-open-maps';
 import Divider from '../Divider';
+import Link from '../Link';
 import { MAP_SCREEN } from '../MapStack';
 import { COMMON_DATE_FORMAT, rainworkToCoords } from '../util';
 import DetailsImage from './DetailsImage';
@@ -28,7 +30,12 @@ const DetailsContent = ({ rainwork, navigation, includeReports = false, includeF
       {rainwork['description'] ? (
         <Fragment>
           <Divider/>
-          <Text style={styles.description}>{rainwork['description']}</Text>
+          <Text style={styles.description}>
+            <Autolink
+              text={rainwork['description']}
+              renderLink={(text, match) => <Link url={match.getUrl()}>{text}</Link>}
+            />
+          </Text>
         </Fragment>
       ) : null}
       

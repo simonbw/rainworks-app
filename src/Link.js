@@ -6,7 +6,7 @@ import { Linking, StyleSheet } from 'react-native';
 const Link = ({ url, children }) => (
   <Text
     selectable
-    style={styles.link}
+    style={linkStyles.link}
     onPress={() => Linking.openURL(url)}
   >
     {children}
@@ -18,7 +18,7 @@ Link.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-const styles = StyleSheet.create({
+export const linkStyles = StyleSheet.create({
   link: {
     color: '#4F8EF7',
     // fontWeight: 'bold',

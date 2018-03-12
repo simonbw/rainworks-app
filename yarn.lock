@@ -404,6 +404,10 @@ auth0@^2.7.0:
     rest-facade "^1.10.0"
     retry "^0.10.1"
 
+autolinker@^1.6.0:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/autolinker/-/autolinker-1.6.2.tgz#67ae9da272e808e0d8eb8e02cbc8cde303947457"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -5137,6 +5141,13 @@ react-devtools-core@3.0.0:
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
+
+react-native-autolink@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-autolink/-/react-native-autolink-1.4.0.tgz#aaec1a65d6e7be8ded3f1063181ffb610b5706ec"
+  dependencies:
+    autolinker "^1.6.0"
+    prop-types "^15.6.0"
 
 react-native-aws3@^0.0.8:
   version "0.0.8"
