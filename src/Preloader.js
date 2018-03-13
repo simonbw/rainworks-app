@@ -1,7 +1,6 @@
 import { AppLoading, Asset } from 'expo';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
 import { showError } from './util';
 
 class Preloader extends Component {
@@ -26,7 +25,7 @@ class Preloader extends Component {
         startAsync={this.cacheAssets}
         onError={(e) => {
           this.setState({ ready: true });
-          showError('Error loading resources');
+          // setTimeout(() => showError('Error loading resources'), 10000);
           console.error(e);
         }}
         onFinish={() => this.setState({ ready: true })}

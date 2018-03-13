@@ -17,6 +17,7 @@ export class ActiveRainworksProvider extends Component {
     super(props);
     this.state = {
       rainworks: [],
+      rainworksWithImages: [],
       loading: false
     };
   }
@@ -32,12 +33,16 @@ export class ActiveRainworksProvider extends Component {
       showError('Loading rainworks failed')
     } else {
       const data = await response.json();
-      this.setState({ rainworks: data, loading: false });
+      this.setState({
+        rainworks: data,
+        rainworksWithImages: data.filter((rainwork) => rainwork['image_url']),
+        loading: false
+      });
     }
   };
   
   refreshRainwork = async (rainworkId) => {
-  
+    // TODO: Make it possible to just refresh data on one rainwork
   };
   
   getProviderValue() {

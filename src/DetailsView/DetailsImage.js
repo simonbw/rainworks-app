@@ -7,7 +7,7 @@ import ImageView from 'react-native-image-view';
 
 class DetailsImage extends Component {
   static propTypes = {
-    imageUrl: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string,
   };
   
   constructor(props) {
@@ -19,8 +19,10 @@ class DetailsImage extends Component {
   }
   
   async componentDidMount() {
-    const cachedUri = await new Promise(resolve => CacheManager.cache(this.props.imageUrl, resolve));
-    this.setState({ cachedUri })
+    if (this.props.imageUrl) {
+      const cachedUri = await new Promise(resolve => CacheManager.cache(this.props.imageUrl, resolve));
+      this.setState({ cachedUri })
+    }
   }
   
   render() {

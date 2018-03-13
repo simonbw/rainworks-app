@@ -11,9 +11,9 @@ function getInitialNum() {
 
 const GalleryScreen = ({ navigation }) => (
   <ActiveRainworksConsumer>
-    {({ rainworks, loading, refreshAll }) => (
+    {({ rainworksWithImages, loading, refreshAll }) => (
       <FlatList
-        data={rainworks}
+        data={rainworksWithImages}
         numColumns={2}
         refreshing={loading}
         keyExtractor={(rainwork) => rainwork['id']}

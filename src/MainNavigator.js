@@ -23,6 +23,15 @@ export default DrawerNavigator({
       ),
     }
   },
+  [GALLERY_STACK]: {
+    screen: GalleryStack,
+    navigationOptions: {
+      drawerLabel: 'Gallery',
+      drawerIcon: () => (
+        <Icon name="images"/>
+      ),
+    }
+  },
   [SUBMIT_STACK]: {
     screen: SubmitStack,
     navigationOptions: {
@@ -50,15 +59,6 @@ export default DrawerNavigator({
       ),
     }
   },
-  [GALLERY_STACK]: {
-    screen: GalleryStack,
-    navigationOptions: {
-      drawerLabel: 'Gallery',
-      drawerIcon: () => (
-        <Icon name="images"/>
-      ),
-    }
-  },
 }, {
-  initialRouteName: GALLERY_STACK,
+  initialRouteName: MAP_STACK,
 });

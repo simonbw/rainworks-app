@@ -1,4 +1,4 @@
-import { View } from 'native-base';
+import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
@@ -11,12 +11,18 @@ const GalleryItem = (props) => (
       activeOpacity={0.8}
       onPress={() => props.navigation.navigate(GALLERY_DETAILS_SCREEN, { rainwork: props.rainwork })}
     >
-      <Image
-        style={styles.image}
-        resizeMode={'cover'}
-        resizeMethod={'scale'}
-        uri={props.rainwork['image_url']}
-      />
+      {props.rainwork['image_url'] ? (
+        <Image
+          style={styles.image}
+          resizeMode={'cover'}
+          resizeMethod={'scale'}
+          uri={props.rainwork['image_url']}
+        />
+      ) : (
+        <View style={styles.placeholder}>
+          <Icon name="image" style={{ color: '#BBB', fontSize: 96 }}/>
+        </View>
+      )}
     </TouchableOpacity>
   </View>
 );
@@ -32,8 +38,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    height: '100%',
     backgroundColor: '#666',
+    height: '100%',
+  },
+  placeholder: {
+    alignItems: 'center',
+    backgroundColor: '#666',
+    height: '100%',
+    justifyContent: 'center',
   }
 });
 

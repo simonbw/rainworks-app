@@ -15,10 +15,10 @@ export default StackNavigator({
     screen: MapScreen,
     navigationOptions: {
       headerTitle: <Image
-        source={require('../../assets/header@2.png')}
+        source={Asset.fromModule(require('../../assets/header.png'))}
         style={{
-          height: Asset.fromModule(require('../../assets/header@2.png')).height / 2,
-          width: Asset.fromModule(require('../../assets/header@2.png')).width / 2,
+          height: Asset.fromModule(require('../../assets/header.png')).height,
+          width: Asset.fromModule(require('../../assets/header.png')).width,
         }}
       />,
       headerBackTitle: 'Map',
