@@ -1,8 +1,8 @@
 import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { StyleSheet, TouchableHighlight } from 'react-native';
-import { CacheManager, Image } from "react-native-expo-image-cache";
+import { Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { CacheManager } from "react-native-expo-image-cache";
 import ImageView from 'react-native-image-view';
 
 class DetailsImage extends Component {
@@ -26,19 +26,20 @@ class DetailsImage extends Component {
   }
   
   render() {
-    return this.state.cachedUri ? (
+    const cachedUri = this.state.cachedUri;
+    return cachedUri ? (
       <Fragment>
         <TouchableHighlight onPress={() => this.setState({ open: true })}>
           <Image
             style={styles.image}
             resizeMode={'cover'}
             resizeMethod={'scale'}
-            uri={this.props.imageUrl}
+            source={{ uri: cachedUri }}
           />
         </TouchableHighlight>
         <ImageView
           isVisible={this.state.open}
-          source={{ uri: this.state.cachedUri }}
+          source={{ uri: cachedUri }}
           onClose={() => this.setState({ open: false })}
           animationType={'fade'}
           imageHeight={undefined} // everything seems to work fine with these being undefined

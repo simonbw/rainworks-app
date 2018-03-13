@@ -32,10 +32,11 @@ export class ActiveRainworksProvider extends Component {
     if (!response.ok) {
       showError('Loading rainworks failed')
     } else {
-      const data = await response.json();
+      const rainworks = await response.json();
+      rainworks.sort((a, b) => new Date(b['installation_date']) - new Date(a['installation_date']));
       this.setState({
-        rainworks: data,
-        rainworksWithImages: data.filter((rainwork) => rainwork['image_url']),
+        rainworks,
+        rainworksWithImages: rainworks.filter((rainwork) => rainwork['image_url']),
         loading: false
       });
     }

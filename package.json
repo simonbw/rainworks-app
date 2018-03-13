@@ -31,7 +31,7 @@
     "react-native-autolink": "^1.4.0",
     "react-native-aws3": "^0.0.8",
     "react-native-datepicker": "^1.6.0",
-    "react-native-expo-image-cache": "^1.1.0",
+    "react-native-expo-image-cache": "^2.0.0",
     "react-native-image-view": "^1.2.5",
     "react-native-open-maps": "^0.1.3",
     "react-navigation": "^1.2.0"

@@ -1,6 +1,7 @@
 import { AppLoading, Asset } from 'expo';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { CacheManager } from 'react-native-expo-image-cache';
 import { showError } from './util';
 
 class Preloader extends Component {
@@ -34,6 +35,7 @@ class Preloader extends Component {
   }
   
   cacheAssets = async () => {
+    await CacheManager.clearCache(); // TODO: Something better than this
     await Promise.all([
       Expo.Font.loadAsync({
         // 'Rainworks': require('../assets/Rainworks.ttf'),
