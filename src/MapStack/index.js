@@ -17,8 +17,8 @@ export default StackNavigator({
       headerTitle: <Image
         source={Asset.fromModule(require('../../assets/header.png'))}
         style={{
-          height: Asset.fromModule(require('../../assets/header.png')).height,
-          width: Asset.fromModule(require('../../assets/header.png')).width,
+          height: Asset.fromModule(require('../../assets/header.png')).height / 2,
+          width: Asset.fromModule(require('../../assets/header.png')).width / 2,
         }}
       />,
       headerBackTitle: 'Map',

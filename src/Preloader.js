@@ -25,7 +25,7 @@ class Preloader extends Component {
         startAsync={this.cacheAssets}
         onError={(e) => {
           this.setState({ ready: true });
-          // setTimeout(() => showError('Error loading resources'), 10000);
+          showError('Error loading resources');
           console.error(e);
         }}
         onFinish={() => this.setState({ ready: true })}
