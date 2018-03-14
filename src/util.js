@@ -1,6 +1,7 @@
 import { Notifications, Permissions } from 'expo';
 import { Toast } from "native-base";
 import { CacheManager } from 'react-native-expo-image-cache';
+import { DEVICES_URL } from './urls';
 
 export const COMMON_DATE_FORMAT = 'MMM Do, YYYY';
 
@@ -39,9 +40,9 @@ export function uploadFile(url, file, onProgress = () => null) {
 }
 
 export async function registerForPushNotifications() {
-  const permissionStatus = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  if (permissionStatus === 'granted') {
-    const url = `https://rainworks-backend.herokuapp.com/api/devices/${encodeURIComponent(getDeviceId())}`;
+  const permissionResult = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  if (permissionResult && permissionResult.status === 'granted') {
+    const url = `${DEVICES_URL}/${encodeURIComponent(getDeviceId())}`;
     console.log('register device url:', url);
     const result = await fetch(url, {
       method: 'PUT',
@@ -51,6 +52,8 @@ export async function registerForPushNotifications() {
       })
     });
     return await result.json();
+  } else {
+    console.warn('Notification Permissions Denied', permissionResult);
   }
   return null;
 }
