@@ -2,6 +2,7 @@ import { Icon } from 'native-base';
 import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
 import AboutStack from './AboutStack';
+import { NavigatorConsumer } from './contexts/NavigatorContext';
 import GalleryStack from './GalleryStack';
 import MapStack from './MapStack';
 import SubmissionsScreen from './SubmissionsScreen';
@@ -13,7 +14,7 @@ export const SUBMISSIONS_SCREEN = 'SUBMISSIONS_SCREEN';
 export const ABOUT_SCREEN = 'ABOUT_SCREEN';
 export const GALLERY_STACK = 'GALLERY_STACK';
 
-export default DrawerNavigator({
+const MainNavigator = DrawerNavigator({
   [MAP_STACK]: {
     screen: MapStack,
     navigationOptions: {
@@ -62,3 +63,11 @@ export default DrawerNavigator({
 }, {
   initialRouteName: MAP_STACK,
 });
+
+export default () => (
+  <NavigatorConsumer>
+    {({ setNavigator }) => (
+      <MainNavigator ref={(c) => setNavigator(c)}/>
+    )}
+  </NavigatorConsumer>
+)

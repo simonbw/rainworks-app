@@ -21,7 +21,6 @@ Link.propTypes = {
 export const linkStyles = StyleSheet.create({
   link: {
     color: '#4F8EF7',
-    // fontWeight: 'bold',
   }
 });
 

@@ -37,10 +37,15 @@ export class SubmissionsProvider extends Component {
     }
   };
   
+  getSubmission = (id) => {
+    return this.state.submissions.find((s) => s['id'] === id);
+  };
+  
   getProviderValue() {
     return {
       ...this.state,
       refresh: this.loadSubmissions,
+      getSubmission: this.getSubmission,
     }
   }
   
