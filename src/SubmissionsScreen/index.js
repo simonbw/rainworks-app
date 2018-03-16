@@ -1,13 +1,14 @@
 import { Button, Icon } from 'native-base';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
+import { WHITE } from '../constants/Colors';
 import DrawerMenuButton from '../DrawerMenuButton';
 import { defaultStackNavigatorConfig } from '../HeaderStyle';
 import { SUBMIT_STACK } from '../MainNavigator';
 import SubmissionDetailsScreen from './SubmissionDetailsScreen';
 import SubmissionsList from './SubmissionsList';
 
-const NewSubmissionButton = ({ navigation, tintColor = '#FFFFFF' }) => (
+const NewSubmissionButton = ({ navigation, tintColor = WHITE }) => (
   <Button
     transparent
     style={{ height: '100%' }}

@@ -2,6 +2,7 @@ import { Text } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Linking, StyleSheet } from 'react-native';
+import { ACTION_COLOR } from './constants/Colors';
 
 const Link = ({ url, children }) => (
   <Text
@@ -20,7 +21,7 @@ Link.propTypes = {
 
 export const linkStyles = StyleSheet.create({
   link: {
-    color: '#4F8EF7',
+    color: ACTION_COLOR,
   }
 });
 

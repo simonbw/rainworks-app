@@ -2,6 +2,7 @@ import moment from 'moment';
 import { Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { FOUND_IT_COLOR, REPORT_COLOR } from '../constants/Colors';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import { COMMON_DATE_FORMAT } from '../util';
 
@@ -76,12 +77,12 @@ const styles = StyleSheet.create({
   foundItText: {
     marginBottom: 12,
     fontStyle: 'italic',
-    color: '#0A0',
+    color: FOUND_IT_COLOR,
   },
   reportText: {
     marginBottom: 12,
     fontStyle: 'italic',
-    color: '#C00',
+    color: REPORT_COLOR,
   }
 });
 

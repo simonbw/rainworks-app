@@ -6,8 +6,9 @@ const SubmissionDetailsScreen = ({ navigation }) => {
   return <DetailsContent
     navigation={navigation}
     rainwork={rainwork}
-    includeOpenInMaps
     includeFindOnMap={rainwork['approval_status'] === 'accepted'}
+    includeOpenInMaps
+    includeApprovalStatus
   />;
 };
 

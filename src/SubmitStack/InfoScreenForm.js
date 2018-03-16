@@ -2,6 +2,7 @@ import { Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import { GRAY, ACTION_COLOR } from '../constants/Colors';
 import { COMMON_DATE_FORMAT } from '../util';
 import { SubmissionConsumer } from './SubmissionContext';
 
@@ -96,13 +97,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingVertical: 8,
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#BBB'
+    borderBottomColor: GRAY,
   },
   multiline: {},
   datePicker: {
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#BBB',
+    borderBottomColor: GRAY,
   },
   dateInput: {
     borderWidth: 0,
@@ -113,6 +114,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   btnTextConfirm: {
-    color: '#007aff',
+    color: ACTION_COLOR,
   },
 });

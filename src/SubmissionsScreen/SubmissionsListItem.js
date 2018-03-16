@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, TouchableHighlight } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { ACCEPTED_COLOR, EXPIRED_COLOR, PENDING_COLOR, REJECTED_COLOR, WHITE } from '../constants/Colors';
 import { SUBMISSION_DETAILS_SCREEN } from './index';
 
 export const ITEM_HEIGHT = 80;
@@ -17,7 +18,7 @@ function getStatusIcon(status) {
     case 'rejected':
       return <Icon active name="close-circle" style={styles.rejected}/>;
     case 'expired':
-      return <Icon active name="close-circle" style={styles.rejected}/>;
+      return <Icon active name="close-circle" style={styles.expired}/>;
     default:
       throw new Error(`invalid status: ${status}`);
   }
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: ITEM_HEIGHT,
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: WHITE,
   },
   left: {
     width: 64,
@@ -71,13 +72,16 @@ const styles = StyleSheet.create({
     
   },
   pending: {
-    color: '#FB0'
+    color: PENDING_COLOR,
   },
   accepted: {
-    color: '#0A0'
+    color: ACCEPTED_COLOR,
   },
   rejected: {
-    color: '#C00'
+    color: REJECTED_COLOR,
+  },
+  expired: {
+    color: EXPIRED_COLOR,
   },
 });
 

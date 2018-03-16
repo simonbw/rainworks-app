@@ -3,6 +3,7 @@ import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ACTION_COLOR, WHITE } from './constants/Colors';
 import { LocationConsumer } from './contexts/LocationContext';
 import { coordsToRegion, rainworkToCoords } from './util';
 
@@ -57,7 +58,7 @@ class ToggleableMapView extends Component {
                     activeOpacity={0.4}
                     onPress={() => this._mapRef.animateToRegion(userRegion)}
                   >
-                    <Icon name="locate" style={{ color: '#4F8EF7' }}/>
+                    <Icon name="locate" style={{ color: ACTION_COLOR }}/>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: WHITE,
     borderRadius: 100,
     height: 48,
     justifyContent: 'center',
@@ -97,8 +98,8 @@ const styles = StyleSheet.create({
     width: 48,
   },
   currentLocationMarker: {
-    backgroundColor: '#4F8EF7',
-    borderColor: '#FFF',
+    backgroundColor: ACTION_COLOR,
+    borderColor: WHITE,
     borderRadius: 12,
     borderWidth: StyleSheet.hairlineWidth * 5,
     height: 16,

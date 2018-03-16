@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { GRAY } from '../constants/Colors';
 import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import { COMMON_DATE_FORMAT } from '../util';
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   tapToView: {
     fontStyle: 'italic',
-    color: '#BBB'
+    color: GRAY,
   },
 });
 

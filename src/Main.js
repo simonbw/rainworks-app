@@ -1,6 +1,7 @@
 import { Root } from 'native-base';
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { STATUS_BAR_COLOR } from './constants/Colors';
 import { ActiveRainworksProvider } from './contexts/ActiveRainworksContext';
 import { LocationProvider } from './contexts/LocationContext';
 import { NavigatorProvider } from './contexts/NavigatorContext';
@@ -15,7 +16,7 @@ import WelcomeScreen from './WelcomeScreen';
 export default () => (
   <Root>
     <StatusBar
-      backgroundColor={'#00000000'}
+      backgroundColor={STATUS_BAR_COLOR}
       barStyle={'light-content'}
       translucent={true}
     />

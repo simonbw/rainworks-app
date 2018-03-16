@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { RAINWORKS_BLUE, WHITE } from './constants/Colors';
 
 const headerStyles = StyleSheet.create({
   header: {
-    backgroundColor: '#14a9e6',
+    backgroundColor: RAINWORKS_BLUE,
     margin: 0,
     padding: 0,
   },
@@ -16,6 +17,6 @@ export const defaultStackNavigatorConfig = {
   navigationOptions: {
     headerStyle: headerStyles.header,
     headerTitleStyle: headerStyles.headerTitle,
-    headerTintColor: '#FFFFFF',
+    headerTintColor: WHITE,
   }
 };

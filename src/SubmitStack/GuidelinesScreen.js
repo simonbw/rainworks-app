@@ -1,6 +1,7 @@
 import { Button, Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { WHITE } from '../constants/Colors';
 import Link from '../Link';
 import { LOCATION_SELECT_SCREEN } from './index';
 
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     ...StyleSheet.absoluteFillObject,
     padding: 16,
-    backgroundColor: '#FFF',
+    backgroundColor: WHITE,
   },
   paragraph: {
     fontSize: 16,

@@ -3,6 +3,7 @@ import { Text, Toast } from "native-base";
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
+import { WHITE } from './constants/Colors';
 import { NavigatorConsumer } from './contexts/NavigatorContext';
 import { SubmissionsConsumer } from './contexts/SubmissionsContext';
 import { SUBMISSION_DETAILS_SCREEN, SUBMISSIONS_LIST_SCREEN } from './SubmissionsScreen';
@@ -57,7 +58,7 @@ class NotificationHandler extends Component {
   renderToastText(notificationType, submissionId) {
     return (
       <Text
-        style={{ color: '#FFF' }}
+        style={{ color: WHITE }}
         onPress={() => {
           this.navigateToSubmission(submissionId);
           Toast.toastInstance._root.closeToast();

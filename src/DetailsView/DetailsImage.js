@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import { Image, StyleSheet, TouchableHighlight } from 'react-native';
 import { CacheManager } from "react-native-expo-image-cache";
 import ImageView from 'react-native-image-view';
+import { DARK_GRAY, GRAY } from '../constants/Colors';
 
 class DetailsImage extends Component {
   static propTypes = {
@@ -48,7 +49,7 @@ class DetailsImage extends Component {
       </Fragment>
     ) : (
       <View style={styles.placeholder}>
-        <Icon name="image" style={{ color: '#BBB', fontSize: 96 }}/>
+        <Icon name="image" style={{ color: GRAY, fontSize: 96 }}/>
       </View>
     );
   }
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     width: null,
     height: 240,
     flex: 1,
-    backgroundColor: '#666',
+    backgroundColor: DARK_GRAY,
   },
   placeholder: {
     width: null,
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#666',
+    backgroundColor: DARK_GRAY,
   },
 });
 

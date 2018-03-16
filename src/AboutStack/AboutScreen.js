@@ -1,6 +1,7 @@
 import { Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { WHITE } from '../constants/Colors';
 import Link from '../Link';
 
 const AboutScreen = () => (
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: WHITE,
   },
   paragraph: {
     paddingBottom: 12,

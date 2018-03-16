@@ -3,6 +3,7 @@ import { ActionSheet, Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, ImageEditor, StyleSheet, TouchableOpacity } from 'react-native';
+import { DARK_GRAY, WHITE } from '../constants/Colors';
 import { showError } from '../util';
 
 const MAXIMUM_DIMENSION = 1024;
@@ -80,7 +81,7 @@ export default class PhotoSelector extends Component {
           />
         ) : (
           <View style={styles.placeholder}>
-            <Icon name="camera" style={{ color: '#FFF', fontSize: 96 }}/>
+            <Icon name="camera" style={{ color: WHITE, fontSize: 96 }}/>
           </View>
         )}
       </TouchableOpacity>
@@ -90,13 +91,13 @@ export default class PhotoSelector extends Component {
 
 const styles = StyleSheet.create({
   image: {
-    backgroundColor: '#666',
+    backgroundColor: DARK_GRAY,
     height: 240,
     width: null,
   },
   placeholder: {
     alignItems: 'center',
-    backgroundColor: '#666',
+    backgroundColor: DARK_GRAY,
     flexDirection: 'row',
     height: 240,
     justifyContent: 'center',
