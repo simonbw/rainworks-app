@@ -26,8 +26,7 @@ class ToggleableMapView extends Component {
   };
   
   render() {
-    const { initialMapType, children, ...otherProps } = this.props;
-    const selectedRainwork = this.props.selectedRainwork;
+    const { initialMapType, children, selectedRainwork, ...otherProps } = this.props;
     const selectedRegion = selectedRainwork && coordsToRegion(rainworkToCoords(selectedRainwork));
     return (
       <LocationConsumer>
@@ -49,7 +48,7 @@ class ToggleableMapView extends Component {
                     <View style={styles.currentLocationMarker}/>
                   </MapView.Marker>
                 )}
-                {this.props.children || null}
+                {children || null}
               </MapView>
               <View style={styles.buttonSheet}>
                 {userRegion && (

@@ -10,7 +10,7 @@ import { ReportsConsumer } from '../contexts/ReportsContext';
 import { COMMON_DATE_FORMAT } from '../util';
 import { MAP_DETAILS_SCREEN } from './index';
 
-const RainworkMarker = ({ rainwork, navigation }) => (
+const RainworkMarker = ({ rainwork, navigation, markerRef }) => (
   <ReportsConsumer>
     {({ hasReport }) => (
       <ActiveRainworksConsumer>
@@ -29,6 +29,7 @@ const RainworkMarker = ({ rainwork, navigation }) => (
               x: 0,
               y: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 4,
             }}
+            ref={markerRef}
           >
             <MapView.Callout
               onPress={() => {
@@ -61,6 +62,7 @@ const RainworkMarker = ({ rainwork, navigation }) => (
 RainworkMarker.propTypes = {
   rainwork: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  markerRef: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

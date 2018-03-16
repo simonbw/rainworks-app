@@ -14,9 +14,24 @@ class MapScreen extends Component {
     refreshAll: PropTypes.func.isRequired
   };
   
+  constructor(props) {
+    super(props);
+    this._markers = {};
+  }
+  
   componentDidMount() {
     if (!this.props.loading) {
       this.props.refreshAll();
+    }
+    const selectedRainwork = this.getSelectedRainwork();
+    if (selectedRainwork) {
+      const marker = this._markers[selectedRainwork['id']];
+      if (marker) {
+        setTimeout(() => { // I'm not exactly sure why this had to be asynchronous, but it works
+          console.log('showing marker callout');
+          marker.showCallout();
+        }, 0);
+      }
     }
   }
   
@@ -40,8 +55,9 @@ class MapScreen extends Component {
         <ToggleableMapView selectedRainwork={this.getSelectedRainwork()}>
           {this.props.rainworks.map((rainwork) => (
             <RainworkMarker
-              rainwork={rainwork}
               key={rainwork['id']}
+              rainwork={rainwork}
+              markerRef={c => this._markers[rainwork['id']] = c}
             />
           ))}
         </ToggleableMapView>
