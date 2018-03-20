@@ -49,6 +49,9 @@ class Preloader extends Component {
         require('react-navigation/src/views/assets/back-icon.png'),
         require('react-navigation/src/views/assets/back-icon-mask.png'),
       ]),
+      Asset.loadAsync([ // TODO: Only preload this on first open
+        require('../assets/intro.mp4'),
+      ]),
     ]);
   }
 }

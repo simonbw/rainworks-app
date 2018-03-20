@@ -28,8 +28,9 @@ export default () => (
               <ReportsProvider>
                 <SubmissionsProvider>
                   <NotificationHandler/>
-                  <MainNavigator/>
-                  <WelcomeScreen/>
+                  <WelcomeScreen>
+                    <MainNavigator/>
+                  </WelcomeScreen>
                 </SubmissionsProvider>
               </ReportsProvider>
             </ActiveRainworksProvider>

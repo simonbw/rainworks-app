@@ -5,9 +5,6 @@ import Link from '../Link';
 
 const WelcomeScreenContent = ({ close }) => (
   <Fragment>
-    <StatusBar
-      barStyle={'dark-content'}
-    />
     <View style={styles.container}>
       <Text style={styles.header}>
         Welcome to the Rainworks App!
