@@ -78,7 +78,7 @@ class UnconnectedInfoScreen extends Component {
 
 const styles = StyleSheet.create({
   form: {
-    padding: 12,
+    padding: 16,
   },
   submitButton: { position: 'absolute', bottom: 12, right: 12 },
   progressViewAndroid: {},

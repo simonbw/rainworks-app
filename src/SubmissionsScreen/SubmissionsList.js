@@ -34,7 +34,7 @@ class UnconnectedSubmissionsList extends Component {
           )}
           initialNumToRender={Math.ceil(Dimensions.get('window').height / ITEM_HEIGHT)}
           ListEmptyComponent={() => (
-            <View style={{ padding: 12 }}>
+            <View style={{ padding: 16 }}>
               <Text>You have no submissions</Text>
             </View>
           )}

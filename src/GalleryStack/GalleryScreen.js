@@ -23,7 +23,7 @@ const GalleryScreen = ({ navigation }) => (
         ListEmptyComponent={(
           <View
             style={{
-              padding: 12,
+              padding: 16,
               justifyContent: 'center',
               alignItems: 'center',
             }}

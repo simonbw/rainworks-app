@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     flex: 1,
-    padding: 12 * 4,
+    padding: 16 * 3,
   },
   header: {
     paddingBottom: 12,

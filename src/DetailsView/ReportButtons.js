@@ -2,16 +2,17 @@ import { ActionSheet, Button, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import LocationRestricted from '../LocationRestricted';
-import { showSuccess } from '../util';
+import { REPORT_SCREEN } from '../MapStack';
 
 const MISSING_TEXT = 'It\s Not Here';
 const FADED_TEXT = 'It\s Really Faded';
 const INAPPROPRIATE_TEXT = 'It\'s Inappropriate';
 const CANCEL_TEXT = 'Cancel';
 
-const ReportButtons = ({ rainwork }) => (
+const ReportButtons = withNavigation(({ navigation, rainwork }) => (
   <LocationRestricted
     renderInside={(
       <ReportsConsumer>
@@ -40,9 +41,13 @@ const ReportButtons = ({ rainwork }) => (
                   style={styles.button}
                   onPress={async () => {
                     const reportType = await pickReport(hasMissing, hasFaded, hasInappropriate);
-                    if (reportType) {
+                    if (reportType === 'missing') {
                       await submitReport(rainwork['id'], reportType);
-                      showSuccess('Report Submitted');
+                    } else if (reportType === 'faded' || reportType === 'inappropriate') {
+                      navigation.navigate(REPORT_SCREEN, {
+                        rainworkId: rainwork['id'],
+                        reportType: reportType
+                      });
                     }
                   }}
                 >
@@ -61,8 +66,7 @@ const ReportButtons = ({ rainwork }) => (
     lng={rainwork['lng']}
     maximumDistance={1.0}
   />
-
-);
+));
 
 const pickReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
   const options = [];

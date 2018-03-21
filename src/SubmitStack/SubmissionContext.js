@@ -102,7 +102,7 @@ export class SubmissionProvider extends Component {
       throw new Error('Upload Error', response.errorMessage);
     }
     this.setState({ uploadProgress: calculateProgress(true, true, 1) });
-    ImageStore.removeImageForTag(this.state);
+    ImageStore.removeImageForTag(this.state.imageUri);
   };
   
   submit = async () => {

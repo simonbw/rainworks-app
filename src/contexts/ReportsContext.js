@@ -1,8 +1,9 @@
 import createContext from 'create-react-context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { ImageStore } from 'react-native';
 import { REPORTS_URL } from '../urls';
-import { getDeviceId, makeQueryString, showError } from '../util';
+import { getDeviceId, makeQueryString, showError, showSuccess, uploadFile } from '../util';
 
 const Context = createContext({});
 
@@ -17,7 +18,8 @@ export class ReportsProvider extends Component {
     super(props);
     this.state = {
       reports: [],
-      loading: false
+      loading: false,
+      submitting: false,
     };
   }
   
@@ -36,24 +38,59 @@ export class ReportsProvider extends Component {
     }
   };
   
-  submitReport = async (rainworkId, reportType) => {
-    const body = JSON.stringify({
+  submitReport = async (rainworkId, reportType, imageUri, description) => {
+    try {
+      this.setState({ submitting: true });
+      const responseData = await this.postToApi(rainworkId, reportType, description);
+      const report = responseData['report'];
+      const uploadUrl = responseData['image_upload_url'];
+      
+      if (imageUri) {
+        await this.uploadImage(uploadUrl, imageUri)
+      }
+      
+      showSuccess('Report Submitted');
+      return report;
+    } catch (e) {
+      console.error(e);
+      showError('Submitting Report Failed');
+    } finally {
+      this.setState({ submitting: false });
+    }
+  };
+  
+  postToApi = async (rainworkId, reportType, description) => {
+    const params = {
       'device_uuid': getDeviceId(),
       'rainwork_id': rainworkId,
       'report_type': reportType,
-    });
+    };
+    if (description) {
+      params['description'] = description;
+    }
     const response = await fetch(REPORTS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body
+      body: JSON.stringify(params)
     });
     if (!response.ok) {
-      showError('Submitting Report Failed')
-    } else {
-      const report = await response.json();
-      this.setState({ reports: this.state.reports.concat([report]) })
-      return report;
+      throw new Error(`Error submitting to API: ${response.errorMessage}`);
     }
+    return await response.json();
+  };
+  
+  uploadImage = async (uploadUrl, imageUri) => {
+    const file = { uri: imageUri, type: 'image/jpg' };
+    const response = await uploadFile(
+      uploadUrl,
+      file,
+      ({ loaded, total }) => null, // TODO: progress
+    );
+    if (response.status >= 400) {
+      console.log(response);
+      throw new Error('Image Upload Error', response.errorMessage);
+    }
+    ImageStore.removeImageForTag(imageUri);
   };
   
   getReport = (rainworkId, reportType) => {

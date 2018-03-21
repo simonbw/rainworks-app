@@ -2,12 +2,14 @@ import { Asset } from 'expo';
 import React from 'react';
 import { Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import ReportScreen from '../DetailsView/ReportScreen';
 import DrawerMenuButton from '../DrawerMenuButton';
 import { defaultStackNavigatorConfig } from '../HeaderStyle';
 import DetailsScreen from './MapDetailsScreen';
 import MapScreen from './MapScreen';
 
 export const MAP_SCREEN = 'MAP_SCREEN';
+export const REPORT_SCREEN = 'REPORT_SCREEN';
 export const MAP_DETAILS_SCREEN = 'MAP_DETAILS_SCREEN';
 
 export default StackNavigator({
@@ -32,6 +34,12 @@ export default StackNavigator({
       return ({
         title: `${rainwork['name']}`
       })
+    }
+  },
+  [REPORT_SCREEN]: {
+    screen: ReportScreen,
+    navigationOptions: {
+      title: 'Report Rainwork'
     }
   },
 }, {
