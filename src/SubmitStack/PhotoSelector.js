@@ -1,9 +1,9 @@
 import { ImagePicker } from 'expo';
-import { ActionSheet, Icon, View } from 'native-base';
+import { ActionSheet, Icon, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, ImageEditor, StyleSheet, TouchableOpacity } from 'react-native';
-import { DARK_GRAY, WHITE } from '../constants/Colors';
+import { DARK_GRAY, GRAY, LIGHT_GRAY, WHITE } from '../constants/Colors';
 import { showError } from '../util';
 
 const MAXIMUM_DIMENSION = 1024;
@@ -82,6 +82,7 @@ export default class PhotoSelector extends Component {
         ) : (
           <View style={styles.placeholder}>
             <Icon name="camera" style={{ color: WHITE, fontSize: 96 }}/>
+            <Text style={styles.placeholderText}>Tap to take a photo</Text>
           </View>
         )}
       </TouchableOpacity>
@@ -98,9 +99,12 @@ const styles = StyleSheet.create({
   placeholder: {
     alignItems: 'center',
     backgroundColor: DARK_GRAY,
-    flexDirection: 'row',
     height: 240,
     justifyContent: 'center',
     width: null,
+  },
+  placeholderText: {
+    color: GRAY,
+    fontSize: 20,
   },
 });
