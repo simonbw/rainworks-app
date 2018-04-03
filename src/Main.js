@@ -23,18 +23,18 @@ export default () => (
     <Preloader>
       <NavigatorProvider>
         <SubmissionProvider>
-          <LocationProvider>
-            <ActiveRainworksProvider>
-              <ReportsProvider>
-                <SubmissionsProvider>
-                  <NotificationHandler/>
-                  <WelcomeScreen>
+          <ActiveRainworksProvider>
+            <ReportsProvider>
+              <SubmissionsProvider>
+                <NotificationHandler/>
+                <WelcomeScreen>
+                  <LocationProvider>
                     <MainNavigator/>
-                  </WelcomeScreen>
-                </SubmissionsProvider>
-              </ReportsProvider>
-            </ActiveRainworksProvider>
-          </LocationProvider>
+                  </LocationProvider>
+                </WelcomeScreen>
+              </SubmissionsProvider>
+            </ReportsProvider>
+          </ActiveRainworksProvider>
         </SubmissionProvider>
       </NavigatorProvider>
     </Preloader>

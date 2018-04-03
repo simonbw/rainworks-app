@@ -56,7 +56,7 @@ class WelcomeScreen extends Component {
     const phase = this.state.phase;
     return (
       <Fragment>
-        {phase > UNKNOWN && this.props.children}
+        {phase >= HAS_SEEN && this.props.children}
         {phase > UNKNOWN && phase < HAS_SEEN && (
           <Modal
             onRequestClose={() => this.closeModal()}
