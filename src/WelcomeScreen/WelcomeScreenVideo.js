@@ -1,4 +1,4 @@
-import { Video } from 'expo';
+import { KeepAwake, Video } from 'expo';
 import { Text } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -42,11 +42,13 @@ class WelcomeScreenVideo extends Component {
           opacity: this._fadeAnimation,
         }}
       >
+        <KeepAwake/>
         <Video
           ref={(r) => this._videoRef = r}
           style={{
             flex: 1,
           }}
+          resizeMode="cover"
           source={require('../../assets/intro.mp4')}
           shouldPlay
           usePoster
