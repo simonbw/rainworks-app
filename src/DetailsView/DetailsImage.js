@@ -1,7 +1,7 @@
 import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { Image, Platform, StyleSheet, TouchableHighlight } from 'react-native';
 import { CacheManager } from "react-native-expo-image-cache";
 import ImageView from 'react-native-image-view';
 import { DARK_GRAY, GRAY } from '../constants/Colors';
@@ -21,8 +21,13 @@ class DetailsImage extends Component {
   
   async componentDidMount() {
     if (this.props.imageUrl) {
-      const cachedUri = await new Promise(resolve => CacheManager.cache(this.props.imageUrl, resolve));
-      this.setState({ cachedUri })
+      if (Platform.OS === 'android') {
+        this.setState({ cachedUri: this.props.imageUrl });
+      } else { /// ios
+        this.setState({
+          cachedUri: await new Promise(resolve => CacheManager.cache(this.props.imageUrl, resolve))
+        });
+      }
     }
   }
   

@@ -5877,9 +5877,9 @@ react-native-gesture-handler@1.0.0-alpha.41:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-image-view@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.0.4.tgz#efb6c12e62941e4d66b9ee5b4cf4ec50e571ab69"
+react-native-image-view@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-1.2.5.tgz#2aa2656912a6fdc2234733e0e9e37522b234fba3"
   dependencies:
     react-native-root-modal "^2.2.0"
 

@@ -1,6 +1,6 @@
 import { View } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, Platform } from 'react-native';
 import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
 import GalleryItem from './GalleryItem';
 
@@ -13,6 +13,7 @@ const GalleryScreen = ({ navigation }) => (
   <ActiveRainworksConsumer>
     {({ rainworksWithImages, loading, refreshAll }) => (
       <FlatList
+        removeClippedSubviews={Platform.OS === 'android'}
         data={rainworksWithImages}
         numColumns={2}
         refreshing={loading}

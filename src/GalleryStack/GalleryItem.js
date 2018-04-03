@@ -1,8 +1,8 @@
 import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
-import { Image } from "react-native-expo-image-cache";
+import { Dimensions, Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image as CachedImage } from "react-native-expo-image-cache";
 import { DARK_GRAY, GRAY } from '../constants/Colors';
 import { GALLERY_DETAILS_SCREEN } from './index';
 
@@ -13,12 +13,21 @@ const GalleryItem = (props) => (
       onPress={() => props.navigation.navigate(GALLERY_DETAILS_SCREEN, { rainwork: props.rainwork })}
     >
       {props.rainwork['image_url'] ? (
-        <Image
-          style={styles.image}
-          resizeMode={'cover'}
-          resizeMethod={'scale'}
-          uri={props.rainwork['image_url']}
-        />
+        Platform.OS === 'ios' ? (
+          <CachedImage
+            style={styles.image}
+            resizeMode={'cover'}
+            resizeMethod={'scale'}
+            uri={props.rainwork['image_url']}
+          />
+        ) : ( // TODO: Figure out how to get the cached images to work right on android
+          <Image
+            style={styles.image}
+            resizeMode={'cover'}
+            resizeMethod={'scale'}
+            source={{ uri: props.rainwork['image_url'] }}
+          />
+        )
       ) : (
         <View style={styles.placeholder}>
           <Icon name="image" style={{ color: GRAY, fontSize: 96 }}/>
