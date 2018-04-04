@@ -33,6 +33,7 @@
       }
     },
     "android": {
+      "package": "works.rain.rainworks",
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "CAMERA",
