@@ -1,4 +1,5 @@
 import { Asset } from 'expo';
+import { View } from 'native-base';
 import React from 'react';
 import { Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
@@ -16,15 +17,27 @@ export default StackNavigator({
   [MAP_SCREEN]: {
     screen: MapScreen,
     navigationOptions: {
-      headerTitle: <Image
-        source={Asset.fromModule(require('../../assets/header.png'))}
-        style={{
-          height: Asset.fromModule(require('../../assets/header.png')).height / 2,
-          width: Asset.fromModule(require('../../assets/header.png')).width / 2,
-        }}
-      />,
+      headerTitle: (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            flexGrow: 1,
+          }}
+        >
+          <Image
+            source={Asset.fromModule(require('../../assets/header.png'))}
+            style={{
+              height: Asset.fromModule(require('../../assets/header.png')).height / 2,
+              width: Asset.fromModule(require('../../assets/header.png')).width / 2,
+              
+            }}
+          />
+        </View>
+      ),
       headerBackTitle: 'Map',
-      headerLeft: <DrawerMenuButton/>
+      headerLeft: <DrawerMenuButton/>,
+      headerRight: <View/>
     }
   },
   [MAP_DETAILS_SCREEN]: {
