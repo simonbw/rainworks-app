@@ -33,6 +33,11 @@
       }
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAbbkZjzrkocKljwAbjnUyfhUAnPd-Beog"
+        }
+      },
       "package": "works.rain.rainworks",
       "permissions": [
         "ACCESS_FINE_LOCATION",
