@@ -45,7 +45,7 @@ class ToggleableMapView extends Component {
                 showsMyLocationButton={false}
               >
                 {userRegion && (
-                  <MapView.Marker coordinate={userRegion}>
+                  <MapView.Marker coordinate={userRegion} stopPropagation>
                     <View style={styles.currentLocationMarker}/>
                   </MapView.Marker>
                 )}

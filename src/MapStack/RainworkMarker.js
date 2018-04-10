@@ -28,7 +28,7 @@ const RainworkMarker = ({ rainwork, navigation, markerRef }) => (
             }
             centerOffset={{
               x: 0,
-              y: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 4,
+              y: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 2,
             }}
             ref={markerRef}
           >

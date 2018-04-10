@@ -7,11 +7,6 @@
     "sdkVersion": "26.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "splash": {
-      "image": "./assets/splash.png",
-      "backgroundColor": "#FFFFFF",
-      "resizeMode": "contain"
-    },
     "primaryColor": "#14a9e6",
     "androidStatusBar": {
       "barStyle": "light-content",
@@ -31,6 +26,11 @@
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
         "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you."
+      },
+      "splash": {
+        "image": "./assets/splash_ios.png",
+        "backgroundColor": "#FFFFFF",
+        "resizeMode": "contain"
       }
     },
     "android": {
@@ -45,8 +45,19 @@
         "ACCESS_FINE_LOCATION",
         "CAMERA",
         "READ_INTERNAL_STORAGE",
-        "READ_EXTERNAL_STORAGE"
-      ]
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "splash": {
+        "ldpi": "./assets/splash_android.png",
+        "mdpi": "./assets/splash_android.png",
+        "hdpi": "./assets/splash_android.png",
+        "xhdpi": "./assets/splash_android.png",
+        "xxhdpi": "./assets/splash_android.png",
+        "xxxhdpi": "./assets/splash_android.png",
+        "backgroundColor": "#FFFFFF",
+        "resizeMode": "contain"
+      }
     }
   }
 }
