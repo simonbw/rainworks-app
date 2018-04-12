@@ -24,7 +24,7 @@ const AboutScreen = () => (
     </Text>
     <Text style={styles.paragraph}>
       For help & support, email us
-      at <Link url={'mailto://contact@rain.works'}>contact@rain.works</Link>.
+      at <Link url={'mailto:contact@rain.works'}>contact@rain.works</Link>.
     </Text>
   </View>
 );
