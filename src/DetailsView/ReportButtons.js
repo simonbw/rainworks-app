@@ -1,7 +1,7 @@
 import { ActionSheet, Button, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import LocationRestricted from '../LocationRestricted';
@@ -16,7 +16,13 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
   <LocationRestricted
     renderInside={(
       <ReportsConsumer>
-        {({ getReport, hasReport, submitReport }) => {
+        {({ getReport, hasReport, submitReport, submitting }) => {
+          if (submitting) {
+            return (
+              <ActivityIndicator size={'large'}/>
+            );
+          }
+          
           const hasFoundIt = hasReport(rainwork['id'], 'found_it');
           const hasMissing = hasReport(rainwork['id'], 'missing');
           const hasFaded = hasReport(rainwork['id'], 'faded');

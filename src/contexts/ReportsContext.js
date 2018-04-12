@@ -55,6 +55,9 @@ export class ReportsProvider extends Component {
         showSuccess('Report Submitted');
       }
       
+      const reports = this.state.reports.concat([report]);
+      this.setState({ reports });
+      
       return report;
     } catch (e) {
       console.error(e);
