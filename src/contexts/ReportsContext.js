@@ -49,7 +49,12 @@ export class ReportsProvider extends Component {
         await this.uploadImage(uploadUrl, imageUri)
       }
       
-      showSuccess('Report Submitted');
+      if (reportType === 'found_it') {
+        showSuccess('Share a picture! #rainworks');
+      } else {
+        showSuccess('Report Submitted');
+      }
+      
       return report;
     } catch (e) {
       console.error(e);

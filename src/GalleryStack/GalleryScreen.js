@@ -17,7 +17,7 @@ const GalleryScreen = ({ navigation }) => (
         data={rainworksWithImages}
         numColumns={2}
         refreshing={loading}
-        keyExtractor={(rainwork) => rainwork['id']}
+        keyExtractor={(rainwork) => String(rainwork['id'])}
         renderItem={({ item }) => <GalleryItem rainwork={item} navigation={navigation}/>}
         onRefresh={refreshAll}
         initialNumToRender={getInitialNum()}

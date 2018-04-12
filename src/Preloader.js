@@ -43,14 +43,14 @@ class Preloader extends Component {
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       }),
       Asset.loadAsync([
-        require('../assets/pin_unfound.png'),
-        require('../assets/pin_found.png'),
-        require('../assets/header.png'),
+        require('../assets/bundled/pin_unfound.png'),
+        require('../assets/bundled/pin_found.png'),
+        require('../assets/bundled/header.png'),
         require('react-navigation/src/views/assets/back-icon.png'),
         require('react-navigation/src/views/assets/back-icon-mask.png'),
       ]),
       Asset.loadAsync([ // TODO: Only preload this on first open
-        require('../assets/intro.mp4'),
+        require('../assets/bundled/intro.mp4'),
       ]),
     ]);
   }

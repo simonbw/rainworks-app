@@ -49,7 +49,7 @@ class WelcomeScreenVideo extends Component {
             flex: 1,
           }}
           resizeMode="cover"
-          source={require('../../assets/intro.mp4')}
+          source={require('../../assets/bundled/intro.mp4')}
           shouldPlay
           usePoster
           onPlaybackStatusUpdate={({ didJustFinish, durationMillis, positionMillis, progressUpdateIntervalMillis }) => {

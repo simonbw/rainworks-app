@@ -24,7 +24,7 @@ class UnconnectedSubmissionsList extends Component {
       <View style={{ flex: 1 }}>
         <FlatList
           data={this.props.submissions}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.id)}
           onRefresh={this.props.refresh}
           refreshing={this.props.loading}
           renderItem={({ item }) => <SubmissionsListItem rainwork={item}/>}

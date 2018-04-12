@@ -13,11 +13,12 @@
       "backgroundColor": "#00000000"
     },
     "assetBundlePatterns": [
-      "assets/*",
+      "assets/bundled/*",
       "node_modules/react-navigation/src/views/assets/*.png",
       "node_modules/native-base/Fonts/Roboto.ttf",
       "node_modules/native-base/Fonts/Roboto_medium.ttf"
     ],
+    "icon": "assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
       "buildNumber": "1.0.0",

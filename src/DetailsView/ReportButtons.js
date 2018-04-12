@@ -60,7 +60,13 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
       </ReportsConsumer>
     )}
     renderOutside={(
-      <Text>Get closer to this rainwork to mark it as found.</Text>
+      <ReportsConsumer>
+        {({ hasReport }) => (
+          hasReport(rainwork['id'], 'found_it') ?
+            null :
+            <Text>Get closer to this rainwork to mark it as found.</Text>
+        )}
+      </ReportsConsumer>
     )}
     lat={rainwork['lat']}
     lng={rainwork['lng']}
@@ -68,7 +74,7 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
   />
 ));
 
-const pickReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
+const picpngkReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
   const options = [];
   if (!hasMissing) {
     options.push(MISSING_TEXT);

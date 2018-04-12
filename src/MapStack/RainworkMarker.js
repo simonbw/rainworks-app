@@ -23,12 +23,12 @@ const RainworkMarker = ({ rainwork, navigation, markerRef }) => (
               longitude: rainwork['lng'],
             }}
             image={hasReport(rainwork['id'], 'found_it') ?
-              Asset.fromModule(require('../../assets/pin_found.png')) :
-              Asset.fromModule(require('../../assets/pin_unfound.png'))
+              Asset.fromModule(require('../../assets/bundled/pin_found.png')) :
+              Asset.fromModule(require('../../assets/bundled/pin_unfound.png'))
             }
             centerOffset={{
               x: 0,
-              y: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 2,
+              y: -Asset.fromModule(require('../../assets/bundled/pin_unfound.png')).height / 2,
             }}
             ref={markerRef}
           >

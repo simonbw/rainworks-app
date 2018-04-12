@@ -26,12 +26,7 @@ export default StackNavigator({
           }}
         >
           <Image
-            source={Asset.fromModule(require('../../assets/header.png'))}
-            style={{
-              height: Asset.fromModule(require('../../assets/header.png')).height / 2,
-              width: Asset.fromModule(require('../../assets/header.png')).width / 2,
-              
-            }}
+            source={Asset.fromModule(require('../../assets/bundled/header.png'))}
           />
         </View>
       ),

@@ -21,11 +21,9 @@ const UnconnectedLocationSelectScreen = ({ navigation, setLocation, lat, lng }) 
     >
       <Image
         style={{
-          height: Asset.fromModule(require('../../assets/pin_unfound.png')).height,
-          width: Asset.fromModule(require('../../assets/pin_unfound.png')).width,
-          top: -Asset.fromModule(require('../../assets/pin_unfound.png')).height / 2,
+          top: -Asset.fromModule(require('../../assets/bundled/pin_unfound.png')).height / 2,
         }}
-        source={Asset.fromModule(require('../../assets/pin_unfound.png'))}
+        source={Asset.fromModule(require('../../assets/bundled/pin_unfound.png'))}
       />
     </View>
     <Button
