@@ -80,7 +80,7 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
   />
 ));
 
-const picpngkReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
+const pickReport = async (hasMissing, hasFaded, hasInappropriate, submitReport) => {
   const options = [];
   if (!hasMissing) {
     options.push(MISSING_TEXT);
