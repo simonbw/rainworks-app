@@ -2,7 +2,7 @@ import { Button, Container, Content, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ActivityIndicator, StyleSheet, TextInput } from 'react-native';
-import { ACTION_COLOR, GRAY } from '../constants/Colors';
+import { ACTION_COLOR, DARK_GRAY, GRAY } from '../constants/Colors';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import PhotoSelector from '../SubmitStack/PhotoSelector';
 
@@ -59,6 +59,11 @@ class ReportScreen extends Component {
                 setImageUri={(imageUri) => this.setState({ imageUri })}
                 imageUri={this.state.imageUri}
               />
+            {!this.state.imageUri && (
+              <Text style={styles.disclaimer}>
+                A photo is not required to submit this report, but it's extremely helpful. Thank you!
+              </Text>
+            )}
             </View>
             {reportType === 'inappropriate' && (
               <View style={styles.inputGroup}>
@@ -118,7 +123,6 @@ const styles = StyleSheet.create({
   },
   dateInput: {
     borderWidth: 0,
-    // justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
   dateText: {
@@ -127,6 +131,13 @@ const styles = StyleSheet.create({
   btnTextConfirm: {
     color: ACTION_COLOR,
   },
+  disclaimer: {
+    color: DARK_GRAY,
+    fontStyle: 'italic',
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 8,
+  }
 });
 
 export default ({ navigation }) => (
