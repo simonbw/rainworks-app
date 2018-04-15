@@ -2,7 +2,7 @@ import { Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import { GRAY, ACTION_COLOR } from '../constants/Colors';
+import { ACTION_COLOR, GRAY } from '../constants/Colors';
 import { COMMON_DATE_FORMAT } from '../util';
 import { SubmissionConsumer } from './SubmissionContext';
 
@@ -35,6 +35,7 @@ export const InstallationDateInput = () => (
             dateInput: styles.dateInput,
             dateText: styles.dateText,
             btnTextConfirm: styles.btnTextConfirm,
+            btnTextCancel: styles.btnTextCancel,
           }}
           date={installationDate}
           disabled={submitting}
@@ -114,6 +115,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   btnTextConfirm: {
+    height: 20,
     color: ACTION_COLOR,
+  },
+  btnTextCancel: {
+    height: 20,
   },
 });

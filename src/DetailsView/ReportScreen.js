@@ -121,16 +121,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: GRAY,
   },
-  dateInput: {
-    borderWidth: 0,
-    alignItems: 'flex-start',
-  },
-  dateText: {
-    fontSize: 20,
-  },
-  btnTextConfirm: {
-    color: ACTION_COLOR,
-  },
   disclaimer: {
     color: DARK_GRAY,
     fontStyle: 'italic',
