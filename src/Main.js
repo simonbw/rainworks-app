@@ -2,7 +2,7 @@ import { Root } from 'native-base';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { STATUS_BAR_COLOR } from './constants/Colors';
-import { ActiveRainworksProvider } from './contexts/ActiveRainworksContext';
+import { RainworksProvider } from './contexts/RainworksContext';
 import { LocationProvider } from './contexts/LocationContext';
 import { NavigatorProvider } from './contexts/NavigatorContext';
 import { ReportsProvider } from './contexts/ReportsContext';
@@ -23,7 +23,7 @@ export default () => (
     <Preloader>
       <NavigatorProvider>
         <SubmissionProvider>
-          <ActiveRainworksProvider>
+          <RainworksProvider>
             <ReportsProvider>
               <SubmissionsProvider>
                 <NotificationHandler/>
@@ -34,7 +34,7 @@ export default () => (
                 </WelcomeScreen>
               </SubmissionsProvider>
             </ReportsProvider>
-          </ActiveRainworksProvider>
+          </RainworksProvider>
         </SubmissionProvider>
       </NavigatorProvider>
     </Preloader>

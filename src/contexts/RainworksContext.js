@@ -6,9 +6,9 @@ import { showError } from '../util';
 
 const Context = createContext({});
 
-export const ActiveRainworksConsumer = Context.Consumer;
+export const RainworksConsumer = Context.Consumer;
 
-export class ActiveRainworksProvider extends Component {
+export class RainworksProvider extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
@@ -16,8 +16,10 @@ export class ActiveRainworksProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rainworks: [],
-      rainworksWithImages: [],
+      rainworks: [], // all rainworks
+      rainworksWithImages: [], // just the ones with images
+      activeRainworks: [], // just the ones where approval_status === 'accepted'
+      expiredRainworks: [], // just the ones where approval_status === 'expired'
       loading: false
     };
   }
@@ -37,6 +39,8 @@ export class ActiveRainworksProvider extends Component {
       this.setState({
         rainworks,
         rainworksWithImages: rainworks.filter((rainwork) => rainwork['image_url']),
+        activeRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'accepted'),
+        expiredRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'expired'),
         loading: false
       });
     }

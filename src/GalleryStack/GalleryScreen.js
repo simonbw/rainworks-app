@@ -1,7 +1,7 @@
 import { View } from 'native-base';
 import React from 'react';
 import { ActivityIndicator, Dimensions, FlatList, Platform } from 'react-native';
-import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
+import { RainworksConsumer } from '../contexts/RainworksContext';
 import GalleryItem from './GalleryItem';
 
 function getInitialNum() {
@@ -10,7 +10,7 @@ function getInitialNum() {
 }
 
 const GalleryScreen = ({ navigation }) => (
-  <ActiveRainworksConsumer>
+  <RainworksConsumer>
     {({ rainworksWithImages, loading, refreshAll }) => (
       <FlatList
         removeClippedSubviews={Platform.OS === 'android'}
@@ -21,20 +21,9 @@ const GalleryScreen = ({ navigation }) => (
         renderItem={({ item }) => <GalleryItem rainwork={item} navigation={navigation}/>}
         onRefresh={refreshAll}
         initialNumToRender={getInitialNum()}
-        ListEmptyComponent={(
-          <View
-            style={{
-              padding: 16,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {loading && <ActivityIndicator size={'large'}/>}
-          </View>
-        )}
       />
     )}
-  </ActiveRainworksConsumer>
+  </RainworksConsumer>
 );
 
 export default GalleryScreen;

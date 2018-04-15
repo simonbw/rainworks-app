@@ -6,7 +6,7 @@ import React, { Fragment } from 'react';
 import { StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { GRAY } from '../constants/Colors';
-import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
+import { RainworksConsumer } from '../contexts/RainworksContext';
 import { ReportsConsumer } from '../contexts/ReportsContext';
 import { COMMON_DATE_FORMAT } from '../util';
 import { MAP_DETAILS_SCREEN } from './index';
@@ -14,7 +14,7 @@ import { MAP_DETAILS_SCREEN } from './index';
 const RainworkMarker = ({ rainwork, navigation, markerRef }) => (
   <ReportsConsumer>
     {({ hasReport }) => (
-      <ActiveRainworksConsumer>
+      <RainworksConsumer>
         {({ refreshRainwork }) => (
           <MapView.Marker
             flat
@@ -55,7 +55,7 @@ const RainworkMarker = ({ rainwork, navigation, markerRef }) => (
             </MapView.Callout>
           </MapView.Marker>
         )}
-      </ActiveRainworksConsumer>
+      </RainworksConsumer>
     )}
   </ReportsConsumer>
 );

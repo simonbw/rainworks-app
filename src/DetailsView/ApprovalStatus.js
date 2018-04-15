@@ -18,7 +18,7 @@ function statusToText(approvalStatus) {
     case 'accepted':
       return 'Accepted';
     case 'expired':
-      return 'Expired';
+      return 'This Rainwork is no longer visible';
     case 'pending':
       return 'Pending Approval';
     case 'rejected':

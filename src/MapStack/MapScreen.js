@@ -2,7 +2,7 @@ import { View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { ActiveRainworksConsumer } from '../contexts/ActiveRainworksContext';
+import { RainworksConsumer } from '../contexts/RainworksContext';
 import ToggleableMapView from '../ToggleableMapView';
 import RainworkMarker from './RainworkMarker';
 
@@ -77,9 +77,14 @@ class MapScreen extends Component {
 }
 
 export default ({ navigation }) => (
-  <ActiveRainworksConsumer>
-    {({ rainworks, loading, refreshAll }) => (
-      <MapScreen navigation={navigation} rainworks={rainworks} loading={loading} refreshAll={refreshAll}/>
+  <RainworksConsumer>
+    {({ activeRainworks, loading, refreshAll }) => (
+      <MapScreen
+        loading={loading}
+        navigation={navigation}
+        rainworks={activeRainworks}
+        refreshAll={refreshAll}
+      />
     )}
-  </ActiveRainworksConsumer>
+  </RainworksConsumer>
 );
