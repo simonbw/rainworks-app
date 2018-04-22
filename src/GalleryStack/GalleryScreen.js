@@ -1,8 +1,7 @@
-import { View } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, Dimensions, FlatList, Platform } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import { RainworksConsumer } from '../contexts/RainworksContext';
-import GalleryItem from './GalleryItem';
+import GalleryItem, { getSize } from './GalleryItem';
 
 function getInitialNum() {
   const { height, width } = Dimensions.get('window');
@@ -13,7 +12,7 @@ const GalleryScreen = ({ navigation }) => (
   <RainworksConsumer>
     {({ rainworksWithImages, loading, refreshAll }) => (
       <FlatList
-        removeClippedSubviews={Platform.OS === 'android'}
+        removeClippedSubviews
         data={rainworksWithImages}
         numColumns={2}
         refreshing={loading}
@@ -21,6 +20,11 @@ const GalleryScreen = ({ navigation }) => (
         renderItem={({ item }) => <GalleryItem rainwork={item} navigation={navigation}/>}
         onRefresh={refreshAll}
         initialNumToRender={getInitialNum()}
+        
+        getItemLayout={(data, index) => {
+          const { height } = getSize();
+          return { length: height, offset: height * index, index };
+        }}
       />
     )}
   </RainworksConsumer>

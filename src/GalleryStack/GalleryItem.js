@@ -1,41 +1,51 @@
 import { Icon, View } from 'native-base';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Dimensions, Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 import { DARK_GRAY, GRAY } from '../constants/Colors';
 import { GALLERY_DETAILS_SCREEN } from './index';
 
-const GalleryItem = (props) => (
-  <View style={styles.item}>
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => props.navigation.navigate(GALLERY_DETAILS_SCREEN, { rainwork: props.rainwork })}
-    >
-      {props.rainwork['image_url'] ? (
-        Platform.OS === 'ios' ? (
-          <CachedImage
-            style={styles.image}
-            resizeMode={'cover'}
-            resizeMethod={'scale'}
-            uri={props.rainwork['image_url']}
-          />
-        ) : ( // TODO: Figure out how to get the cached images to work right on android
-          <Image
-            style={styles.image}
-            resizeMode={'cover'}
-            resizeMethod={'scale'}
-            source={{ uri: props.rainwork['image_url'] }}
-          />
-        )
-      ) : (
-        <View style={styles.placeholder}>
-          <Icon name="image" style={{ color: GRAY, fontSize: 96 }}/>
-        </View>
-      )}
-    </TouchableOpacity>
-  </View>
-);
+class GalleryItem extends PureComponent {
+  render() {
+    const { rainwork, navigation } = this.props;
+    return (
+      <View style={styles.item}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate(GALLERY_DETAILS_SCREEN, { rainwork })}
+        >
+          {rainwork['image_url'] ? (
+            Platform.OS === 'ios' ? (
+              <CachedImage
+                style={styles.image}
+                resizeMode={'cover'}
+                resizeMethod={'scale'}
+                uri={rainwork['image_url']}
+              />
+            ) : ( // TODO: Figure out how to get the cached images to work right on android
+              <Image
+                style={styles.image}
+                resizeMode={'cover'}
+                resizeMethod={'scale'}
+                source={{ uri: rainwork['image_url'] }}
+              />
+            )
+          ) : (
+            <View style={styles.placeholder}>
+              <Icon name="image" style={{ color: GRAY, fontSize: 96 }}/>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+export const getSize = () => {
+  const size = Dimensions.get('window') / 2;
+  return { width: size, height: size };
+};
 
 GalleryItem.propTypes = {
   rainwork: PropTypes.object.isRequired,
