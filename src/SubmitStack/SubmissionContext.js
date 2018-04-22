@@ -11,11 +11,12 @@ import {
 const Context = createContext({});
 export const SubmissionConsumer = Context.Consumer;
 
-function calculateProgress(posted, parsed, uploadProgress = 0) {
+function calculateProgress(posted, parsed, uploadProgress = 0, finalized = false) {
   let total = 0;
   total += posted ? 0.08 : 0;
   total += parsed ? 0.02 : 0;
-  total += 0.9 * uploadProgress;
+  total += 0.7 * uploadProgress;
+  total += finalized ? 0.2 : 0;
   return total;
 }
 
@@ -87,10 +88,14 @@ export class SubmissionProvider extends Component {
     this.setState({ uploadProgress: calculateProgress(true, false, 0) });
     const responseData = await apiPostResult.json();
     this.setState({ uploadProgress: calculateProgress(true, true, 0) });
-    return responseData['image_upload_url'];
+    return {
+      uploadUrl: responseData['image_upload_url'],
+      finalizeUrl: responseData['finalize_url']
+    };
   };
   
   uploadImage = async (uploadUrl) => {
+    console.log('uploadUrl', uploadUrl);
     const file = { uri: this.state.imageUri, type: 'image/jpg' };
     const response = await uploadFile(
       uploadUrl,
@@ -105,11 +110,22 @@ export class SubmissionProvider extends Component {
     ImageStore.removeImageForTag(this.state.imageUri);
   };
   
+  finalize = async (finalizeUrl) => {
+    console.log('finalizeUrl', finalizeUrl);
+    const response = await fetch(finalizeUrl);
+    if (!response.ok) {
+      console.log(response);
+      throw new Error('Finalize failed', response.errorMessage);
+    }
+    this.setState({ uploadProgress: calculateProgress(true, true, 1.0, true) });
+  };
+  
   submit = async () => {
     try {
       this.setState({ submitting: true });
-      const uploadUrl = await this.postToApi();
+      const { uploadUrl, finalizeUrl } = await this.postToApi();
       await this.uploadImage(uploadUrl);
+      await this.finalize(finalizeUrl);
       this.setState(this.getResetState());
       showSuccess('Rainwork Submitted');
     } catch (error) { // Some API error
