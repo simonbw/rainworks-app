@@ -16,19 +16,19 @@ class GalleryItem extends PureComponent {
           onPress={() => navigation.navigate(GALLERY_DETAILS_SCREEN, { rainwork })}
         >
           {rainwork['image_url'] ? (
-            Platform.OS === 'ios' ? (
+            true || Platform.OS === 'ios' ? (
               <CachedImage
                 style={styles.image}
                 resizeMode={'cover'}
                 resizeMethod={'scale'}
-                uri={rainwork['image_url']}
+                uri={rainwork['thumbnail_url'] || rainwork['image_url']}
               />
             ) : ( // TODO: Figure out how to get the cached images to work right on android
               <Image
                 style={styles.image}
                 resizeMode={'cover'}
                 resizeMethod={'scale'}
-                source={{ uri: rainwork['image_url'] }}
+                source={{ uri: rainwork['thumbnail_url'] || rainwork['image_url'] }}
               />
             )
           ) : (
