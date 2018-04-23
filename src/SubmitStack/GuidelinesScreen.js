@@ -29,6 +29,10 @@ const GuidelinesScreen = ({ navigation }) => (
       The rainworks team reserves the right to refuse any submission to the map.
       Remember, the goal is to make people look forward to rainy days!
     </Text>
+    <Text style={styles.paragraph}>
+      The photos and info you provide may be shared by the Rainworks Team on social media, used in videos, or added to
+      the website.
+    </Text>
     <Button
       onPress={() => navigation.navigate(LOCATION_SELECT_SCREEN)}
       style={{ position: 'absolute', bottom: 12, right: 12 }}
