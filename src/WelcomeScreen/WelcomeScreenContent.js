@@ -1,10 +1,10 @@
 import { Button, Text, View } from 'native-base';
 import React, { Fragment } from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { ScrollView, StatusBar, StyleSheet } from 'react-native';
 import Link from '../Link';
 
 const WelcomeScreenContent = ({ close }) => (
-  <Fragment>
+  <ScrollView style={{flex: 1}} alwaysBounceVertical={false}>
     <View style={styles.container}>
       <Text style={styles.header}>
         Welcome to the Rainworks App!
@@ -12,7 +12,7 @@ const WelcomeScreenContent = ({ close }) => (
       <Text style={styles.paragraph}>
         A <Text style={{ fontStyle: 'italic' }}>rainwork</Text> is a piece of street art that only appears when it gets
         wet. Their purpose is to make people look forward to rainy days.
-      </Text>
+      </Text>git
       <Text style={styles.paragraph}>
         Anybody can create a rainwork and add it to the map. Use this app to find rainworks near you, and submit
         rainworks
@@ -31,14 +31,16 @@ const WelcomeScreenContent = ({ close }) => (
         </Button>
       </View>
     </View>
-  </Fragment>
+  </ScrollView>
 );
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     flexDirection: 'column',
+    alignItems: 'center',
+    minHeight: '100%',
     flex: 1,
     padding: 16 * 3,
   },

@@ -1,6 +1,6 @@
 import { Button, Text, View } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { WHITE } from '../constants/Colors';
 import Link from '../Link';
 import { LOCATION_SELECT_SCREEN } from './index';
@@ -10,7 +10,7 @@ const BulletPoint = ({ children }) => (
 );
 
 const GuidelinesScreen = ({ navigation }) => (
-  <View style={styles.contentContainer}>
+  <ScrollView style={{ flex: 1 }} alwaysBounceVertical={false} contentContainerStyle={styles.contentContainer}>
     <Text style={styles.paragraph}>
       Before you can submit a rainwork location to the map, you must make a rainwork. You can learn how
       at <Link url={'https://www.rain.works/how'}>www.rain.works/how</Link>.
@@ -39,7 +39,7 @@ const GuidelinesScreen = ({ navigation }) => (
     >
       <Text>I Understand</Text>
     </Button>
-  </View>
+  </ScrollView>
 );
 
 GuidelinesScreen.navigationOptions = {
@@ -48,9 +48,10 @@ GuidelinesScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    ...StyleSheet.absoluteFillObject,
-    padding: 16,
     backgroundColor: WHITE,
+    minHeight: '100%',
+    padding: 16,
+    paddingBottom: 64
   },
   paragraph: {
     fontSize: 16,
