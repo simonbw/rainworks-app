@@ -1,10 +1,15 @@
-import { Button, Text, View } from 'native-base';
-import React, { Fragment } from 'react';
-import { ScrollView, StatusBar, StyleSheet } from 'react-native';
+import { Text, View } from 'native-base';
+import React from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { ACTION_COLOR } from '../constants/Colors';
 import Link from '../Link';
 
 const WelcomeScreenContent = ({ close }) => (
-  <ScrollView style={{flex: 1}} alwaysBounceVertical={false}>
+  <ScrollView
+    style={{ flex: 1 }}
+    contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+    alwaysBounceVertical={false}
+  >
     <View style={styles.container}>
       <Text style={styles.header}>
         Welcome to the Rainworks App!
@@ -26,9 +31,9 @@ const WelcomeScreenContent = ({ close }) => (
         visit <Link url={'https://www.rain.works'}>www.rain.works</Link>.
       </Text>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Button transparent onPress={close}>
-          <Text>Let's Get Started!</Text>
-        </Button>
+        <TouchableOpacity transparent onPress={close}>
+          <Text style={{ color: ACTION_COLOR }}>Let's Get Started!</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </ScrollView>
@@ -36,12 +41,6 @@ const WelcomeScreenContent = ({ close }) => (
 
 const styles = StyleSheet.create({
   container: {
-    // ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: '100%',
-    flex: 1,
     padding: 16 * 3,
   },
   header: {
