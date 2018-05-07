@@ -12,7 +12,7 @@ const WelcomeScreenContent = ({ close }) => (
       <Text style={styles.paragraph}>
         A <Text style={{ fontStyle: 'italic' }}>rainwork</Text> is a piece of street art that only appears when it gets
         wet. Their purpose is to make people look forward to rainy days.
-      </Text>git
+      </Text>
       <Text style={styles.paragraph}>
         Anybody can create a rainwork and add it to the map. Use this app to find rainworks near you, and submit
         rainworks
