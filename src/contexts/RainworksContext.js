@@ -17,7 +17,7 @@ export class RainworksProvider extends Component {
     super(props);
     this.state = {
       rainworks: [], // all rainworks
-      rainworksWithImages: [], // just the ones with images
+      galleryRainworks: [], // just the ones with images
       activeRainworks: [], // just the ones where approval_status === 'accepted'
       expiredRainworks: [], // just the ones where approval_status === 'expired'
       loading: false
@@ -38,7 +38,7 @@ export class RainworksProvider extends Component {
       rainworks.sort((a, b) => new Date(b['installation_date']) - new Date(a['installation_date']));
       this.setState({
         rainworks,
-        rainworksWithImages: rainworks.filter((rainwork) => rainwork['image_url']),
+        galleryRainworks: rainworks.filter((rainwork) => rainwork['image_url'] && rainwork['show_in_gallery']),
         activeRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'accepted'),
         expiredRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'expired'),
         loading: false

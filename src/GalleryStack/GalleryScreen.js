@@ -10,10 +10,10 @@ function getInitialNum() {
 
 const GalleryScreen = ({ navigation }) => (
   <RainworksConsumer>
-    {({ rainworksWithImages, loading, refreshAll }) => (
+    {({ galleryRainworks, loading, refreshAll }) => (
       <FlatList
         removeClippedSubviews
-        data={rainworksWithImages}
+        data={galleryRainworks}
         numColumns={2}
         refreshing={loading}
         keyExtractor={(rainwork) => String(rainwork['id'])}
