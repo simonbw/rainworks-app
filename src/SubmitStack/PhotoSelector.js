@@ -1,10 +1,11 @@
-import { ImagePicker } from 'expo';
-import { ActionSheet, Icon, Text, View } from 'native-base';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { Image, ImageEditor, StyleSheet, TouchableOpacity } from 'react-native';
-import { DARK_GRAY, GRAY, LIGHT_GRAY, WHITE } from '../constants/Colors';
-import { showError } from '../util';
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import { ActionSheet, Icon, Text, View } from "native-base";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Image, ImageEditor, StyleSheet, TouchableOpacity } from "react-native";
+import { DARK_GRAY, GRAY, LIGHT_GRAY, WHITE } from "../constants/Colors";
+import { showError } from "../utils/toastUtils";
 
 const MAXIMUM_DIMENSION = 1024;
 
@@ -12,37 +13,45 @@ export default class PhotoSelector extends Component {
   static propTypes = {
     imageUri: PropTypes.string,
     setImageUri: PropTypes.func.isRequired,
-    onSelect: PropTypes.func,
+    onSelect: PropTypes.func
   };
-  
+
   constructor(props) {
     super(props);
   }
-  
+
   openPhotoSelect = async () => {
-    const selection = await new Promise((resolve) => {
-      ActionSheet.show({
-        options: ['Take Photo', 'Choose From Library', 'Cancel'],
-        cancelButtonIndex: 2,
-      }, resolve);
+    const selection = await new Promise(resolve => {
+      ActionSheet.show(
+        {
+          options: ["Take Photo", "Choose From Library", "Cancel"],
+          cancelButtonIndex: 2
+        },
+        resolve
+      );
     });
-    
-    if (selection === 0) { // Take Photo
+
+    if (selection === 0) {
+      // Take Photo
+      console.log(
+        await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+      );
       await this.setImage(await ImagePicker.launchCameraAsync({}));
-    } else if (selection === 1) { // Choose From Library
+    } else if (selection === 1) {
+      // Choose From Library
+      await Permissions.askAsync(Permissions.CAMERA_ROLL);
       await this.setImage(await ImagePicker.launchImageLibraryAsync({}));
     }
   };
-  
+
   async setImage(result) {
     if (!result.cancelled) {
       const { uri, height, width } = result;
       const largestSide = Math.max(height, width);
-      
+
       if (largestSide > MAXIMUM_DIMENSION) {
-        
         const scale = Math.min(MAXIMUM_DIMENSION / largestSide, 1);
-        
+
         try {
           const croppedUri = await new Promise((resolve, reject) => {
             ImageEditor.cropImage(
@@ -54,7 +63,7 @@ export default class PhotoSelector extends Component {
                   height: Math.round(height * scale),
                   width: Math.round(width * scale)
                 },
-                resizeMode: 'cover',
+                resizeMode: "cover"
               },
               resolve,
               reject
@@ -62,7 +71,7 @@ export default class PhotoSelector extends Component {
           });
           this.props.setImageUri(croppedUri);
         } catch (e) {
-          showError('Failed to resize image');
+          showError("Failed to resize image");
           console.error(e);
         }
       } else {
@@ -70,18 +79,15 @@ export default class PhotoSelector extends Component {
       }
     }
   }
-  
+
   render() {
     return (
       <TouchableOpacity onPress={this.openPhotoSelect} activeOpacity={0.8}>
         {this.props.imageUri ? (
-          <Image
-            source={{ uri: this.props.imageUri }}
-            style={styles.image}
-          />
+          <Image source={{ uri: this.props.imageUri }} style={styles.image} />
         ) : (
           <View style={styles.placeholder}>
-            <Icon name="camera" style={{ color: WHITE, fontSize: 96 }}/>
+            <Icon name="camera" style={{ color: WHITE, fontSize: 96 }} />
             <Text style={styles.placeholderText}>Tap to take a photo</Text>
           </View>
         )}
@@ -94,17 +100,17 @@ const styles = StyleSheet.create({
   image: {
     backgroundColor: DARK_GRAY,
     height: 240,
-    width: null,
+    width: null
   },
   placeholder: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: DARK_GRAY,
     height: 240,
-    justifyContent: 'center',
-    width: null,
+    justifyContent: "center",
+    width: null
   },
   placeholderText: {
     color: GRAY,
-    fontSize: 20,
-  },
+    fontSize: 20
+  }
 });

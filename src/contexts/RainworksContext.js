@@ -1,8 +1,8 @@
-import createContext from 'create-react-context';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { RAINWORKS_URL } from '../urls';
-import { showError } from '../util';
+import createContext from "create-react-context";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { RAINWORKS_URL } from "../constants/urls";
+import { showError } from "../utils/toastUtils";
 
 const Context = createContext({});
 
@@ -10,9 +10,9 @@ export const RainworksConsumer = Context.Consumer;
 
 export class RainworksProvider extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
   };
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,41 +23,50 @@ export class RainworksProvider extends Component {
       loading: false
     };
   }
-  
+
   async componentDidMount() {
     await this.loadRainworks();
   }
-  
+
   loadRainworks = async () => {
     this.setState({ loading: true });
     const response = await fetch(RAINWORKS_URL);
     if (!response.ok) {
-      showError('Loading rainworks failed')
+      showError("Loading rainworks failed");
     } else {
       const rainworks = await response.json();
-      rainworks.sort((a, b) => new Date(b['installation_date']) - new Date(a['installation_date']));
+      rainworks.sort(
+        (a, b) =>
+          new Date(b["installation_date"]) - new Date(a["installation_date"])
+      );
       this.setState({
         rainworks,
-        galleryRainworks: rainworks.filter((rainwork) => rainwork['image_url'] && rainwork['show_in_gallery']),
-        activeRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'accepted'),
-        expiredRainworks: rainworks.filter((rainwork) => rainwork['approval_status'] === 'expired'),
+        galleryRainworks: rainworks.filter(
+          rainwork => rainwork["image_url"] && rainwork["show_in_gallery"]
+        ),
+        activeRainworks: rainworks.filter(
+          rainwork => rainwork["approval_status"] === "accepted"
+        ),
+        expiredRainworks: rainworks.filter(
+          rainwork => rainwork["approval_status"] === "expired"
+        ),
         loading: false
       });
     }
   };
-  
-  refreshRainwork = async (rainworkId) => {
+
+  refreshRainwork = async rainworkId => {
     // TODO: Make it possible to just refresh data on one rainwork
   };
-  
+
   getProviderValue() {
     return {
       ...this.state,
       refreshAll: this.loadRainworks,
-      refreshRainwork: this.refreshRainwork,
-    }
+      refreshRainwork: this.refreshRainwork
+    };
   }
-  
+
   render() {
     return (
       <Context.Provider value={this.getProviderValue()}>

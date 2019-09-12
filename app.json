@@ -4,7 +4,7 @@
     "slug": "Rainworks",
     "privacy": "unlisted",
     "description": "View the location of rainworks around the world. https://rain.works/",
-    "sdkVersion": "26.0.0",
+    "sdkVersion": "34.0.0",
     "version": "1.0.12",
     "orientation": "portrait",
     "primaryColor": "#14a9e6",
@@ -14,7 +14,6 @@
     },
     "assetBundlePatterns": [
       "assets/bundled/*",
-      "node_modules/react-navigation/src/views/assets/*.png",
       "node_modules/native-base/Fonts/Roboto.ttf",
       "node_modules/native-base/Fonts/Roboto_medium.ttf"
     ],

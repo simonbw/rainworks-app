@@ -1,21 +1,21 @@
-import moment from 'moment/moment';
-import { Button, Text, View } from 'native-base';
-import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import Autolink from 'react-native-autolink';
-import openMap from 'react-native-open-maps';
-import { WHITE } from '../constants/Colors';
-import Divider from '../Divider';
-import Link from '../Link';
-import { MAP_SCREEN } from '../MapStack';
-import { COMMON_DATE_FORMAT, rainworkToCoords } from '../util';
-import ApprovalStatus from './ApprovalStatus';
-import DetailsImage from './DetailsImage';
-import ReportButtons from './ReportButtons';
-import ReportsText from './ReportsText';
+import moment from "moment/moment";
+import { Button, Text, View } from "native-base";
+import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import Autolink from "react-native-autolink";
+import openMap from "react-native-open-maps";
+import { WHITE } from "../constants/Colors";
+import Divider from "../Common/Divider";
+import Link from "../Common/Link";
+import { MAP_SCREEN } from "../MapStack/ScreenNames";
+import { COMMON_DATE_FORMAT, rainworkToCoords } from "../utils/util";
+import ApprovalStatus from "./ApprovalStatus";
+import DetailsImage from "./DetailsImage";
+import ReportButtons from "./ReportButtons";
+import ReportsText from "./ReportsText";
 
-const DetailsContent = (props) => {
+const DetailsContent = props => {
   const {
     rainwork,
     includeReports = false,
@@ -25,63 +25,80 @@ const DetailsContent = (props) => {
   } = props;
   return (
     <ScrollView style={{ backgroundColor: WHITE }}>
-      <DetailsImage imageUrl={rainwork['image_url']}/>
+      <DetailsImage imageUrl={rainwork["image_url"]} />
       {includeApprovalStatus && (
         <ApprovalStatus
-          status={rainwork['approval_status']}
-          rejectionReason={rainwork['rejection_reason']}
+          status={rainwork["approval_status"]}
+          rejectionReason={rainwork["rejection_reason"]}
         />
       )}
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{rainwork['name']}</Text>
+        <Text style={styles.title}>{rainwork["name"]}</Text>
         <Text style={styles.subtitle}>
           Created
-          {rainwork['creator_name'] && (
-            <Fragment> by <Text style={styles.creator}>{rainwork['creator_name']}</Text></Fragment>
-          )}
-          {' '}
-          on <Text style={styles.createdDate}>{moment(rainwork['installation_date']).format(COMMON_DATE_FORMAT)}</Text>
+          {rainwork["creator_name"] && (
+            <Fragment>
+              {" "}
+              by <Text style={styles.creator}>{rainwork["creator_name"]}</Text>
+            </Fragment>
+          )}{" "}
+          on{" "}
+          <Text style={styles.createdDate}>
+            {moment(rainwork["installation_date"]).format(COMMON_DATE_FORMAT)}
+          </Text>
         </Text>
-        
-        {rainwork['description'] ? (
+
+        {rainwork["description"] ? (
           <Fragment>
-            <Divider/>
+            <Divider />
             <Text style={styles.description}>
               <Autolink
-                text={rainwork['description']}
-                renderLink={(text, match) => <Link url={match.getUrl()}>{text}</Link>}
+                text={rainwork["description"]}
+                renderLink={(text, match) => (
+                  <Link url={match.getUrl()}>{text}</Link>
+                )}
               />
             </Text>
           </Fragment>
         ) : null}
-        
+
         {includeReports && (
           <Fragment>
-            <Divider/>
+            <Divider />
             <View style={styles.foundItSection}>
-              <ReportsText rainwork={rainwork}/>
-              <ReportButtons rainwork={rainwork}/>
+              <ReportsText rainwork={rainwork} />
+              <ReportButtons rainwork={rainwork} />
             </View>
           </Fragment>
         )}
-        
+
         {(includeFindOnMap || includeOpenInMaps) && (
           <Fragment>
-            <Divider/>
+            <Divider />
             <View style={styles.mapButtonsRow}>
               {includeFindOnMap ? (
-                <Button bordered onPress={() => props.navigation.navigate(MAP_SCREEN, { selectedRainwork: rainwork })}>
+                <Button
+                  bordered
+                  onPress={() =>
+                    props.navigation.navigate(MAP_SCREEN, {
+                      selectedRainwork: rainwork
+                    })
+                  }
+                >
                   <Text>Find on Map</Text>
                 </Button>
               ) : (
-                <View/>
+                <View />
               )}
               {includeOpenInMaps ? (
-                <Button bordered onPress={() => openMap(rainworkToCoords(rainwork))}>
+                <Button
+                  bordered
+                  onPress={() => openMap(rainworkToCoords(rainwork))}
+                >
                   <Text>Open in Maps</Text>
                 </Button>
               ) : (
-                <View/>
+                <View />
               )}
             </View>
           </Fragment>
@@ -97,35 +114,35 @@ DetailsContent.propTypes = {
   includeOpenInMaps: PropTypes.bool,
   includeReports: PropTypes.bool,
   navigation: PropTypes.object,
-  rainwork: PropTypes.object.isRequired,
+  rainwork: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    padding: 16,
+    padding: 16
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    paddingBottom: 6,
+    fontWeight: "bold",
+    paddingBottom: 6
   },
   subtitle: {
-    paddingBottom: 12,
+    paddingBottom: 12
   },
   creator: {
-    fontStyle: 'italic',
+    fontStyle: "italic"
   },
   createdDate: {},
   description: {
-    paddingVertical: 12,
+    paddingVertical: 12
   },
   foundItSection: {
-    paddingVertical: 12,
+    paddingVertical: 12
   },
   mapButtonsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 12
   }
 });
 

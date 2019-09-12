@@ -1,4 +1,4 @@
-// This file has to be here because of create-react-app
-import Main from './src/Main';
+// This file has to be here because expo expects it to be here
+import Main from "./src/Main";
 
 export default Main;

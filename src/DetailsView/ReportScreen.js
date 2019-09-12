@@ -1,10 +1,10 @@
-import { Button, Container, Content, Text, View } from 'native-base';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, TextInput } from 'react-native';
-import { ACTION_COLOR, DARK_GRAY, GRAY } from '../constants/Colors';
-import { ReportsConsumer } from '../contexts/ReportsContext';
-import PhotoSelector from '../SubmitStack/PhotoSelector';
+import { Button, Container, Content, Text, View } from "native-base";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { ActivityIndicator, StyleSheet, TextInput } from "react-native";
+import { ACTION_COLOR, DARK_GRAY, GRAY } from "../constants/Colors";
+import { ReportsConsumer } from "../contexts/ReportsContext";
+import PhotoSelector from "../SubmitStack/PhotoSelector";
 
 class ReportScreen extends Component {
   static propTypes = {
@@ -12,17 +12,17 @@ class ReportScreen extends Component {
     rainworkId: PropTypes.number.isRequired,
     reportType: PropTypes.string.isRequired,
     submitReport: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired
   };
-  
+
   constructor(props) {
     super(props);
     this.state = {
       imageUri: null,
-      description: '',
-    }
+      description: ""
+    };
   }
-  
+
   submit = async () => {
     await this.props.submitReport(
       this.props.rainworkId,
@@ -32,22 +32,22 @@ class ReportScreen extends Component {
     );
     this.props.navigation.goBack();
   };
-  
+
   render() {
     const reportType = this.props.reportType;
     return (
       <Container>
         <Content style={{ flex: 1 }} behavior="padding">
           <View style={styles.container}>
-            {reportType === 'inappropriate' && (
+            {reportType === "inappropriate" && (
               <View style={styles.inputGroup}>
                 <Text>
-                  Please help us out by taking a picture of the inappropriate rainwork or explain the reason for
-                  reporting it.
+                  Please help us out by taking a picture of the inappropriate
+                  rainwork or explain the reason for reporting it.
                 </Text>
               </View>
             )}
-            {reportType === 'faded' && (
+            {reportType === "faded" && (
               <View style={styles.inputGroup}>
                 <Text>
                   Please help us out by taking a photo of the faded rainwork.
@@ -56,16 +56,17 @@ class ReportScreen extends Component {
             )}
             <View style={styles.inputGroup}>
               <PhotoSelector
-                setImageUri={(imageUri) => this.setState({ imageUri })}
+                setImageUri={imageUri => this.setState({ imageUri })}
                 imageUri={this.state.imageUri}
               />
-            {!this.state.imageUri && (
-              <Text style={styles.disclaimer}>
-                A photo is not required to submit this report, but it's extremely helpful. Thank you!
-              </Text>
-            )}
+              {!this.state.imageUri && (
+                <Text style={styles.disclaimer}>
+                  A photo is not required to submit this report, but it's
+                  extremely helpful. Thank you!
+                </Text>
+              )}
             </View>
-            {reportType === 'inappropriate' && (
+            {reportType === "inappropriate" && (
               <View style={styles.inputGroup}>
                 <Text style={styles.label}>Reason for reporting</Text>
                 <TextInput
@@ -73,24 +74,24 @@ class ReportScreen extends Component {
                   blurOnSubmit
                   disabled={this.props.submitting}
                   multiline
-                  onChangeText={(description) => this.setState({ description })}
+                  onChangeText={description => this.setState({ description })}
                   style={[styles.textInput, styles.multiline]}
                   value={this.state.description}
                 />
               </View>
             )}
             {this.props.submitting ? (
-              <ActivityIndicator size="large"/>
+              <ActivityIndicator size="large" />
             ) : (
               <Button danger block onPress={this.submit}>
                 <Text>
-                  {reportType === 'inappropriate' && 'Report as Inappropriate'}
-                  {reportType === 'faded' && 'Report as Faded'}
+                  {reportType === "inappropriate" && "Report as Inappropriate"}
+                  {reportType === "faded" && "Report as Faded"}
                 </Text>
               </Button>
             )}
-            
-            <View style={{ height: 60 }}/>
+
+            <View style={{ height: 60 }} />
           </View>
         </Content>
       </Container>
@@ -100,33 +101,33 @@ class ReportScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 16
   },
   inputGroup: {
-    marginBottom: 12,
+    marginBottom: 12
   },
   label: {
     fontSize: 14,
-    fontWeight: '200'
+    fontWeight: "200"
   },
   textInput: {
     fontSize: 20,
     paddingVertical: 8,
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY,
+    borderBottomColor: GRAY
   },
   multiline: {},
   datePicker: {
-    width: '100%',
+    width: "100%",
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY,
+    borderBottomColor: GRAY
   },
   disclaimer: {
     color: DARK_GRAY,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     paddingLeft: 8,
     paddingRight: 8,
-    paddingTop: 8,
+    paddingTop: 8
   }
 });
 

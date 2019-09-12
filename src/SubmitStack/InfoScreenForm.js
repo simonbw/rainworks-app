@@ -1,10 +1,10 @@
-import { Text, View } from 'native-base';
-import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-import DatePicker from 'react-native-datepicker';
-import { ACTION_COLOR, GRAY } from '../constants/Colors';
-import { COMMON_DATE_FORMAT } from '../util';
-import { SubmissionConsumer } from './SubmissionContext';
+import { Text, View } from "native-base";
+import React from "react";
+import { StyleSheet, TextInput } from "react-native";
+import DatePicker from "react-native-datepicker";
+import { ACTION_COLOR, GRAY } from "../constants/Colors";
+import { COMMON_DATE_FORMAT } from "../utils/util";
+import { SubmissionConsumer } from "./SubmissionContext";
 
 export const TitleInput = ({ inputRef }) => (
   <SubmissionConsumer>
@@ -29,20 +29,20 @@ export const InstallationDateInput = () => (
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Installation Date</Text>
         <DatePicker
-          cancelBtnText={'Cancel'}
-          confirmBtnText={'OK'}
+          cancelBtnText={"Cancel"}
+          confirmBtnText={"OK"}
           customStyles={{
             dateInput: styles.dateInput,
             dateText: styles.dateText,
             btnTextConfirm: styles.btnTextConfirm,
-            btnTextCancel: styles.btnTextCancel,
+            btnTextCancel: styles.btnTextCancel
           }}
           date={installationDate}
           disabled={submitting}
           format={COMMON_DATE_FORMAT}
           maxDate={new Date()}
-          mode={'date'}
-          onDateChange={(d) => setInstallationDate(d)}
+          mode={"date"}
+          onDateChange={d => setInstallationDate(d)}
           showIcon={false}
           style={styles.datePicker}
         />
@@ -88,37 +88,37 @@ export const DescriptionInput = () => (
 
 const styles = StyleSheet.create({
   inputGroup: {
-    marginBottom: 12,
+    marginBottom: 12
   },
   label: {
     fontSize: 14,
-    fontWeight: '200'
+    fontWeight: "200"
   },
   textInput: {
     fontSize: 20,
     paddingVertical: 8,
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY,
+    borderBottomColor: GRAY
   },
   multiline: {},
   datePicker: {
-    width: '100%',
+    width: "100%",
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY,
+    borderBottomColor: GRAY
   },
   dateInput: {
     borderWidth: 0,
     // justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: "flex-start"
   },
   dateText: {
-    fontSize: 20,
+    fontSize: 20
   },
   btnTextConfirm: {
     height: 20,
-    color: ACTION_COLOR,
+    color: ACTION_COLOR
   },
   btnTextCancel: {
-    height: 20,
-  },
+    height: 20
+  }
 });

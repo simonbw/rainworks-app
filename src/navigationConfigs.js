@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
-import { RAINWORKS_BLUE, WHITE } from './constants/Colors';
+import { StyleSheet } from "react-native";
+import { RAINWORKS_BLUE, WHITE } from "./constants/Colors";
 
 const headerStyles = StyleSheet.create({
   header: {
     backgroundColor: RAINWORKS_BLUE,
-    margin: 0,
-    padding: 0,
+    margin: 0
   },
   headerTitle: {
     // fontFamily: 'Rainworks',
@@ -14,9 +13,9 @@ const headerStyles = StyleSheet.create({
 });
 
 export const defaultStackNavigatorConfig = {
-  navigationOptions: {
+  defaultNavigationOptions: {
     headerStyle: headerStyles.header,
     headerTitleStyle: headerStyles.headerTitle,
-    headerTintColor: WHITE,
+    headerTintColor: WHITE
   }
 };
