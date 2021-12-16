@@ -3,7 +3,7 @@ import * as Permissions from "expo-permissions";
 import { ActionSheet, Icon, Text, View } from "native-base";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Image, ImageEditor, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { DARK_GRAY, GRAY, LIGHT_GRAY, WHITE } from "../constants/Colors";
 import { showError } from "../utils/toastUtils";
 
@@ -13,7 +13,7 @@ export default class PhotoSelector extends Component {
   static propTypes = {
     imageUri: PropTypes.string,
     setImageUri: PropTypes.func.isRequired,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
   };
 
   constructor(props) {
@@ -21,11 +21,11 @@ export default class PhotoSelector extends Component {
   }
 
   openPhotoSelect = async () => {
-    const selection = await new Promise(resolve => {
+    const selection = await new Promise((resolve) => {
       ActionSheet.show(
         {
           options: ["Take Photo", "Choose From Library", "Cancel"],
-          cancelButtonIndex: 2
+          cancelButtonIndex: 2,
         },
         resolve
       );
@@ -33,14 +33,28 @@ export default class PhotoSelector extends Component {
 
     if (selection === 0) {
       // Take Photo
-      console.log(
-        await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+      // console.log(
+      //   await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+      // );
+      await this.setImage(
+        await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        })
       );
-      await this.setImage(await ImagePicker.launchCameraAsync({}));
     } else if (selection === 1) {
       // Choose From Library
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      await this.setImage(await ImagePicker.launchImageLibraryAsync({}));
+      await this.setImage(
+        await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        })
+      );
     }
   };
 
@@ -53,26 +67,26 @@ export default class PhotoSelector extends Component {
         const scale = Math.min(MAXIMUM_DIMENSION / largestSide, 1);
 
         try {
-          const croppedUri = await new Promise((resolve, reject) => {
-            ImageEditor.cropImage(
-              uri,
-              {
-                offset: { x: 0, y: 0 },
-                size: { height, width },
-                displaySize: {
-                  height: Math.round(height * scale),
-                  width: Math.round(width * scale)
-                },
-                resizeMode: "cover"
-              },
-              resolve,
-              reject
-            );
-          });
-          this.props.setImageUri(croppedUri);
+          // const croppedUri = await new Promise((resolve, reject) => {
+          //   ImageEditor.cropImage(
+          //     uri,
+          //     {
+          //       offset: { x: 0, y: 0 },
+          //       size: { height, width },
+          //       displaySize: {
+          //         height: Math.round(height * scale),
+          //         width: Math.round(width * scale)
+          //       },
+          //       resizeMode: "cover"
+          //     },
+          //     resolve,
+          //     reject
+          //   );
+          // });
+          this.props.setImageUri(uri);
         } catch (e) {
           showError("Failed to resize image");
-          console.error(e);
+          // console.error(e);
         }
       } else {
         this.props.setImageUri(uri);
@@ -100,17 +114,17 @@ const styles = StyleSheet.create({
   image: {
     backgroundColor: DARK_GRAY,
     height: 240,
-    width: null
+    width: null,
   },
   placeholder: {
     alignItems: "center",
     backgroundColor: DARK_GRAY,
     height: 240,
     justifyContent: "center",
-    width: null
+    width: null,
   },
   placeholderText: {
     color: GRAY,
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });

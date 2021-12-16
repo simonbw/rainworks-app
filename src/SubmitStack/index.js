@@ -18,11 +18,27 @@ export default withNavigation(
       [GUIDELINES_SCREEN]: {
         screen: GuidelinesScreen,
         navigationOptions: {
-          headerLeft: <DrawerMenuButton />
+          headerLeft: <DrawerMenuButton />,
+          headerTitleStyle: { paddingTop: 10},
+          unmountOnBlur: true 
         }
       },
-      [LOCATION_SELECT_SCREEN]: { screen: LocationSelectScreen },
-      [INFO_SCREEN]: { screen: InfoScreen }
+      [LOCATION_SELECT_SCREEN]: { 
+        screen: LocationSelectScreen,
+        navigationOptions: {
+          headerLeftContainerStyle: {paddingTop: 10},
+          headerTitleStyle: { paddingTop: 10},
+          unmountOnBlur: true 
+        } 
+      },
+      [INFO_SCREEN]: { 
+        screen: InfoScreen,
+        navigationOptions: {
+          headerLeftContainerStyle: {paddingTop: 10},
+          headerTitleStyle: { paddingTop: 10},
+          unmountOnBlur: true 
+        } 
+      }
     },
     {
       ...defaultStackNavigatorConfig,

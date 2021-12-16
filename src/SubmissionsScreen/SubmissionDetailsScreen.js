@@ -10,6 +10,7 @@ const SubmissionDetailsScreen = ({ navigation }) => {
       includeFindOnMap={rainwork["approval_status"] === "accepted"}
       includeOpenInMaps
       includeApprovalStatus
+      submission={true}
     />
   );
 };

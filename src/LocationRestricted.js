@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { LocationConsumer } from "./contexts/LocationContext";
-import { getDistanceFromLatLonInKm } from "./utils/util";
+import { getDistanceFromLatLonInKm } from "./utils/mapUtils";
 
 // Display certain content only when user is within a certain distance of a location
 const LocationRestricted = props => {

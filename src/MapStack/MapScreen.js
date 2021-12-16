@@ -11,7 +11,8 @@ class MapScreen extends Component {
     navigation: PropTypes.object.isRequired,
     rainworks: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    refreshAll: PropTypes.func.isRequired
+    refreshAll: PropTypes.func.isRequired,
+    refreshRainwork: PropTypes.func,
   };
 
   constructor(props) {
@@ -23,15 +24,47 @@ class MapScreen extends Component {
     if (!this.props.loading) {
       this.props.refreshAll();
     }
+
     const selectedRainwork = this.getSelectedRainwork();
+
     if (selectedRainwork) {
       const marker = this._markers[selectedRainwork["id"]];
       if (marker) {
         setTimeout(() => {
           // I'm not exactly sure why this had to be asynchronous, but it works
-          console.log("showing marker callout");
           marker.showCallout();
         }, 0);
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // Check the previous navigation state params props to see if it doesn't match
+    if (
+      prevProps.navigation.state.params !== this.props.navigation.state.params
+    ) {
+      const selectedRainwork = this.getSelectedRainwork();
+
+      if (selectedRainwork) {
+        const marker = this._markers[selectedRainwork["id"]];
+        if (marker) {
+          setTimeout(() => {
+            // I'm not exactly sure why this had to be asynchronous, but it works
+            marker.showCallout();
+          }, 0);
+        }
+      }
+    } else {
+      const selectedRainwork = this.getSelectedRainwork();
+
+      if (selectedRainwork) {
+        const marker = this._markers[selectedRainwork["id"]];
+        if (marker) {
+          setTimeout(() => {
+            // I'm not exactly sure why this had to be asynchronous, but it works
+            marker.showCallout();
+          }, 0);
+        }
       }
     }
   }
@@ -39,6 +72,15 @@ class MapScreen extends Component {
   getSelectedRainwork() {
     const params = this.props.navigation.state.params;
     if (params) {
+      const marker = this._markers[params.selectedRainwork["id"]];
+
+      if (marker) {
+        setTimeout(() => {
+          // I'm not exactly sure why this had to be asynchronous, but it works
+          marker.showCallout();
+        }, 0);
+      }
+
       return params.selectedRainwork;
     }
     return undefined;
@@ -50,15 +92,15 @@ class MapScreen extends Component {
         style={{
           alignItems: "stretch",
           flex: 1,
-          justifyContent: "flex-end"
+          justifyContent: "flex-end",
         }}
       >
         <ToggleableMapView selectedRainwork={this.getSelectedRainwork()}>
-          {this.props.rainworks.map(rainwork => (
+          {this.props.rainworks.map((rainwork) => (
             <RainworkMarker
               key={rainwork["id"]}
               rainwork={rainwork}
-              markerRef={c => (this._markers[rainwork["id"]] = c)}
+              markerRef={(c) => (this._markers[rainwork["id"]] = c)}
             />
           ))}
         </ToggleableMapView>
@@ -68,7 +110,7 @@ class MapScreen extends Component {
             style={{
               position: "absolute",
               top: 12,
-              right: 12
+              right: 12,
             }}
           />
         )}

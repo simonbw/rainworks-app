@@ -51,6 +51,25 @@ export const InstallationDateInput = () => (
   </SubmissionConsumer>
 );
 
+export const EmailInput = ({ email }) => (
+  <SubmissionConsumer>
+    {({ submitting, creatorEmail, setCreatorEmail }) => (
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>
+            Email (if we need to contact you about your rainwork)
+          </Text>
+          <TextInput
+            disabled={submitting}
+            onChangeText={setCreatorEmail}
+            style={styles.textInput}
+            value={creatorEmail}
+            keyboardType="email-address"
+          />
+        </View>
+      )}
+  </SubmissionConsumer>
+);
+
 export const CreatorInput = () => (
   <SubmissionConsumer>
     {({ submitting, creatorName, setCreatorName }) => (

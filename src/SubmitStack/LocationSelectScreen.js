@@ -6,64 +6,76 @@ import { withNavigation } from "react-navigation";
 import ToggleableMapView from "../Common/ToggleableMapView";
 import { INFO_SCREEN } from "./ScreenNames";
 import { SubmissionConsumer } from "./SubmissionContext";
+import { RAINWORKS_BLUE } from "../constants/Colors";
 
 const UnconnectedLocationSelectScreen = ({
   navigation,
+  route,
   setLocation,
   lat,
-  lng
-}) => (
-  <View style={{ flex: 1 }}>
-    <ToggleableMapView
-      onRegionChangeComplete={region =>
-        setLocation(region.latitude, region.longitude)
-      }
-    />
-    <View
-      pointerEvents="none"
-      style={[
-        StyleSheet.absoluteFill,
-        {
-          justifyContent: "center",
-          alignItems: "center"
+  lng,
+}) => {
+  return (
+    <View style={{ flex: 1 }}>
+      <ToggleableMapView
+        onRegionChangeComplete={(region) =>
+          setLocation(region.latitude, region.longitude)
         }
-      ]}
-    >
-      <Image
-        style={{
-          top:
-            -Asset.fromModule(require("../../assets/bundled/pin_unfound.png"))
-              .height / 2
-        }}
-        source={Asset.fromModule(
-          require("../../assets/bundled/pin_unfound.png")
-        )}
+        initialMapType="hybrid"
       />
+      <View
+        pointerEvents="none"
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        ]}
+      >
+        <Image
+          style={{
+            top:
+              -Asset.fromModule(require("../../assets/bundled/pin_unfound.png"))
+                .height / 2,
+          }}
+          source={Asset.fromModule(
+            require("../../assets/bundled/pin_unfound.png")
+          )}
+        />
+      </View>
+      <Button
+        style={{
+          position: "absolute",
+          bottom: 12,
+          right: 12,
+          backgroundColor: RAINWORKS_BLUE,
+        }}
+        onPress={() => navigation.navigate(INFO_SCREEN)}
+      >
+        <Text>Next</Text>
+      </Button>
     </View>
-    <Button
-      style={{ position: "absolute", bottom: 12, right: 12 }}
-      onPress={() => navigation.navigate(INFO_SCREEN)}
-    >
-      <Text>Next</Text>
-    </Button>
-  </View>
-);
+  );
+};
 
 const LocationSelectScreen = withNavigation(({ navigation }) => (
   <SubmissionConsumer>
-    {({ setLocation, lat, lng }) => (
-      <UnconnectedLocationSelectScreen
-        navigation={navigation}
-        setLocation={setLocation}
-        lat={lat}
-        lng={lng}
-      />
-    )}
+    {({ setLocation, lat, lng }) => {
+      return (
+        <UnconnectedLocationSelectScreen
+          navigation={navigation}
+          setLocation={setLocation}
+          lat={lat}
+          lng={lng}
+        />
+      );
+    }}
   </SubmissionConsumer>
 ));
 
 LocationSelectScreen.navigationOptions = {
-  title: "Select Location"
+  title: "Select Location",
 };
 
 export default LocationSelectScreen;

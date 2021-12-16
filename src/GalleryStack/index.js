@@ -12,22 +12,27 @@ const GalleryStack = createStackNavigator(
       screen: GalleryScreen,
       navigationOptions: {
         title: "Gallery",
-        headerLeft: <DrawerMenuButton />
-      }
+        headerLeft: <DrawerMenuButton />,
+        headerTitleStyle: { paddingTop: 10},
+        unmountOnBlur: true 
+      },
     },
     [GALLERY_DETAILS_SCREEN]: {
       screen: GalleryDetailsScreen,
       navigationOptions: ({ navigation }) => {
         const rainwork = navigation.state.params.rainwork;
         return {
-          title: `${rainwork["name"]}`
+          title: `${rainwork["name"]}`,
+          headerTitleStyle: { paddingTop: 10},
+          headerLeftContainerStyle: {paddingTop: 10},
+          unmountOnBlur: true 
         };
-      }
-    }
+      },
+    },
   },
   {
     ...defaultStackNavigatorConfig,
-    initialRoute: GALLERY_SCREEN
+    initialRoute: GALLERY_SCREEN,
   }
 );
 

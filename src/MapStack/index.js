@@ -20,7 +20,8 @@ const MapStack = createStackNavigator(
             style={{
               flexDirection: "row",
               justifyContent: "center",
-              flexGrow: 1
+              flexGrow: 1,
+              paddingTop: 10
             }}
           >
             <Image
@@ -32,28 +33,35 @@ const MapStack = createStackNavigator(
         ),
         headerBackTitle: "Map",
         headerLeft: <DrawerMenuButton />,
-        headerRight: <View />
-      }
+        headerRight: <View />,
+        unmountOnBlur: true 
+      },
     },
     [MAP_DETAILS_SCREEN]: {
       screen: DetailsScreen,
       navigationOptions: ({ navigation }) => {
         const rainwork = navigation.state.params.rainwork;
         return {
-          title: `${rainwork["name"]}`
+          title: `${rainwork["name"]}`,
+          headerTitleStyle: { paddingTop: 10},
+          headerLeftContainerStyle: {paddingTop: 10},
+          unmountOnBlur: true 
         };
-      }
+      },
     },
     [REPORT_SCREEN]: {
       screen: ReportScreen,
       navigationOptions: {
-        title: "Report Rainwork"
-      }
-    }
+        title: "Report Rainwork",
+        headerTitleStyle: { paddingTop: 10},
+        headerLeftContainerStyle: {paddingTop: 10},
+        unmountOnBlur: true 
+      },
+    },
   },
   {
     ...defaultStackNavigatorConfig,
-    initialRoute: MAP_SCREEN
+    initialRoute: MAP_SCREEN,
   }
 );
 

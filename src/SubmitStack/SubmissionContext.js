@@ -45,8 +45,8 @@ export class SubmissionProvider extends Component {
       submitError: null,
       name: "",
       description: "",
-      creatorName: "",
-      creatorEmail: "",
+      // creatorName: "",
+      // creatorEmail: "",
       lat: 0,
       lng: 0,
       imageUri: null,
@@ -65,7 +65,9 @@ export class SubmissionProvider extends Component {
         this.setState({ installationDate }),
       setLocation: (lat, lng) => this.setState({ lat, lng }),
       setName: name => this.setState({ name }),
-      submit: () => this.submit()
+      submit: () => this.submit(),
+      deleteSubmission: (rainwork) => this.deleteSubmission(rainwork),
+      markSubmissionFade: (rainwork) => this.markSubmissionFade(rainwork)
     };
   }
 
@@ -149,6 +151,52 @@ export class SubmissionProvider extends Component {
       return false;
     }
     registerForPushNotifications().catch(e => console.error(e));
+    return true;
+  };
+
+  deleteSubmission = async (id) => {
+    try {
+      this.setState({
+        submitting: true,
+        uploadProgress: calculateProgress(true, false, 0),
+      });
+      await fetch(`${SUBMISSIONS_URL}/${id}`, { method: "DELETE" });
+      this.setState({
+        uploadProgress: calculateProgress(true, true, 1.0, true),
+      });
+      this.setState(this.getResetState());
+      showSuccess("Rainwork Deleted");
+    } catch (error) {
+      // Some API error
+      showError("Error Deleting Rainwork");
+      console.error(error);
+      this.setState({ submitting: false, submitError: error });
+      return false;
+    }
+    return true;
+  };
+
+  markSubmissionFade = async (id) => {
+    try {
+      this.setState({
+        submitting: true,
+        uploadProgress: calculateProgress(true, false, 0),
+      });
+      await fetch(`${SUBMISSIONS_URL}/${id}`, {
+        method: "PUT",
+      });
+      this.setState({
+        uploadProgress: calculateProgress(true, true, 1.0, true),
+      });
+      this.setState(this.getResetState());
+      showSuccess("Rainwork Expired");
+    } catch (error) {
+      // Some API error
+      showError("Error Deleting Rainwork");
+      console.error(error);
+      this.setState({ submitting: false, submitError: error });
+      return false;
+    }
     return true;
   };
 

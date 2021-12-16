@@ -2,27 +2,39 @@ import moment from "moment/moment";
 import { Button, Text, View } from "native-base";
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Platform,
+  Alert,
+  ProgressBarAndroid,
+  ProgressViewIOS,
+} from "react-native";
 import Autolink from "react-native-autolink";
 import openMap from "react-native-open-maps";
-import { WHITE } from "../constants/Colors";
+import { WHITE, RAINWORKS_BLUE } from "../constants/Colors";
 import Divider from "../Common/Divider";
 import Link from "../Common/Link";
 import { MAP_SCREEN } from "../MapStack/ScreenNames";
-import { COMMON_DATE_FORMAT, rainworkToCoords } from "../utils/util";
+import { INFO_SCREEN } from "../SubmitStack/ScreenNames";
+import { COMMON_DATE_FORMAT } from "../utils/util";
+import { rainworkToCoords, androidRainworkToCoords } from "../utils/mapUtils";
 import ApprovalStatus from "./ApprovalStatus";
 import DetailsImage from "./DetailsImage";
 import ReportButtons from "./ReportButtons";
 import ReportsText from "./ReportsText";
+import { SubmissionConsumer } from "../SubmitStack/SubmissionContext";
 
-const DetailsContent = props => {
+const DetailsContent = (props) => {
   const {
     rainwork,
     includeReports = false,
     includeApprovalStatus = false,
     includeFindOnMap = false,
-    includeOpenInMaps = false
+    includeOpenInMaps = false,
+    submission = false,
   } = props;
+
   return (
     <ScrollView style={{ backgroundColor: WHITE }}>
       <DetailsImage imageUrl={rainwork["image_url"]} />
@@ -54,9 +66,12 @@ const DetailsContent = props => {
             <Text style={styles.description}>
               <Autolink
                 text={rainwork["description"]}
-                renderLink={(text, match) => (
-                  <Link url={match.getUrl()}>{text}</Link>
-                )}
+                email
+                renderLink={(text, match) => {
+                  return (
+                    <Link url={match.email ? "" : match.getUrl()}>{text}</Link>
+                  );
+                }}
               />
             </Text>
           </Fragment>
@@ -79,27 +94,177 @@ const DetailsContent = props => {
               {includeFindOnMap ? (
                 <Button
                   bordered
+                  style={styles.primaryBorderColor}
                   onPress={() =>
                     props.navigation.navigate(MAP_SCREEN, {
-                      selectedRainwork: rainwork
+                      selectedRainwork: rainwork,
                     })
                   }
                 >
-                  <Text>Find on Map</Text>
+                  <Text style={styles.primaryColor}>Find on Map</Text>
                 </Button>
               ) : (
                 <View />
               )}
-              {includeOpenInMaps ? (
+
+              {includeFindOnMap && includeOpenInMaps ? (
                 <Button
                   bordered
-                  onPress={() => openMap(rainworkToCoords(rainwork))}
+                  style={styles.primaryBorderColor}
+                  onPress={() => {
+                    if (Platform.OS === "android") {
+                      openMap(androidRainworkToCoords(rainwork));
+                    } else {
+                      openMap(rainworkToCoords(rainwork));
+                    }
+                  }}
                 >
-                  <Text>Open in Maps</Text>
+                  <Text style={styles.primaryColor}>Open in Maps</Text>
                 </Button>
               ) : (
                 <View />
               )}
+            </View>
+          </Fragment>
+        )}
+
+        {submission && includeOpenInMaps && !includeFindOnMap ? (
+          <View style={styles.mapButtonsRow}>
+            <Button
+              bordered
+              style={styles.primaryBorderColor}
+              onPress={() => {
+                if (Platform.OS === "android") {
+                  openMap(androidRainworkToCoords(rainwork));
+                } else {
+                  openMap(rainworkToCoords(rainwork));
+                }
+              }}
+            >
+              <Text style={styles.primaryColor}>Open in Maps</Text>
+            </Button>
+          </View>
+        ) : (
+          <View />
+        )}
+
+        {submission && (
+          <Fragment>
+            <Divider />
+            <View style={styles.mapButtonsRow}>
+              <SubmissionConsumer>
+                {({ markSubmissionFade, submitting, uploadProgress }) => {
+                  const markSubmission = async (id) => {
+                    const success = await markSubmissionFade(id);
+                    console.log("markSubmissionD", success);
+                    if (success) {
+                      setTimeout(() => {
+                        props.navigation.navigate(MAP_SCREEN);
+                      }, 2000);
+                    }
+                  };
+                  return (
+                    <Button
+                      bordered
+                      onPress={() =>
+                        Alert.alert(
+                          "Rainworks",
+                          "Are you sure? \nThis button is for when your rainwork is faded to the point where it is difficult to see. It will be removed from the map but will remain in the Rainwork Gallery.",
+                          [
+                            {
+                              text: "No",
+                              onPress: () => console.log("Cancel Pressed"),
+                              style: "cancel",
+                            },
+                            {
+                              text: "Yes",
+                              onPress: () => markSubmission(rainwork.id),
+                            },
+                          ]
+                        )
+                      }
+                    >
+                      <Text>Mark As Faded</Text>
+                    </Button>
+                  );
+                }}
+              </SubmissionConsumer>
+
+              <Button
+                bordered
+                // onPress={() =>
+                //   props.navigation.navigate(INFO_SCREEN, {
+                //     rainwork,
+                //   })
+                // }
+              >
+                <Text>Edit Rainwork</Text>
+              </Button>
+            </View>
+            <View style={styles.mapButtonsRow}>
+              <SubmissionConsumer>
+                {({ deleteSubmission, submitting, uploadProgress }) => {
+                  const deleteRainwork = async (id) => {
+                    const success = await deleteSubmission(id);
+                    if (success) {
+                      setTimeout(() => {
+                        props.navigation.navigate(MAP_SCREEN);
+                      }, 2000);
+                    }
+                  };
+
+                  return (
+                    <Button
+                      bordered
+                      danger
+                      onPress={() =>
+                        Alert.alert(
+                          "Rainworks",
+                          "Are you sure? \nThis cannot be undone.",
+                          [
+                            {
+                              text: "No",
+                              onPress: () => console.log("Cancel Pressed"),
+                              style: "cancel",
+                            },
+                            {
+                              text: "Yes",
+                              onPress: () => deleteRainwork(rainwork.id),
+                            },
+                          ]
+                        )
+                      }
+                    >
+                      <Text>Delete Rainwork</Text>
+                    </Button>
+                  );
+                }}
+              </SubmissionConsumer>
+            </View>
+            <View style={styles.mapButtonsRow}>
+              <SubmissionConsumer>
+                {({ submitting, uploadProgress }) => {
+                  return (
+                    <>
+                      {submitting &&
+                        Platform.select({
+                          android: (
+                            <ProgressBarAndroid
+                              progress={uploadProgress}
+                              style={styles.progressViewAndroid}
+                            />
+                          ),
+                          ios: (
+                            <ProgressViewIOS
+                              progress={uploadProgress}
+                              style={styles.progressViewIOS}
+                            />
+                          ),
+                        })}
+                    </>
+                  );
+                }}
+              </SubmissionConsumer>
             </View>
           </Fragment>
         )}
@@ -114,36 +279,47 @@ DetailsContent.propTypes = {
   includeOpenInMaps: PropTypes.bool,
   includeReports: PropTypes.bool,
   navigation: PropTypes.object,
-  rainwork: PropTypes.object.isRequired
+  rainwork: PropTypes.object.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  uploadProgress: PropTypes.number.isRequired,
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    padding: 16
+    padding: 16,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    paddingBottom: 6
+    paddingBottom: 6,
   },
   subtitle: {
-    paddingBottom: 12
+    paddingBottom: 12,
   },
   creator: {
-    fontStyle: "italic"
+    fontStyle: "italic",
   },
   createdDate: {},
   description: {
-    paddingVertical: 12
+    paddingVertical: 12,
   },
   foundItSection: {
-    paddingVertical: 12
+    paddingVertical: 12,
   },
   mapButtonsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 12
-  }
+    paddingVertical: 12,
+  },
+  primaryBorderColor: { borderColor: RAINWORKS_BLUE },
+  primaryColor: { color: RAINWORKS_BLUE },
+  progressViewAndroid: {},
+  progressViewIOS: {
+    position: "absolute",
+    bottom: 12,
+    left: 12,
+    right: 12,
+  },
 });
 
 export default DetailsContent;

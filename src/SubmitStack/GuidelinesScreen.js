@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { WHITE } from "../constants/Colors";
 import Link from "../Common/Link";
 import { LOCATION_SELECT_SCREEN } from "./ScreenNames";
+import { RAINWORKS_BLUE } from "../constants/Colors";
 
 const BulletPoint = ({ children }) => (
   <Text style={styles.bulletPoint}>• {children}</Text>
@@ -38,17 +39,19 @@ const GuidelinesScreen = ({ navigation }) => (
       The photos and info you provide may be shared by the Rainworks Team on
       social media, used in videos, or added to the website.
     </Text>
-    <Button
-      onPress={() => navigation.navigate(LOCATION_SELECT_SCREEN)}
-      style={{ position: "absolute", bottom: 12, right: 12 }}
-    >
-      <Text>I Understand</Text>
-    </Button>
+    <View style={{ position: "absolute", bottom: 70, right: 30 }}>
+      <Button
+        onPress={() => navigation.navigate(LOCATION_SELECT_SCREEN)}
+        style={{ backgroundColor: RAINWORKS_BLUE }}
+      >
+        <Text>I Understand</Text>
+      </Button>
+    </View>
   </ScrollView>
 );
 
 GuidelinesScreen.navigationOptions = {
-  title: "Submission Guidelines"
+  title: "Submission Guidelines",
 };
 
 const styles = StyleSheet.create({
@@ -56,19 +59,19 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
     minHeight: "100%",
     padding: 16,
-    paddingBottom: 64
+    paddingBottom: 64,
   },
   paragraph: {
     fontSize: 16,
-    marginBottom: 12
+    marginBottom: 12,
   },
   bulletList: {
     marginBottom: 12,
-    paddingLeft: 12
+    paddingLeft: 12,
   },
   bulletPoint: {
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });
 
 export default GuidelinesScreen;

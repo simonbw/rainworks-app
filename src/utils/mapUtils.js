@@ -26,5 +26,9 @@ export function coordsToRegion(l) {
 }
 
 export function rainworkToCoords(r) {
-  return { latitude: r["lat"], longitude: r["lng"] };
+  return { latitude: r["lat"], longitude: r["lng"], query: r["name"] };
+}
+
+export function androidRainworkToCoords(r) {
+  return { query:`${r['lat']},${r['lng']}`, zoom: 10 };
 }
