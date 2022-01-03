@@ -7,7 +7,7 @@ import { ACTION_COLOR, WHITE } from "../constants/Colors";
 import { LocationConsumer } from "../contexts/LocationContext";
 import { coordsToRegion, rainworkToCoords } from "../utils/mapUtils";
 
-class ToggleableMapView extends Component {
+class InitToggleableMapView extends Component {
   static propTypes = {
     initialMapType: PropTypes.oneOf(["hybrid", "standard"]),
     children: PropTypes.node,
@@ -53,7 +53,6 @@ class ToggleableMapView extends Component {
           const userRegion = userLocation
             ? coordsToRegion(userLocation.coords)
             : undefined;
-
           return (
             <Fragment>
               <MapView
@@ -65,12 +64,11 @@ class ToggleableMapView extends Component {
                 }}
                 mapType={this.state.mapType}
                 {...this.props.otherProps}
-                // initialRegion={this.state.selectedRegion || userRegion}
-                region={this.state.selectedRegion || userRegion}
+                initialRegion={this.state.selectedRegion || userRegion}
+                // region={this.state.selectedRegion || userRegion}
                 customMapStyle={googleMapStyle}
                 onMapReady={() => this.setState({ mapWidth: "100%" })}
                 provider={PROVIDER_GOOGLE}
-                // onRegionChange={(region) => this.setState({selectedRegion: region}) }
               >
                 {userRegion && (
                   <Marker coordinate={userRegion}>
@@ -148,4 +146,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ToggleableMapView;
+export default InitToggleableMapView;

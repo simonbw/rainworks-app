@@ -11,7 +11,7 @@ export const ReportsConsumer = Context.Consumer;
 
 export class ReportsProvider extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   };
 
   constructor(props) {
@@ -19,7 +19,7 @@ export class ReportsProvider extends Component {
     this.state = {
       reports: [],
       loading: false,
-      submitting: false
+      submitting: false,
     };
   }
 
@@ -77,7 +77,7 @@ export class ReportsProvider extends Component {
     const params = {
       device_uuid: getDeviceId(),
       rainwork_id: rainworkId,
-      report_type: reportType
+      report_type: reportType,
     };
     if (description) {
       params["description"] = description;
@@ -85,7 +85,7 @@ export class ReportsProvider extends Component {
     const response = await fetch(REPORTS_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     if (!response.ok) {
       throw new Error(`Error submitting to API: ${response.errorMessage}`);
@@ -110,7 +110,7 @@ export class ReportsProvider extends Component {
 
   getReport = (rainworkId, reportType) => {
     return this.state.reports.find(
-      report =>
+      (report) =>
         report["report_type"] === reportType &&
         report["rainwork_id"] === rainworkId
     );
@@ -120,11 +120,11 @@ export class ReportsProvider extends Component {
     if (!reportType) {
       // Any type
       return this.state.reports.some(
-        report => report["rainwork_id"] === rainworkId
+        (report) => report["rainwork_id"] === rainworkId
       );
     } else {
       return this.state.reports.some(
-        report =>
+        (report) =>
           report["report_type"] === reportType &&
           report["rainwork_id"] === rainworkId
       );
@@ -137,7 +137,7 @@ export class ReportsProvider extends Component {
       getReport: this.getReport,
       hasReport: this.hasReport,
       refresh: this.loadReports,
-      submitReport: this.submitReport
+      submitReport: this.submitReport,
     };
   }
 

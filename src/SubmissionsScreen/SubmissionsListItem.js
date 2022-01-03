@@ -9,7 +9,7 @@ import {
   EXPIRED_COLOR,
   PENDING_COLOR,
   REJECTED_COLOR,
-  WHITE
+  WHITE,
 } from "../constants/Colors";
 import { SUBMISSION_DETAILS_SCREEN } from "./ScreenNames";
 
@@ -55,7 +55,7 @@ const SubmissionsListItem = ({ navigation, rainwork }) => (
 );
 
 SubmissionsListItem.propTypes = {
-  rainwork: PropTypes.object.isRequired
+  rainwork: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -63,36 +63,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: ITEM_HEIGHT,
     alignItems: "center",
-    backgroundColor: WHITE
+    backgroundColor: WHITE,
   },
   left: {
     width: 64,
-    alignItems: "center"
+    alignItems: "center",
   },
   main: {
     paddingTop: 12,
     paddingBottom: 12,
-    paddingRight: 12
+    paddingRight: 12,
   },
   name: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   date: {},
   statusText: {
-    fontStyle: "italic"
+    fontStyle: "italic",
   },
   pending: {
-    color: PENDING_COLOR
+    color: PENDING_COLOR,
   },
   accepted: {
-    color: ACCEPTED_COLOR
+    color: ACCEPTED_COLOR,
   },
   rejected: {
-    color: REJECTED_COLOR
+    color: REJECTED_COLOR,
   },
   expired: {
-    color: EXPIRED_COLOR
-  }
+    color: EXPIRED_COLOR,
+  },
 });
 
 export default withNavigation(SubmissionsListItem);

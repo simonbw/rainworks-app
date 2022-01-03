@@ -15,8 +15,8 @@ import openMap from "react-native-open-maps";
 import { WHITE, RAINWORKS_BLUE } from "../constants/Colors";
 import Divider from "../Common/Divider";
 import Link from "../Common/Link";
-import { MAP_SCREEN } from "../MapStack/ScreenNames";
-import { INFO_SCREEN } from "../SubmitStack/ScreenNames";
+import { MAP_SCREEN, FIND_MAP_SCREEN } from "../MapStack/ScreenNames";
+import { EDIT_INFO_SCREEN } from "../SubmitStack/ScreenNames";
 import { COMMON_DATE_FORMAT } from "../utils/util";
 import { rainworkToCoords, androidRainworkToCoords } from "../utils/mapUtils";
 import ApprovalStatus from "./ApprovalStatus";
@@ -156,7 +156,6 @@ const DetailsContent = (props) => {
                 {({ markSubmissionFade, submitting, uploadProgress }) => {
                   const markSubmission = async (id) => {
                     const success = await markSubmissionFade(id);
-                    console.log("markSubmissionD", success);
                     if (success) {
                       setTimeout(() => {
                         props.navigation.navigate(MAP_SCREEN);
@@ -192,11 +191,11 @@ const DetailsContent = (props) => {
 
               <Button
                 bordered
-                // onPress={() =>
-                //   props.navigation.navigate(INFO_SCREEN, {
-                //     rainwork,
-                //   })
-                // }
+                onPress={() =>
+                  props.navigation.navigate(EDIT_INFO_SCREEN, {
+                    rainwork,
+                  })
+                }
               >
                 <Text>Edit Rainwork</Text>
               </Button>

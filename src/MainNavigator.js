@@ -1,5 +1,6 @@
 import { Icon } from "native-base";
 import React from "react";
+import { Platform, StatusBar } from "react-native";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import AboutStack from "./AboutStack";
 import GalleryStack from "./GalleryStack";
@@ -21,7 +22,7 @@ const MainNavigator = createDrawerNavigator(
       screen: MapStack,
       navigationOptions: {
         drawerLabel: "Map",
-        drawerIcon: () => <Icon name="map" />
+        drawerIcon: () => <Icon name="map" />,
       }
     },
     [GALLERY_STACK]: {
@@ -55,7 +56,10 @@ const MainNavigator = createDrawerNavigator(
   },
   {
     drawerType: "front",
-    initialRouteName: MAP_STACK
+    initialRouteName: MAP_STACK,
+    contentOptions: {
+      itemsContainerStyle: {marginTop: Platform.OS === 'android' ? StatusBar.currentHeight :  40 }
+    }
   }
 );
 

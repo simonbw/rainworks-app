@@ -1,4 +1,5 @@
 import React from "react";
+import {  StatusBar, Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import DrawerMenuButton from "../DrawerMenuButton";
 import {
@@ -14,6 +15,11 @@ const AboutStack = createStackNavigator(
       screen: AboutScreen,
       navigationOptions: {
         title: "About",
+        headerTitleStyle: {
+          textAlign: "center",
+          flexGrow: 0.7,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+        },
         headerLeft: <DrawerMenuButton />
       }
     }

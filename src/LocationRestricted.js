@@ -4,10 +4,10 @@ import { LocationConsumer } from "./contexts/LocationContext";
 import { getDistanceFromLatLonInKm } from "./utils/mapUtils";
 
 // Display certain content only when user is within a certain distance of a location
-const LocationRestricted = props => {
+const LocationRestricted = (props) => {
   return (
     <LocationConsumer>
-      {userLocation => {
+      {(userLocation) => {
         if (!userLocation) {
           return props.renderNoLocationServices === undefined
             ? props.renderOutside
@@ -36,7 +36,7 @@ LocationRestricted.propTypes = {
   renderNoLocationServices: PropTypes.node,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
-  maximumDistance: PropTypes.number.isRequired
+  maximumDistance: PropTypes.number.isRequired,
 };
 
 export default LocationRestricted;

@@ -1,3 +1,4 @@
 export const MAP_SCREEN = "MAP_SCREEN";
 export const REPORT_SCREEN = "REPORT_SCREEN";
 export const MAP_DETAILS_SCREEN = "MAP_DETAILS_SCREEN";
+export const FIND_MAP_SCREEN = "FIND_MAP_SCREEN";

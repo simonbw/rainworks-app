@@ -33,6 +33,7 @@ export class SubmissionsProvider extends Component {
     );
     if (!response.ok) {
       showError("Loading Submissions Failed");
+      this.setState({ loading: false });
     } else {
       const submissions = await response.json();
       submissions.sort(

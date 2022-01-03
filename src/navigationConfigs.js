@@ -1,11 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { RAINWORKS_BLUE, WHITE } from "./constants/Colors";
 
 const headerStyles = StyleSheet.create({
   header: {
     backgroundColor: RAINWORKS_BLUE,
     // margin: 0,
-    height: 70,
+    height: Platform.OS === 'android' ? 100 : 80,
   },
   headerTitle: {
     // fontFamily: 'Rainworks',

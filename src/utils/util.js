@@ -1,6 +1,8 @@
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { DEVICES_URL } from "../constants/urls";
+import { Platform, NativeModules } from "react-native";
+import Constants from "expo-constants";
 
 export const COMMON_DATE_FORMAT = "MMM Do, YYYY";
 
@@ -17,7 +19,10 @@ export function makeQueryString(params) {
 }
 
 export function getDeviceId() {
-  return Expo.Constants.deviceId;
+  return Constants.installationId
+  // return Platform.OS === "android"
+  //   ? Constants.installationId
+  //   : NativeModules.SettingsManager.settings.EXDeviceInstallUUIDKey;
 }
 
 export function uploadFile(url, file, onProgress = () => null) {
@@ -59,8 +64,8 @@ export async function registerForPushNotifications() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        push_token: await Notifications.getExpoPushTokenAsync()
-      })
+        push_token: await Notifications.getExpoPushTokenAsync(),
+      }),
     });
     return await result.json();
   } else {

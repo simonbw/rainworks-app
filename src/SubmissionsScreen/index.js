@@ -1,5 +1,6 @@
 import { Button, Icon } from "native-base";
 import React from "react";
+import {  StatusBar, Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { WHITE } from "../constants/Colors";
 import DrawerMenuButton from "../DrawerMenuButton";
@@ -16,7 +17,10 @@ import {LOCATION_SELECT_SCREEN} from '../SubmitStack/ScreenNames'
 const NewSubmissionButton = ({ navigation, tintColor = WHITE }) => (
   <Button
     transparent
-    style={{ height: "100%" }}
+    style={{ 
+      height: "100%",
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight :  0
+     }}
     onPress={() => {
       navigation.navigate(LOCATION_SELECT_SCREEN);
       // navigation.dispatch(StackActions.pop());
@@ -32,7 +36,11 @@ const SubmissionsStack = createStackNavigator(
       screen: SubmissionsList,
       navigationOptions: ({ navigation }) => ({
         title: "Submissions",
-        headerTitleStyle: { paddingTop: 10 },
+        headerTitleStyle: { 
+          textAlign: "center",
+          flexGrow: 1,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 
+        },
         headerLeft: <DrawerMenuButton />,
         headerRight: <NewSubmissionButton navigation={navigation} />,
         unmountOnBlur: true 

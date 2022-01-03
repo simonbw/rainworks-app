@@ -7,13 +7,13 @@ import {
   EXPIRED_COLOR,
   PENDING_COLOR,
   REJECTED_COLOR,
-  WHITE
+  WHITE,
 } from "../constants/Colors";
 
-const ApprovalStatus = props => (
+const ApprovalStatus = (props) => (
   <View style={[styles.container, styles[props.status]]}>
     <Text style={styles.status}>{statusToText(props.status)}</Text>
-    {props.status === "rejected" && props.rejectionReason && (
+    {props.status === "rejected" && props.rejectionReason !== "" && (
       <Text style={styles.rejectionReason}>{props.rejectionReason}</Text>
     )}
   </View>
@@ -35,35 +35,35 @@ function statusToText(approvalStatus) {
 ApprovalStatus.propTypes = {
   status: PropTypes.oneOf(["pending", "accepted", "rejected", "expired"])
     .isRequired,
-  rejectionReason: PropTypes.string
+  rejectionReason: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12
+    padding: 12,
   },
   accepted: {
-    backgroundColor: ACCEPTED_COLOR
+    backgroundColor: ACCEPTED_COLOR,
   },
   pending: {
-    backgroundColor: PENDING_COLOR
+    backgroundColor: PENDING_COLOR,
   },
   rejected: {
-    backgroundColor: REJECTED_COLOR
+    backgroundColor: REJECTED_COLOR,
   },
   expired: {
-    backgroundColor: EXPIRED_COLOR
+    backgroundColor: EXPIRED_COLOR,
   },
   status: {
     color: WHITE,
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 14,
   },
   rejectionReason: {
     color: WHITE,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 export default ApprovalStatus;

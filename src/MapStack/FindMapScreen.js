@@ -5,8 +5,10 @@ import { ActivityIndicator, Platform, NativeModules } from "react-native";
 import { RainworksConsumer } from "../contexts/RainworksContext";
 import ToggleableMapView from "../Common/ToggleableMapView";
 import RainworkMarker from "./RainworkMarker";
+import { getDeviceId, makeQueryString } from "../utils/util";
+import Constants from "expo-constants";
 
-class MapScreen extends Component {
+class FindMapScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     rainworks: PropTypes.array.isRequired,
@@ -123,7 +125,7 @@ class MapScreen extends Component {
 export default ({ navigation }) => (
   <RainworksConsumer>
     {({ activeRainworks, loading, refreshAll }) => (
-      <MapScreen
+      <FindMapScreen
         loading={loading}
         navigation={navigation}
         rainworks={activeRainworks}

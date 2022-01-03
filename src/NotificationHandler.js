@@ -1,4 +1,4 @@
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 import { Text, Toast } from "native-base";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -7,7 +7,7 @@ import { WHITE } from "./constants/Colors";
 import { SubmissionsConsumer } from "./contexts/SubmissionsContext";
 import {
   SUBMISSION_DETAILS_SCREEN,
-  SUBMISSIONS_LIST_SCREEN
+  SUBMISSIONS_LIST_SCREEN,
 } from "./SubmissionsScreen";
 
 // TODO: NAVIGATION IS BROKEN FIX IT !!!
@@ -16,11 +16,11 @@ class NotificationHandler extends Component {
   static propTypes = {
     // navigator: PropTypes.func.isRequired,
     getSubmission: PropTypes.func.isRequired,
-    refreshSubmissions: PropTypes.func.isRequired
+    refreshSubmissions: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    Notifications.addListener(notification => {
+    Notifications.addNotificationReceivedListener((notification) => {
       console.log("notification:", notification);
       this.props.refreshSubmissions();
       const notificationType = notification["data"]["notification_type"];
@@ -42,12 +42,12 @@ class NotificationHandler extends Component {
       ? {
           type: NavigationActions.REPLACE,
           routeName: SUBMISSION_DETAILS_SCREEN,
-          params: { rainwork: submission }
+          params: { rainwork: submission },
         }
       : {
           // submission not found for some reason
           type: NavigationActions.REPLACE,
-          routeName: SUBMISSIONS_LIST_SCREEN
+          routeName: SUBMISSIONS_LIST_SCREEN,
         };
     // this.props.navigator.dispatch(NavigationActions.navigate(navigationAction));
   }
@@ -58,7 +58,7 @@ class NotificationHandler extends Component {
       position: "bottom",
       buttonText: "X",
       duration: 5 * 1000,
-      type: this.getToastType(notificationType)
+      type: this.getToastType(notificationType),
     });
   }
 

@@ -1,15 +1,17 @@
 import React from "react";
+import {  StatusBar, Platform } from "react-native";
 import { withNavigation } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import DrawerMenuButton from "../DrawerMenuButton";
 import { defaultStackNavigatorConfig } from "../navigationConfigs";
 import GuidelinesScreen from "./GuidelinesScreen";
 import InfoScreen from "./InfoScreen";
+import EditInfoScreen from './EditInfoScreen'
 import LocationSelectScreen from "./LocationSelectScreen";
 import {
   LOCATION_SELECT_SCREEN,
   GUIDELINES_SCREEN,
-  INFO_SCREEN
+  INFO_SCREEN, EDIT_INFO_SCREEN
 } from "./ScreenNames";
 
 export default withNavigation(
@@ -19,24 +21,40 @@ export default withNavigation(
         screen: GuidelinesScreen,
         navigationOptions: {
           headerLeft: <DrawerMenuButton />,
-          headerTitleStyle: { paddingTop: 10},
+          headerTitleStyle: {
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+          },
           unmountOnBlur: true 
         }
       },
       [LOCATION_SELECT_SCREEN]: { 
         screen: LocationSelectScreen,
         navigationOptions: {
-          headerLeftContainerStyle: {paddingTop: 10},
-          headerTitleStyle: { paddingTop: 10},
+          headerLeftContainerStyle: {
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+          },
+          headerTitleStyle: { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 },
           unmountOnBlur: true 
         } 
       },
       [INFO_SCREEN]: { 
         screen: InfoScreen,
         navigationOptions: {
-          headerLeftContainerStyle: {paddingTop: 10},
-          headerTitleStyle: { paddingTop: 10},
-          unmountOnBlur: true 
+          headerLeftContainerStyle: {
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+          },
+          headerTitleStyle: { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 },
+           unmountOnBlur: true 
+        } 
+      },
+      [EDIT_INFO_SCREEN]: { 
+        screen: EditInfoScreen,
+        navigationOptions: {
+          headerLeftContainerStyle: {
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+          },
+          headerTitleStyle: { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 },
+           unmountOnBlur: true 
         } 
       }
     },

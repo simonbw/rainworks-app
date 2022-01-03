@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar, Platform, View } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import DrawerMenuButton from "../DrawerMenuButton";
 import { defaultStackNavigatorConfig } from "../navigationConfigs";
@@ -13,8 +14,12 @@ const GalleryStack = createStackNavigator(
       navigationOptions: {
         title: "Gallery",
         headerLeft: <DrawerMenuButton />,
-        headerTitleStyle: { paddingTop: 10},
-        unmountOnBlur: true 
+        headerTitleStyle: {
+          textAlign: "center",
+          flexGrow: 0.7,
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
+        },
+        unmountOnBlur: true,
       },
     },
     [GALLERY_DETAILS_SCREEN]: {
@@ -23,9 +28,17 @@ const GalleryStack = createStackNavigator(
         const rainwork = navigation.state.params.rainwork;
         return {
           title: `${rainwork["name"]}`,
-          headerTitleStyle: { paddingTop: 10},
-          headerLeftContainerStyle: {paddingTop: 10},
-          unmountOnBlur: true 
+          headerLeftContainerStyle: {
+            paddingTop:
+              Platform.OS === "android" ? StatusBar.currentHeight : 10,
+          },
+          headerTitleStyle: {
+            textAlign: "center",
+            flexGrow: 0.7,
+            paddingTop:
+              Platform.OS === "android" ? StatusBar.currentHeight : 10,
+          },
+          unmountOnBlur: true,
         };
       },
     },

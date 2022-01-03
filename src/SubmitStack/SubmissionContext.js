@@ -7,7 +7,7 @@ import {
   COMMON_DATE_FORMAT,
   getDeviceId,
   registerForPushNotifications,
-  uploadFile
+  uploadFile,
 } from "../utils/util";
 import { showError, showSuccess } from "../utils/toastUtils";
 
@@ -30,7 +30,7 @@ function calculateProgress(
 
 export class SubmissionProvider extends Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   constructor(props) {
@@ -50,24 +50,25 @@ export class SubmissionProvider extends Component {
       lat: 0,
       lng: 0,
       imageUri: null,
-      installationDate: moment().format(COMMON_DATE_FORMAT)
+      installationDate: moment().format(COMMON_DATE_FORMAT),
     };
   }
 
   makeProviderValue() {
     return {
       ...this.state,
-      setCreatorEmail: creatorEmail => this.setState({ creatorEmail }),
-      setCreatorName: creatorName => this.setState({ creatorName }),
-      setDescription: description => this.setState({ description }),
-      setImageUri: imageUri => this.setState({ imageUri }),
-      setInstallationDate: installationDate =>
+      setCreatorEmail: (creatorEmail) => this.setState({ creatorEmail }),
+      setCreatorName: (creatorName) => this.setState({ creatorName }),
+      setDescription: (description) => this.setState({ description }),
+      setImageUri: (imageUri) => this.setState({ imageUri }),
+      setInstallationDate: (installationDate) =>
         this.setState({ installationDate }),
       setLocation: (lat, lng) => this.setState({ lat, lng }),
-      setName: name => this.setState({ name }),
+      setName: (name) => this.setState({ name }),
       submit: () => this.submit(),
+      editRainwork: () => this.editRainwork(),
       deleteSubmission: (rainwork) => this.deleteSubmission(rainwork),
-      markSubmissionFade: (rainwork) => this.markSubmissionFade(rainwork)
+      markSubmissionFade: (rainwork) => this.markSubmissionFade(rainwork),
     };
   }
 
@@ -83,7 +84,7 @@ export class SubmissionProvider extends Component {
         this.state.installationDate,
         COMMON_DATE_FORMAT
       ).toISOString(),
-      device_uuid: getDeviceId()
+      device_uuid: getDeviceId(),
     };
   };
 
@@ -92,7 +93,7 @@ export class SubmissionProvider extends Component {
     const apiPostResult = await fetch(SUBMIT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body
+      body,
     });
 
     if (!apiPostResult.ok) {
@@ -104,16 +105,40 @@ export class SubmissionProvider extends Component {
     this.setState({ uploadProgress: calculateProgress(true, true, 0) });
     return {
       uploadUrl: responseData["image_upload_url"],
-      finalizeUrl: responseData["finalize_url"]
+      finalizeUrl: responseData["finalize_url"],
     };
   };
 
-  uploadImage = async uploadUrl => {
+  putToApi = async () => {
+    const body = JSON.stringify(this.getPostData());
+
+    const apiPostResult = await fetch(SUBMIT_URL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body,
+    });
+
+    console.log("apiPostResult", apiPostResult);
+
+    if (!apiPostResult.ok) {
+      throw new Error("Error Editing Rainwork");
+    }
+
+    // this.setState({ uploadProgress: calculateProgress(true, false, 0) });
+    // const responseData = await apiPostResult.json();
+    // this.setState({ uploadProgress: calculateProgress(true, true, 0) });
+    // return {
+    //   uploadUrl: responseData["image_upload_url"],
+    //   finalizeUrl: responseData["finalize_url"],
+    // };
+  };
+
+  uploadImage = async (uploadUrl) => {
     console.log("uploadUrl", uploadUrl);
     const file = { uri: this.state.imageUri, type: "image/jpg" };
     const response = await uploadFile(uploadUrl, file, ({ loaded, total }) =>
       this.setState({
-        uploadProgress: calculateProgress(true, true, loaded / total)
+        uploadProgress: calculateProgress(true, true, loaded / total),
       })
     );
     if (response.status >= 400) {
@@ -125,7 +150,7 @@ export class SubmissionProvider extends Component {
     // ImageStore.removeImageForTag(this.state.imageUri);
   };
 
-  finalize = async finalizeUrl => {
+  finalize = async (finalizeUrl) => {
     console.log("finalizeUrl", finalizeUrl);
     const response = await fetch(finalizeUrl);
     if (!response.ok) {
@@ -150,7 +175,26 @@ export class SubmissionProvider extends Component {
       this.setState({ submitting: false, submitError: error });
       return false;
     }
-    registerForPushNotifications().catch(e => console.error(e));
+    registerForPushNotifications().catch((e) => console.error(e));
+    return true;
+  };
+
+  editRainwork = async () => {
+    try {
+      this.setState({ submitting: true });
+      const { uploadUrl, finalizeUrl } = await this.putToApi();
+      await this.uploadImage(uploadUrl);
+      await this.finalize(finalizeUrl);
+      this.setState(this.getResetState());
+      showSuccess("Rainwork Edited Successfully");
+    } catch (error) {
+      // Some API error
+      console.log("editRainworkE", error);
+      showError("Error Editing Rainwork");
+      console.error(error);
+      this.setState({ submitting: false, submitError: error });
+      return false;
+    }
     return true;
   };
 

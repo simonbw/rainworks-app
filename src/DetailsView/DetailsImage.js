@@ -46,11 +46,9 @@ class DetailsImage extends Component {
         </TouchableHighlight>
         <ImageView
           isVisible={this.state.open}
-          source={{ uri: cachedUri }}
+          images={[{source: {uri: cachedUri}}]}
           onClose={() => this.setState({ open: false })}
           animationType={"fade"}
-          imageHeight={undefined} // everything seems to work fine with these being undefined
-          imageWidth={undefined}
         />
       </Fragment>
     ) : (

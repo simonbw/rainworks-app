@@ -1,5 +1,6 @@
 import { Root } from "native-base";
 import React from "react";
+import "react-native-gesture-handler";
 import { StatusBar } from "react-native";
 import { STATUS_BAR_COLOR } from "./constants/Colors";
 import { RainworksProvider } from "./contexts/RainworksContext";

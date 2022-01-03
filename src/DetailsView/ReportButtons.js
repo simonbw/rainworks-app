@@ -57,7 +57,7 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
                     ) {
                       navigation.navigate(REPORT_SCREEN, {
                         rainworkId: rainwork["id"],
-                        reportType: reportType
+                        reportType: reportType,
                       });
                     }
                   }}
@@ -103,12 +103,12 @@ const pickReport = async (
   }
   options.push(CANCEL_TEXT);
 
-  const selection = await new Promise(resolve => {
+  const selection = await new Promise((resolve) => {
     ActionSheet.show(
       {
         title: "Report Reason",
         options: options,
-        cancelButtonIndex: options.indexOf(CANCEL_TEXT)
+        cancelButtonIndex: options.indexOf(CANCEL_TEXT),
       },
       resolve
     );
@@ -125,13 +125,13 @@ const pickReport = async (
 };
 
 ReportButtons.propTypes = {
-  rainwork: PropTypes.object.isRequired
+  rainwork: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
   button: {
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 });
 
 export default ReportButtons;

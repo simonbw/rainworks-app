@@ -19,7 +19,7 @@
     "icon": "assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
-      "buildNumber": "18",
+      "buildNumber": "26",
       "icon": "assets/icon_ios.png",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
@@ -30,13 +30,16 @@
         "image": "./assets/splash_ios.png",
         "backgroundColor": "#FFFFFF",
         "resizeMode": "contain"
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyBeju0UvH4Mc44EWb5OGtBOQaEjf7m8GWk"
       }
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 6,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyAbbkZjzrkocKljwAbjnUyfhUAnPd-Beog"
+          "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"
         }
       },
       "icon": "assets/icon_android.png",
@@ -58,6 +61,19 @@
         "backgroundColor": "#FFFFFF",
         "resizeMode": "contain"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./local/assets/notification-sound.wav",
+            "./local/assets/notification-sound-other.wav"
+          ]
+        }
+      ]
+    ]
   }
 }
