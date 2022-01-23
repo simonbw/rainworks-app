@@ -10,7 +10,7 @@ class UnconnectedSubmissionsList extends Component {
   static propTypes = {
     submissions: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    refresh: PropTypes.func.isRequired
+    refresh: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class UnconnectedSubmissionsList extends Component {
       <View style={{ flex: 1 }}>
         <FlatList
           data={this.props.submissions}
-          keyExtractor={item => String(item.id)}
+          keyExtractor={(item) => String(item.id)}
           onRefresh={this.props.refresh}
           refreshing={this.props.loading}
           renderItem={({ item }) => <SubmissionsListItem rainwork={item} />}
@@ -32,7 +32,7 @@ class UnconnectedSubmissionsList extends Component {
           getItemLayout={(data, index) => ({
             length: ITEM_HEIGHT,
             offset: (ITEM_HEIGHT + DIVIDER_HEIGHT) * index,
-            index
+            index,
           })}
           initialNumToRender={Math.ceil(
             Dimensions.get("window").height / ITEM_HEIGHT

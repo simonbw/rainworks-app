@@ -35,14 +35,14 @@ export const InstallationDateInput = () => (
             dateInput: styles.dateInput,
             dateText: styles.dateText,
             btnTextConfirm: styles.btnTextConfirm,
-            btnTextCancel: styles.btnTextCancel
+            btnTextCancel: styles.btnTextCancel,
           }}
           date={installationDate}
-          disabled={submitting}
+          // disabled={submitting}
           format={COMMON_DATE_FORMAT}
           maxDate={new Date()}
           mode={"date"}
-          onDateChange={d => setInstallationDate(d)}
+          onDateChange={(d) => setInstallationDate(d)}
           showIcon={false}
           style={styles.datePicker}
         />
@@ -54,19 +54,19 @@ export const InstallationDateInput = () => (
 export const EmailInput = ({ email }) => (
   <SubmissionConsumer>
     {({ submitting, creatorEmail, setCreatorEmail }) => (
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>
-            Email (if we need to contact you about your rainwork)
-          </Text>
-          <TextInput
-            disabled={submitting}
-            onChangeText={setCreatorEmail}
-            style={styles.textInput}
-            value={creatorEmail}
-            keyboardType="email-address"
-          />
-        </View>
-      )}
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>
+          Email (if we need to contact you about your rainwork)
+        </Text>
+        <TextInput
+          disabled={submitting}
+          onChangeText={setCreatorEmail}
+          style={styles.textInput}
+          value={creatorEmail}
+          keyboardType="email-address"
+        />
+      </View>
+    )}
   </SubmissionConsumer>
 );
 
@@ -107,37 +107,37 @@ export const DescriptionInput = () => (
 
 const styles = StyleSheet.create({
   inputGroup: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   label: {
     fontSize: 14,
-    fontWeight: "200"
+    fontWeight: "200",
   },
   textInput: {
     fontSize: 20,
     paddingVertical: 8,
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY
+    borderBottomColor: GRAY,
   },
   multiline: {},
   datePicker: {
     width: "100%",
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: GRAY
+    borderBottomColor: GRAY,
   },
   dateInput: {
     borderWidth: 0,
     // justifyContent: 'flex-start',
-    alignItems: "flex-start"
+    alignItems: "flex-start",
   },
   dateText: {
-    fontSize: 20
+    fontSize: 20,
   },
   btnTextConfirm: {
     height: 20,
-    color: ACTION_COLOR
+    color: ACTION_COLOR,
   },
   btnTextCancel: {
-    height: 20
-  }
+    height: 20,
+  },
 });

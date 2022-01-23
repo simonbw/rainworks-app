@@ -19,12 +19,14 @@ function getStatusIcon(status) {
   switch (status) {
     case "pending":
       return <Icon active name="help-circle" style={styles.pending} />;
+    case "edit_pending":
+      return <Icon active name="help-circle" style={styles.pending} />;
     case "accepted":
       return <Icon active name="checkmark-circle" style={styles.accepted} />;
     case "rejected":
       return <Icon active name="close-circle" style={styles.rejected} />;
-    case "expired":
-      return <Icon active name="close-circle" style={styles.expired} />;
+      case "expired":
+        return <Icon active name="close-circle" style={styles.expired} />;
     default:
       throw new Error(`invalid status: ${status}`);
   }
@@ -46,7 +48,7 @@ const SubmissionsListItem = ({ navigation, rainwork }) => (
           {moment(rainwork["created_at"]).format("MMM DD, YYYY, h:mm a")}
         </Text>
         <Text style={[styles.statusText, styles[rainwork["approval_status"]]]}>
-          {rainwork["approval_status"]}
+          {rainwork["approval_status"] === 'edit_pending' ? 'edit pending' : rainwork["approval_status"]}
         </Text>
       </View>
       <Right />
@@ -84,6 +86,9 @@ const styles = StyleSheet.create({
   pending: {
     color: PENDING_COLOR,
   },
+  edit_pending: {
+    color: PENDING_COLOR,
+  },
   accepted: {
     color: ACCEPTED_COLOR,
   },
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
   },
   expired: {
     color: EXPIRED_COLOR,
-  },
+  }
 });
 
 export default withNavigation(SubmissionsListItem);

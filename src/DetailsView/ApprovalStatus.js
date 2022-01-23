@@ -27,6 +27,8 @@ function statusToText(approvalStatus) {
       return "This rainwork is no longer visible";
     case "pending":
       return "Pending Approval";
+      case "edit_pending":
+        return "Edit Pending Approval";
     case "rejected":
       return "Rejected";
   }
@@ -46,6 +48,9 @@ const styles = StyleSheet.create({
     backgroundColor: ACCEPTED_COLOR,
   },
   pending: {
+    backgroundColor: PENDING_COLOR,
+  },
+  edit_pending: {
     backgroundColor: PENDING_COLOR,
   },
   rejected: {

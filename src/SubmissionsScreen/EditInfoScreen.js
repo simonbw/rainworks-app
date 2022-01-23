@@ -5,17 +5,20 @@ import {
   Platform,
   ProgressBarAndroid,
   ProgressViewIOS,
-  StyleSheet,
+  StyleSheet, TouchableOpacity
 } from "react-native";
-import { SUBMISSIONS_SCREEN } from "../constants/ScreenNames";
+import { SUBMISSIONS_LIST_SCREEN } from "./ScreenNames";
 import {
   CreatorInput,
   DescriptionInput,
   InstallationDateInput,
   TitleInput,
+  EmailInput,
 } from "./EditInfoScreenForm";
-import PhotoSelector from "./PhotoSelector";
-import { SubmissionConsumer } from "./SubmissionContext";
+import PhotoSelector from "../SubmitStack/PhotoSelector";
+import { SubmissionConsumer } from "../SubmitStack/SubmissionContext";
+import { EXPIRED_COLOR, PENDING_COLOR, WHITE } from "../constants/Colors";
+import { StackActions, NavigationActions } from "react-navigation";
 
 class UnconnectedEditInfoScreen extends Component {
   static propTypes = {
@@ -36,10 +39,15 @@ class UnconnectedEditInfoScreen extends Component {
   }
 
   editRainwork = async () => {
-    const success = await this.props.editRainwork();
-    console.log("successXX", success);
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: SUBMISSIONS_LIST_SCREEN }),
+      ],
+    });
+    const success = await this.props.editRainwork(this.props.rainwork.id);
     if (success) {
-      this.props.navigation.navigate(SUBMISSIONS_SCREEN);
+      this.props.navigation.dispatch(resetAction);
     }
   };
 
@@ -49,7 +57,9 @@ class UnconnectedEditInfoScreen extends Component {
       this.props.setName(this.props.rainwork.name);
       this.props.setInstallationDate(new Date(this.props.rainwork.created_at));
       this.props.setCreatorName(this.props.rainwork.creator_name);
+      this.props.setCreatorEmail(this.props.rainwork.creator_email);
       this.props.setDescription(this.props.rainwork.description);
+      this.props.setLocation(this.props.rainwork.lat, this.props.rainwork.lng);
     }
     // console.log("rainworkXcC", this.props.rainwork);
   }
@@ -58,20 +68,26 @@ class UnconnectedEditInfoScreen extends Component {
     return (
       <Container>
         <Content style={{ flex: 1 }} behavior="padding">
-          <PhotoSelector
-            ref={(c) => (this._photoSelector = c)}
-            imageUri={this.props.imageUri}
-            setImageUri={(imageUri) => {
-              this.props.setImageUri(imageUri);
-              if (!this.props.name) {
-                this._titleInput.focus();
-              }
-            }}
-          />
+          <View>
+            <PhotoSelector
+              ref={(c) => (this._photoSelector = c)}
+              imageUri={this.props.imageUri}
+              setImageUri={(imageUri) => {
+                this.props.setImageUri(imageUri);
+                if (!this.props.name) {
+                  this._titleInput.focus();
+                }
+              }}
+            />
+            <TouchableOpacity style={styles.container} onPress={() => this._photoSelector.openPhotoSelect() }>
+              <Text style={styles.status}>Change photo?</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.form}>
             <TitleInput inputRef={(c) => (this._titleInput = c)} />
             <InstallationDateInput />
             <CreatorInput />
+            <EmailInput />
             <DescriptionInput />
           </View>
           <View style={{ height: 60 }} />
@@ -117,6 +133,17 @@ const styles = StyleSheet.create({
     bottom: 12,
     left: 12,
     right: 12,
+  },
+  container: {
+    top: -120,
+    padding: 12,
+    backgroundColor: EXPIRED_COLOR,
+  },
+  status: {
+    color: WHITE,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 14,
   },
 });
 

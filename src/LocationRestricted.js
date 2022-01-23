@@ -20,7 +20,7 @@ const LocationRestricted = (props) => {
           latitude,
           longitude
         );
-        if (distance <= props.maximumDistance) {
+        if (!distance <= props.maximumDistance) {
           return props.renderInside;
         } else {
           return props.renderOutside;

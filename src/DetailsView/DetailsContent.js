@@ -16,7 +16,7 @@ import { WHITE, RAINWORKS_BLUE } from "../constants/Colors";
 import Divider from "../Common/Divider";
 import Link from "../Common/Link";
 import { MAP_SCREEN, FIND_MAP_SCREEN } from "../MapStack/ScreenNames";
-import { EDIT_INFO_SCREEN } from "../SubmitStack/ScreenNames";
+import { EDIT_INFO_SCREEN } from "../SubmissionsScreen/ScreenNames";
 import { COMMON_DATE_FORMAT } from "../utils/util";
 import { rainworkToCoords, androidRainworkToCoords } from "../utils/mapUtils";
 import ApprovalStatus from "./ApprovalStatus";
@@ -24,6 +24,8 @@ import DetailsImage from "./DetailsImage";
 import ReportButtons from "./ReportButtons";
 import ReportsText from "./ReportsText";
 import { SubmissionConsumer } from "../SubmitStack/SubmissionContext";
+import { StackActions, NavigationActions } from "react-navigation";
+import { SUBMISSIONS_LIST_SCREEN } from "../SubmissionsScreen/ScreenNames";
 
 const DetailsContent = (props) => {
   const {
@@ -204,11 +206,17 @@ const DetailsContent = (props) => {
               <SubmissionConsumer>
                 {({ deleteSubmission, submitting, uploadProgress }) => {
                   const deleteRainwork = async (id) => {
+                    const resetAction = StackActions.reset({
+                      index: 0,
+                      actions: [
+                        NavigationActions.navigate({
+                          routeName: SUBMISSIONS_LIST_SCREEN,
+                        }),
+                      ],
+                    });
                     const success = await deleteSubmission(id);
                     if (success) {
-                      setTimeout(() => {
-                        props.navigation.navigate(MAP_SCREEN);
-                      }, 2000);
+                      props.navigation.dispatch(resetAction);
                     }
                   };
 

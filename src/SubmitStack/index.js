@@ -6,12 +6,11 @@ import DrawerMenuButton from "../DrawerMenuButton";
 import { defaultStackNavigatorConfig } from "../navigationConfigs";
 import GuidelinesScreen from "./GuidelinesScreen";
 import InfoScreen from "./InfoScreen";
-import EditInfoScreen from './EditInfoScreen'
 import LocationSelectScreen from "./LocationSelectScreen";
 import {
   LOCATION_SELECT_SCREEN,
   GUIDELINES_SCREEN,
-  INFO_SCREEN, EDIT_INFO_SCREEN
+  INFO_SCREEN
 } from "./ScreenNames";
 
 export default withNavigation(
@@ -39,16 +38,6 @@ export default withNavigation(
       },
       [INFO_SCREEN]: { 
         screen: InfoScreen,
-        navigationOptions: {
-          headerLeftContainerStyle: {
-            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
-          },
-          headerTitleStyle: { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 },
-           unmountOnBlur: true 
-        } 
-      },
-      [EDIT_INFO_SCREEN]: { 
-        screen: EditInfoScreen,
         navigationOptions: {
           headerLeftContainerStyle: {
             paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10

@@ -7,21 +7,17 @@ import { ACTION_COLOR, WHITE } from "../constants/Colors";
 import { LocationConsumer } from "../contexts/LocationContext";
 import { coordsToRegion, rainworkToCoords } from "../utils/mapUtils";
 
-class ToggleableMapView extends Component {
+class SubmitToggleableMapView extends Component {
   static propTypes = {
     initialMapType: PropTypes.oneOf(["hybrid", "standard"]),
     children: PropTypes.node,
-    selectedRainwork: PropTypes.object,
+    selectedRainwork: PropTypes.object
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      mapType: this.props.initialMapType || "standard",
-      selectedRegion:
-        this.props.selectedRainwork &&
-        coordsToRegion(rainworkToCoords(this.props.selectedRainwork)),
-      mapWidth: "99%",
+      mapType: this.props.initialMapType || "standard"
     };
   }
 
@@ -30,64 +26,50 @@ class ToggleableMapView extends Component {
     this.setState({ mapType });
   };
 
-  UNSAFE_componentWillMount() {
-    //Hack to ensure the showsMyLocationButton is shown initially. Idea is to force a repaint
-    // setTimeout(() => this.setState({ paddingTop: 1 }), 500);
-    // setTimeout(() => this.setState({ paddingTop: 0 }), 1000);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.selectedRainwork !== this.props.selectedRainwork) {
-      this.setState({
-        selectedRegion: coordsToRegion(
-          rainworkToCoords(this.props.selectedRainwork)
-        ),
-      });
-    }
-  }
-
   render() {
+    const {
+      initialMapType,
+      children,
+      selectedRainwork,
+      ...otherProps
+    } = this.props;
+    const selectedRegion =
+      selectedRainwork && coordsToRegion(rainworkToCoords(selectedRainwork));
     return (
       <LocationConsumer>
-        {(userLocation) => {
+        {userLocation => {
           const userRegion = userLocation
             ? coordsToRegion(userLocation.coords)
             : undefined;
           return (
             <Fragment>
               <MapView
-                ref={(r) => (this._mapRef = r)}
-                style={{
-                  // ...StyleSheet.absoluteFillObject,
-                  height: "100%",
-                  width: this.state.mapWidth,
-                }}
+                ref={r => (this._mapRef = r)}
+                style={StyleSheet.absoluteFillObject}
                 mapType={this.state.mapType}
-                {...this.props.otherProps}
-                // initialRegion={this.state.selectedRegion || userRegion}
-                region={this.state.selectedRegion || userRegion}
-                customMapStyle={googleMapStyle}
-                onMapReady={() => this.setState({ mapWidth: "100%" })}
+                {...otherProps}
+                initialRegion={selectedRegion || userRegion}
+                showsUserLocation={false}
+                showsMyLocationButton={false}
                 provider={PROVIDER_GOOGLE}
-                onRegionChangeComplete={(region, { isGesture }) => {
-                  if (isGesture) this.setState({ selectedRegion: region });
-                }}
               >
                 {userRegion && (
                   <Marker coordinate={userRegion}>
                     <View style={styles.currentLocationMarker} />
                   </Marker>
                 )}
-                {this.props.children || null}
+                {children || null}
               </MapView>
               <View style={styles.buttonSheet}>
-                <TouchableOpacity
-                  style={styles.button}
-                  activeOpacity={0.4}
-                  onPress={() => this._mapRef.animateToRegion(userRegion)}
-                >
-                  <Icon name="locate" style={{ color: ACTION_COLOR }} />
-                </TouchableOpacity>
+                {userRegion && (
+                  <TouchableOpacity
+                    style={styles.button}
+                    activeOpacity={0.4}
+                    onPress={() => this._mapRef.animateToRegion(userRegion)}
+                  >
+                    <Icon name="locate" style={{ color: ACTION_COLOR }} />
+                  </TouchableOpacity>
+                )}
                 <TouchableOpacity
                   style={styles.button}
                   activeOpacity={0.4}
@@ -104,25 +86,13 @@ class ToggleableMapView extends Component {
   }
 }
 
-const googleMapStyle = [
-  {
-    featureType: "administrative",
-    elementType: "geometry",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-];
-
 const styles = StyleSheet.create({
   buttonSheet: {
     bottom: 0,
     justifyContent: "flex-end",
     left: 0,
     position: "absolute",
-    padding: 6,
+    padding: 6
   },
   button: {
     alignItems: "center",
@@ -134,7 +104,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    width: 48,
+    width: 48
   },
   currentLocationMarker: {
     backgroundColor: ACTION_COLOR,
@@ -145,8 +115,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    width: 16,
-  },
+    width: 16
+  }
 });
 
-export default ToggleableMapView;
+export default SubmitToggleableMapView;

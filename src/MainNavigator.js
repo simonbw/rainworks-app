@@ -12,7 +12,7 @@ import {
   SUBMIT_STACK,
   SUBMISSIONS_SCREEN,
   ABOUT_SCREEN,
-  GALLERY_STACK
+  GALLERY_STACK,
 } from "./constants/ScreenNames";
 import { createAppContainer } from "react-navigation";
 
@@ -23,43 +23,46 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: "Map",
         drawerIcon: () => <Icon name="map" />,
-      }
+      },
     },
     [GALLERY_STACK]: {
       screen: GalleryStack,
       navigationOptions: {
         drawerLabel: "Gallery",
-        drawerIcon: () => <Icon name="images" />
-      }
+        drawerIcon: () => <Icon name="images" />,
+      },
     },
     [SUBMIT_STACK]: {
       screen: SubmitStack,
       navigationOptions: {
         drawerLabel: "Submit",
-        drawerIcon: () => <Icon name="create" />
-      }
+        drawerIcon: () => <Icon name="create" />,
+      },
     },
     [SUBMISSIONS_SCREEN]: {
       screen: SubmissionsScreen,
       navigationOptions: {
         drawerLabel: "Submissions",
-        drawerIcon: () => <Icon name="list" />
-      }
+        drawerIcon: () => <Icon name="list" />,
+      },
     },
     [ABOUT_SCREEN]: {
       screen: AboutStack,
       navigationOptions: {
         drawerLabel: "About Rainworks",
-        drawerIcon: () => <Icon name="help" />
-      }
-    }
+        drawerIcon: () => <Icon name="help" />,
+      },
+    },
   },
   {
     drawerType: "front",
     initialRouteName: MAP_STACK,
     contentOptions: {
-      itemsContainerStyle: {marginTop: Platform.OS === 'android' ? StatusBar.currentHeight :  40 }
-    }
+      itemsContainerStyle: {
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
+      },
+    },
+    unmountInactiveRoutes: true,
   }
 );
 

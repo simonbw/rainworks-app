@@ -21,10 +21,11 @@ class NotificationHandler extends Component {
 
   componentDidMount() {
     Notifications.addNotificationReceivedListener((notification) => {
-      console.log("notification:", notification);
+      // console.log("notificationn", notification);
       this.props.refreshSubmissions();
-      const notificationType = notification["data"]["notification_type"];
-      const submissionId = notification["data"]["rainwork_id"];
+      const notificationType =
+        notification.request.content["data"]["notification_type"];
+      const submissionId = notification.request.content["data"]["rainwork_id"];
 
       if (notification["origin"] === "selected") {
         // tapped on notification
@@ -57,7 +58,7 @@ class NotificationHandler extends Component {
       text: this.renderToastText(notificationType, submissionId),
       position: "bottom",
       buttonText: "X",
-      duration: 5 * 1000,
+      duration: 10 * 1000,
       type: this.getToastType(notificationType),
     });
   }

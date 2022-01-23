@@ -1,21 +1,24 @@
 import { Button, Container, Content, Text, View } from "native-base";
 import PropTypes from "prop-types";
+import * as Notifications from "expo-notifications";
 import React, { Component } from "react";
 import {
   Platform,
   ProgressBarAndroid,
   ProgressViewIOS,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import { SUBMISSIONS_SCREEN } from "../constants/ScreenNames";
 import {
   CreatorInput,
   DescriptionInput,
   InstallationDateInput,
-  TitleInput
+  TitleInput,
+  EmailInput,
 } from "./InfoScreenForm";
 import PhotoSelector from "./PhotoSelector";
 import { SubmissionConsumer } from "./SubmissionContext";
+import { registerForPushNotifications } from "../utils/util";
 
 class UnconnectedInfoScreen extends Component {
   static propTypes = {
@@ -25,7 +28,7 @@ class UnconnectedInfoScreen extends Component {
     submit: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
     uploadProgress: PropTypes.number.isRequired,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   };
 
   canSubmit() {
@@ -52,9 +55,9 @@ class UnconnectedInfoScreen extends Component {
       <Container>
         <Content style={{ flex: 1 }} behavior="padding">
           <PhotoSelector
-            ref={c => (this._photoSelector = c)}
+            ref={(c) => (this._photoSelector = c)}
             imageUri={this.props.imageUri}
-            setImageUri={imageUri => {
+            setImageUri={(imageUri) => {
               this.props.setImageUri(imageUri);
               if (!this.props.name) {
                 this._titleInput.focus();
@@ -62,9 +65,10 @@ class UnconnectedInfoScreen extends Component {
             }}
           />
           <View style={styles.form}>
-            <TitleInput inputRef={c => (this._titleInput = c)} />
+            <TitleInput inputRef={(c) => (this._titleInput = c)} />
             <InstallationDateInput />
             <CreatorInput />
+            <EmailInput />
             <DescriptionInput />
           </View>
           <View style={{ height: 60 }} />
@@ -83,7 +87,7 @@ class UnconnectedInfoScreen extends Component {
                 progress={this.props.uploadProgress}
                 style={styles.progressViewIOS}
               />
-            )
+            ),
           })
         ) : (
           <Button
@@ -101,7 +105,7 @@ class UnconnectedInfoScreen extends Component {
 
 const styles = StyleSheet.create({
   form: {
-    padding: 16
+    padding: 16,
   },
   submitButton: { position: "absolute", bottom: 12, right: 12 },
   progressViewAndroid: {},
@@ -109,18 +113,18 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 12,
     left: 12,
-    right: 12
-  }
+    right: 12,
+  },
 });
 
 const InfoScreen = ({ navigation }) => (
   <SubmissionConsumer>
-    {props => <UnconnectedInfoScreen {...props} navigation={navigation} />}
+    {(props) => <UnconnectedInfoScreen {...props} navigation={navigation} />}
   </SubmissionConsumer>
 );
 
 InfoScreen.navigationOptions = {
-  title: "Info"
+  title: "Info",
 };
 
 export default InfoScreen;

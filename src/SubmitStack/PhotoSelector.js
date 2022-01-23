@@ -36,6 +36,7 @@ export default class PhotoSelector extends Component {
       // console.log(
       //   await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
       // );
+      await Permissions.askAsync(Permissions.CAMERA);
       await this.setImage(
         await ImagePicker.launchCameraAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,

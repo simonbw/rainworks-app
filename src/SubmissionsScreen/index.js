@@ -7,9 +7,11 @@ import DrawerMenuButton from "../DrawerMenuButton";
 import { defaultStackNavigatorConfig } from "../navigationConfigs";
 import SubmissionDetailsScreen from "./SubmissionDetailsScreen";
 import SubmissionsList from "./SubmissionsList";
+import EditInfoScreen from './EditInfoScreen'
 import {
   SUBMISSIONS_LIST_SCREEN,
   SUBMISSION_DETAILS_SCREEN,
+  EDIT_INFO_SCREEN
 } from "./ScreenNames";
 import { StackActions } from "react-navigation";
 import {LOCATION_SELECT_SCREEN} from '../SubmitStack/ScreenNames'
@@ -58,6 +60,16 @@ const SubmissionsStack = createStackNavigator(
         };
       },
     },
+    [EDIT_INFO_SCREEN]: { 
+      screen: EditInfoScreen,
+      navigationOptions: {
+        headerLeftContainerStyle: {
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10
+        },
+        headerTitleStyle: { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 10 },
+         unmountOnBlur: true 
+      } 
+    }
   },
   {
     ...defaultStackNavigatorConfig,

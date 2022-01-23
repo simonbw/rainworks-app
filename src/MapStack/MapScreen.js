@@ -1,10 +1,12 @@
 import { View } from "native-base";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { withNavigation } from "react-navigation";
 import { ActivityIndicator, Platform, NativeModules } from "react-native";
 import { RainworksConsumer } from "../contexts/RainworksContext";
 import ToggleableMapView from "../Common/ToggleableMapView";
 import RainworkMarker from "./RainworkMarker";
+import {registerForPushNotifications} from '../utils/util'
 
 class MapScreen extends Component {
   static propTypes = {
@@ -87,7 +89,6 @@ class MapScreen extends Component {
   }
 
   render() {
-    
     return (
       <View
         style={{

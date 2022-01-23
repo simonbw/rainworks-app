@@ -19,13 +19,15 @@
     "icon": "assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
-      "buildNumber": "26",
+      "buildNumber": "30",
       "icon": "assets/icon_ios.png",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
-        "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you."
+        "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you.",
+        "UIUserInterfaceStyle": "light"
       },
+      "userInterfaceStyle": "light",
       "splash": {
         "image": "./assets/splash_ios.png",
         "backgroundColor": "#FFFFFF",
@@ -36,7 +38,7 @@
       }
     },
     "android": {
-      "versionCode": 6,
+      "versionCode": 8,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"

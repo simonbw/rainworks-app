@@ -3,7 +3,7 @@ import { Button, Text, View } from "native-base";
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { withNavigation } from "react-navigation";
-import ToggleableMapView from "../Common/ToggleableMapView";
+import SubmitToggleMapView from "../Common/SubmitToggleMapView";
 import { INFO_SCREEN } from "./ScreenNames";
 import { SubmissionConsumer } from "./SubmissionContext";
 import { RAINWORKS_BLUE } from "../constants/Colors";
@@ -17,7 +17,7 @@ const UnconnectedLocationSelectScreen = ({
 }) => {
   return (
     <View style={{ flex: 1 }}>
-      <ToggleableMapView
+      <SubmitToggleMapView
         onRegionChangeComplete={(region) =>
           setLocation(region.latitude, region.longitude)
         }

@@ -4,7 +4,7 @@ import { StyleSheet, TextInput } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { ACTION_COLOR, GRAY } from "../constants/Colors";
 import { COMMON_DATE_FORMAT } from "../utils/util";
-import { SubmissionConsumer } from "./SubmissionContext";
+import { SubmissionConsumer } from "../SubmitStack/SubmissionContext";
 
 export const TitleInput = ({ inputRef }) => (
   <SubmissionConsumer>
