@@ -54,7 +54,7 @@ export function uploadFile(url, file, onProgress = () => null) {
 }
 
 export async function registerForPushNotifications() {
-  // const { status } = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+  const { status } = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
   const permissionResult = await Permissions.askAsync(
     Permissions.NOTIFICATIONS
   );
@@ -62,7 +62,6 @@ export async function registerForPushNotifications() {
   if (permissionResult && permissionResult.status === "granted") {
     const url = `${DEVICES_URL}/${encodeURIComponent(getDeviceId())}`;
     const notificationData = await Notifications.getExpoPushTokenAsync();
-    // console.log("notificationData", notificationData);
     const result = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

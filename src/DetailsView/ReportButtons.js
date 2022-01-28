@@ -6,6 +6,7 @@ import { withNavigation } from "react-navigation";
 import { ReportsConsumer } from "../contexts/ReportsContext";
 import LocationRestricted from "../LocationRestricted";
 import { REPORT_SCREEN } from "../MapStack/ScreenNames";
+import {DARK_GRAY} from '../constants/Colors'
 
 const MISSING_TEXT = "Its Not Here";
 const FADED_TEXT = "Its Really Faded";
@@ -18,7 +19,7 @@ const ReportButtons = withNavigation(({ navigation, rainwork }) => (
       <ReportsConsumer>
         {({ getReport, hasReport, submitReport, submitting }) => {
           if (submitting) {
-            return <ActivityIndicator size={"large"} />;
+            return <ActivityIndicator size={"large"} color={DARK_GRAY} />;
           }
 
           const hasFoundIt = hasReport(rainwork["id"], "found_it");

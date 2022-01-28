@@ -39,9 +39,13 @@
     },
     "android": {
       "versionCode": 8,
+      "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"
+        },
+        "googleSignIn": {
+          "apiKey": "AIzaSyCmECLax3CojkmX_6PwlOSHnQOOYpiRPa4"
         }
       },
       "icon": "assets/icon_android.png",
@@ -62,7 +66,8 @@
         "xxxhdpi": "./assets/splash_android.png",
         "backgroundColor": "#FFFFFF",
         "resizeMode": "contain"
-      }
+      },
+      "useNextNotificationsApi": true
     },
     "plugins": [
       [

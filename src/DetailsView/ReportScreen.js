@@ -81,7 +81,7 @@ class ReportScreen extends Component {
               </View>
             )}
             {this.props.submitting ? (
-              <ActivityIndicator size="large" />
+              <ActivityIndicator size="large" color={DARK_GRAY}  />
             ) : (
               <Button danger block onPress={this.submit}>
                 <Text>

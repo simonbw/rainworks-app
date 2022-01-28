@@ -49,7 +49,7 @@ class SubmitToggleableMapView extends Component {
                 mapType={this.state.mapType}
                 {...otherProps}
                 initialRegion={selectedRegion || userRegion}
-                showsUserLocation={false}
+                showsUserLocation={true}
                 showsMyLocationButton={false}
                 provider={PROVIDER_GOOGLE}
               >
