@@ -21,7 +21,6 @@ class NotificationHandler extends Component {
 
   componentDidMount() {
     Notifications.addNotificationReceivedListener((notification) => {
-      // console.log("notificationn", notification);
       this.props.refreshSubmissions();
       const notificationType =
         notification.request.content["data"]["notification_type"];

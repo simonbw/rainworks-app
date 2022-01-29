@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
   },
   dateInput: {
     borderWidth: 0,
-    // justifyContent: 'flex-start',
     alignItems: "flex-start",
   },
   dateText: {

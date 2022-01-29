@@ -61,7 +61,6 @@ class UnconnectedEditInfoScreen extends Component {
       this.props.setDescription(this.props.rainwork.description);
       this.props.setLocation(this.props.rainwork.lat, this.props.rainwork.lng);
     }
-    // console.log("rainworkXcC", this.props.rainwork);
   }
 
   render() {

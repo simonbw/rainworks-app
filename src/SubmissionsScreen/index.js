@@ -25,7 +25,6 @@ const NewSubmissionButton = ({ navigation, tintColor = WHITE }) => (
      }}
     onPress={() => {
       navigation.navigate(LOCATION_SELECT_SCREEN);
-      // navigation.dispatch(StackActions.pop());
     }}
   >
     <Icon name="create" style={{ color: tintColor }} />

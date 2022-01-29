@@ -155,7 +155,7 @@ const DetailsContent = (props) => {
             <Divider />
             <View style={styles.mapButtonsRow}>
               <SubmissionConsumer>
-                {({ markSubmissionFade, submitting, uploadProgress }) => {
+                {({ markSubmissionFade }) => {
                   const markSubmission = async (id) => {
                     const success = await markSubmissionFade(id);
                     if (success) {
@@ -204,7 +204,7 @@ const DetailsContent = (props) => {
             </View>
             <View style={styles.mapButtonsRow}>
               <SubmissionConsumer>
-                {({ deleteSubmission, submitting, uploadProgress }) => {
+                {({ deleteSubmission }) => {
                   const deleteRainwork = async (id) => {
                     const resetAction = StackActions.reset({
                       index: 0,

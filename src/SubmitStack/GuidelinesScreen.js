@@ -12,7 +12,7 @@ const BulletPoint = ({ children }) => (
 
 const GuidelinesScreen = ({ navigation }) => (
   <ScrollView
-    style={{ flex: 1 }}
+    style={styles.container}
     alwaysBounceVertical={false}
     contentContainerStyle={styles.contentContainer}
   >
@@ -55,6 +55,7 @@ GuidelinesScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  container: { flex: 1 },
   contentContainer: {
     backgroundColor: WHITE,
     minHeight: "100%",

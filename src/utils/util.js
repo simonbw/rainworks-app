@@ -20,9 +20,6 @@ export function makeQueryString(params) {
 
 export function getDeviceId() {
   return Constants.installationId;
-  // return Platform.OS === "android"
-  //   ? Constants.installationId
-  //   : NativeModules.SettingsManager.settings.EXDeviceInstallUUIDKey;
 }
 
 export function uploadFile(url, file, onProgress = () => null) {

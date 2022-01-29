@@ -33,9 +33,6 @@ export default class PhotoSelector extends Component {
 
     if (selection === 0) {
       // Take Photo
-      // console.log(
-      //   await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
-      // );
       await Permissions.askAsync(Permissions.CAMERA);
       await this.setImage(
         await ImagePicker.launchCameraAsync({
@@ -68,22 +65,6 @@ export default class PhotoSelector extends Component {
         const scale = Math.min(MAXIMUM_DIMENSION / largestSide, 1);
 
         try {
-          // const croppedUri = await new Promise((resolve, reject) => {
-          //   ImageEditor.cropImage(
-          //     uri,
-          //     {
-          //       offset: { x: 0, y: 0 },
-          //       size: { height, width },
-          //       displaySize: {
-          //         height: Math.round(height * scale),
-          //         width: Math.round(width * scale)
-          //       },
-          //       resizeMode: "cover"
-          //     },
-          //     resolve,
-          //     reject
-          //   );
-          // });
           this.props.setImageUri(uri);
         } catch (e) {
           showError("Failed to resize image");

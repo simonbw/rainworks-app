@@ -18,7 +18,6 @@ import {
 } from "./InfoScreenForm";
 import PhotoSelector from "./PhotoSelector";
 import { SubmissionConsumer } from "./SubmissionContext";
-import { registerForPushNotifications } from "../utils/util";
 
 class UnconnectedInfoScreen extends Component {
   static propTypes = {

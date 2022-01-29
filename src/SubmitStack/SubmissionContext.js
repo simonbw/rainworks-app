@@ -45,8 +45,6 @@ export class SubmissionProvider extends Component {
       submitError: null,
       name: "",
       description: "",
-      // creatorName: "",
-      // creatorEmail: "",
       lat: 0,
       lng: 0,
       imageUri: null,
@@ -132,7 +130,6 @@ export class SubmissionProvider extends Component {
   };
 
   uploadImage = async (uploadUrl) => {
-    // console.log("uploadUrl", uploadUrl);
     const file = { uri: this.state.imageUri, type: "image/jpg" };
     const response = await uploadFile(uploadUrl, file, ({ loaded, total }) =>
       this.setState({
@@ -140,7 +137,6 @@ export class SubmissionProvider extends Component {
       })
     );
     if (response.status >= 400) {
-      // console.log(response);
       throw new Error("Upload Error", response.errorMessage);
     }
     this.setState({ uploadProgress: calculateProgress(true, true, 1) });
@@ -149,10 +145,8 @@ export class SubmissionProvider extends Component {
   };
 
   finalize = async (finalizeUrl) => {
-    // console.log("finalizeUrl", finalizeUrl);
     const response = await fetch(finalizeUrl);
     if (!response.ok) {
-      // console.log(response);
       throw new Error("Finalize failed", response.errorMessage);
     }
     this.setState({ uploadProgress: calculateProgress(true, true, 1.0, true) });
@@ -178,7 +172,6 @@ export class SubmissionProvider extends Component {
     } catch (error) {
       // Some API error
       showError("Error Submitting Rainwork");
-      // console.error(error);
       this.setState({ submitting: false, submitError: error });
       return false;
     }
@@ -202,7 +195,6 @@ export class SubmissionProvider extends Component {
       const responseData = await apiPutResult.json();
 
       this.setState({ uploadProgress: calculateProgress(true, true, 0) });
-      // const { uploadUrl, finalizeUrl } = await this.putToApi();
       const uploadUrl = responseData["image_upload_url"];
       const improveUrl = responseData["improve_url"];
       await this.uploadImage(uploadUrl);
@@ -211,7 +203,6 @@ export class SubmissionProvider extends Component {
       showSuccess("Rainwork Edited Successfully");
     } catch (error) {
       // Some API error
-      // console.log("editRainworkE", error);
       showError("Error Editing Rainwork");
       console.error(error);
       this.setState({ submitting: false, submitError: error });
@@ -241,7 +232,6 @@ export class SubmissionProvider extends Component {
       showSuccess("Rainwork Deleted");
     } catch (error) {
       // Some API error
-      console.log(error);
       showError("Error Deleting Rainwork");
       this.setState({ submitting: false, submitError: error });
       return false;
@@ -263,9 +253,7 @@ export class SubmissionProvider extends Component {
       showSuccess("Rainwork Expired");
     } catch (error) {
       // Some API error
-      // console.log("markSubmissionFade", error);
       showError("Error Fading Rainwork");
-      // console.error(error);
       this.setState({ submitting: false, submitError: error });
       return false;
     }

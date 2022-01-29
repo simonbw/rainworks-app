@@ -9,7 +9,6 @@ import { SubmissionConsumer } from "../SubmitStack/SubmissionContext";
 export const TitleInput = ({ inputRef }) => (
   <SubmissionConsumer>
     {({ submitting, name, setName }) => {
-// setName(value)
       return (
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Rainwork Title</Text>
@@ -130,7 +129,6 @@ const styles = StyleSheet.create({
   },
   dateInput: {
     borderWidth: 0,
-    // justifyContent: 'flex-start',
     alignItems: "flex-start"
   },
   dateText: {

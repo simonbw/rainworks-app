@@ -4,7 +4,7 @@
     "slug": "Rainworks",
     "privacy": "unlisted",
     "description": "View the location of rainworks around the world. https://rain.works/",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "orientation": "portrait",
     "primaryColor": "#14a9e6",
     "androidStatusBar": {
@@ -19,7 +19,7 @@
     "icon": "assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
-      "buildNumber": "30",
+      "buildNumber": "1",
       "icon": "assets/icon_ios.png",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
@@ -38,7 +38,7 @@
       }
     },
     "android": {
-      "versionCode": 8,
+      "versionCode": 5,
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {

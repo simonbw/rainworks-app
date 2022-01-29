@@ -6,7 +6,6 @@ import { ActivityIndicator, Platform, NativeModules } from "react-native";
 import { RainworksConsumer } from "../contexts/RainworksContext";
 import ToggleableMapView from "../Common/ToggleableMapView";
 import RainworkMarker from "./RainworkMarker";
-import {registerForPushNotifications} from '../utils/util'
 
 class MapScreen extends Component {
   static propTypes = {
