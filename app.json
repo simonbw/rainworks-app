@@ -42,10 +42,10 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"
+          "apiKey": ""
         },
         "googleSignIn": {
-          "apiKey": "AIzaSyCmECLax3CojkmX_6PwlOSHnQOOYpiRPa4"
+          "apiKey": ""
         }
       },
       "icon": "assets/icon_android.png",
