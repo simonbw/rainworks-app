@@ -1,0 +1,5 @@
+export const MAP_STACK = "MAP_STACK";
+export const SUBMIT_STACK = "SUBMIT_STACK";
+export const SUBMISSIONS_SCREEN = "SUBMISSIONS_SCREEN";
+export const ABOUT_STACK = "ABOUT_STACK";
+export const GALLERY_STACK = "GALLERY_STACK;";

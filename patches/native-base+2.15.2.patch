@@ -1,0 +1,1170 @@
+diff --git a/node_modules/native-base/src/basic/Actionsheet.js b/node_modules/native-base/src/basic/Actionsheet.js
+index bf7f7c6..f667498 100644
+--- a/node_modules/native-base/src/basic/Actionsheet.js
++++ b/node_modules/native-base/src/basic/Actionsheet.js
+@@ -10,8 +10,8 @@ import {
+   Platform,
+   TouchableOpacity,
+   StyleSheet,
+-  ViewPropTypes,
+ } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+diff --git a/node_modules/native-base/src/basic/Badge.js b/node_modules/native-base/src/basic/Badge.js
+index 4374c7e..e1cb08b 100644
+--- a/node_modules/native-base/src/basic/Badge.js
++++ b/node_modules/native-base/src/basic/Badge.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -8,7 +9,7 @@ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ class Badge extends Component {
+   render() {
+     return (
+-      <View ref={c => (this._root = c)} {...this.props}>
++      <View ref={(c) => (this._root = c)} {...this.props}>
+         {this.props.children}
+       </View>
+     );
+@@ -20,12 +21,14 @@ Badge.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledBadge = connectStyle('NativeBase.Badge', {}, mapPropsToStyleNames)(
+-  Badge
+-);
++const StyledBadge = connectStyle(
++  'NativeBase.Badge',
++  {},
++  mapPropsToStyleNames
++)(Badge);
+ 
+ export { StyledBadge as Badge };
+diff --git a/node_modules/native-base/src/basic/Body.js b/node_modules/native-base/src/basic/Body.js
+index abbea74..018fa28 100644
+--- a/node_modules/native-base/src/basic/Body.js
++++ b/node_modules/native-base/src/basic/Body.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Body extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,12 +17,14 @@ Body.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledBody = connectStyle('NativeBase.Body', {}, mapPropsToStyleNames)(
+-  Body
+-);
++const StyledBody = connectStyle(
++  'NativeBase.Body',
++  {},
++  mapPropsToStyleNames
++)(Body);
+ 
+ export { StyledBody as Body };
+diff --git a/node_modules/native-base/src/basic/Card.js b/node_modules/native-base/src/basic/Card.js
+index 1f68d0b..b036c8a 100644
+--- a/node_modules/native-base/src/basic/Card.js
++++ b/node_modules/native-base/src/basic/Card.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { FlatList, View, ViewPropTypes } from 'react-native';
++import { FlatList, View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -18,7 +19,7 @@ class Card extends Component {
+       );
+     }
+     return (
+-      <View ref={c => (this._root = c)} {...this.props}>
++      <View ref={(c) => (this._root = c)} {...this.props}>
+         {this.props.children}
+       </View>
+     );
+@@ -30,15 +31,17 @@ Card.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
++    PropTypes.array,
+   ]),
+   // eslint-disable-next-line react/forbid-prop-types
+   dataArray: PropTypes.array,
+-  renderRow: PropTypes.func
++  renderRow: PropTypes.func,
+ };
+ 
+-const StyledCard = connectStyle('NativeBase.Card', {}, mapPropsToStyleNames)(
+-  Card
+-);
++const StyledCard = connectStyle(
++  'NativeBase.Card',
++  {},
++  mapPropsToStyleNames
++)(Card);
+ 
+ export { StyledCard as Card };
+diff --git a/node_modules/native-base/src/basic/DeckSwiper.js b/node_modules/native-base/src/basic/DeckSwiper.js
+index b421994..e1fb287 100644
+--- a/node_modules/native-base/src/basic/DeckSwiper.js
++++ b/node_modules/native-base/src/basic/DeckSwiper.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, Animated, PanResponder, ViewPropTypes } from 'react-native';
++import { View, Animated, PanResponder } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import clamp from 'clamp';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+@@ -23,7 +24,7 @@ class DeckSwiper extends Component {
+       looping:
+         typeof this.props.looping === 'undefined' ? true : this.props.looping,
+       disabled: this.props.dataSource.length === 0,
+-      lastCard: this.props.dataSource.length === 1
++      lastCard: this.props.dataSource.length === 1,
+     };
+     this.setPanresponder();
+   }
+@@ -36,7 +37,7 @@ class DeckSwiper extends Component {
+           selectedItem: dataSource[0],
+           selectedItem2: undefined,
+           disabled: dataSource.length === 0,
+-          lastCard: dataSource.length === 1
++          lastCard: dataSource.length === 1,
+         });
+         return;
+       }
+@@ -48,7 +49,7 @@ class DeckSwiper extends Component {
+ 
+       this.setState({
+         selectedItem: dataSource[currentIndex],
+-        selectedItem2: dataSource[nextIndex]
++        selectedItem2: dataSource[nextIndex],
+       });
+     }
+   }
+@@ -59,8 +60,8 @@ class DeckSwiper extends Component {
+         position: 'absolute',
+         top: 0,
+         right: 0,
+-        left: 0
+-      }
++        left: 0,
++      },
+     };
+   };
+ 
+@@ -72,18 +73,18 @@ class DeckSwiper extends Component {
+ 
+     const rotate = pan.x.interpolate({
+       inputRange: [-700, 0, 700],
+-      outputRange: ['-10deg', '0deg', '10deg']
++      outputRange: ['-10deg', '0deg', '10deg'],
+     });
+ 
+     const opacity = pan.x.interpolate({
+       inputRange: [-320, 0, 320],
+-      outputRange: [0.9, 1, 0.9]
++      outputRange: [0.9, 1, 0.9],
+     });
+     const scale = enter;
+ 
+     const animatedCardStyles = {
+       transform: [{ translateX }, { translateY }, { rotate }],
+-      opacity
++      opacity,
+     };
+     const animatedCardStyles2 = { transform: [{ scale }] };
+ 
+@@ -99,7 +100,7 @@ class DeckSwiper extends Component {
+       onPanResponderGrant: () => {
+         this.state.pan.setOffset({
+           x: this.state.pan.x._value,
+-          y: this.state.pan.y._value
++          y: this.state.pan.y._value,
+         });
+         this.state.pan.setValue({ x: 0, y: 0 });
+       },
+@@ -116,13 +117,18 @@ class DeckSwiper extends Component {
+         if (val > 0.2) {
+           val = 0.2;
+         }
+-        Animated.timing(this.state.fadeAnim, { toValue: 0.8 + val, useNativeDriver: false }).start();
++        Animated.timing(this.state.fadeAnim, {
++          toValue: 0.8 + val,
++          useNativeDriver: false,
++        }).start();
+         Animated.spring(this.state.enter, {
+           toValue: 0.8 + val,
+           friction: 7,
+-          useNativeDriver: false
++          useNativeDriver: false,
+         }).start();
+-        Animated.event([null, { dx: this.state.pan.x }], { useNativeDriver: false })(e, gestureState);
++        Animated.event([null, { dx: this.state.pan.x }], {
++          useNativeDriver: false,
++        })(e, gestureState);
+       },
+ 
+       onPanResponderRelease: (e, { vx, vy }) => {
+@@ -151,16 +157,16 @@ class DeckSwiper extends Component {
+           Animated.decay(this.state.pan, {
+             velocity: { x: velocity, y: vy },
+             deceleration: 0.98,
+-            useNativeDriver: false
++            useNativeDriver: false,
+           }).start(this._resetState.bind(this));
+         } else {
+           Animated.spring(this.state.pan, {
+             toValue: { x: 0, y: 0 },
+             friction: 4,
+-            useNativeDriver: false
++            useNativeDriver: false,
+           }).start();
+         }
+-      }
++      },
+     });
+   }
+ 
+@@ -170,7 +176,7 @@ class DeckSwiper extends Component {
+     this.state.fadeAnim.setValue(0.8);
+     this.setState({
+       card1Top: !this.state.card1Top,
+-      card2Top: !this.state.card2Top
++      card2Top: !this.state.card2Top,
+     });
+     if (this.props.onSwiping) this.props.onSwiping(null);
+   }
+@@ -178,13 +184,20 @@ class DeckSwiper extends Component {
+   swipeRight() {
+     if (this.props.onSwiping) this.props.onSwiping('right');
+     setTimeout(() => {
+-      Animated.timing(this.state.fadeAnim, { toValue: 1, useNativeDriver: false }).start();
+-      Animated.spring(this.state.enter, { toValue: 1, friction: 7, useNativeDriver: false }).start();
++      Animated.timing(this.state.fadeAnim, {
++        toValue: 1,
++        useNativeDriver: false,
++      }).start();
++      Animated.spring(this.state.enter, {
++        toValue: 1,
++        friction: 7,
++        useNativeDriver: false,
++      }).start();
+       this.selectNext();
+       Animated.decay(this.state.pan, {
+         velocity: { x: 8, y: 1 },
+         deceleration: 0.98,
+-        useNativeDriver: false
++        useNativeDriver: false,
+       }).start(this._resetState.bind(this));
+     }, 300);
+   }
+@@ -192,13 +205,20 @@ class DeckSwiper extends Component {
+   swipeLeft() {
+     if (this.props.onSwiping) this.props.onSwiping('left');
+     setTimeout(() => {
+-      Animated.timing(this.state.fadeAnim, { toValue: 1, useNativeDriver: false }).start();
+-      Animated.spring(this.state.enter, { toValue: 1, friction: 7, useNativeDriver: false }).start();
++      Animated.timing(this.state.fadeAnim, {
++        toValue: 1,
++        useNativeDriver: false,
++      }).start();
++      Animated.spring(this.state.enter, {
++        toValue: 1,
++        friction: 7,
++        useNativeDriver: false,
++      }).start();
+       this.selectNext();
+       Animated.decay(this.state.pan, {
+         velocity: { x: -8, y: 1 },
+         deceleration: 0.98,
+-        userNativeDriver: false
++        userNativeDriver: false,
+       }).start(this._resetState.bind(this));
+     }, 300);
+   }
+@@ -212,17 +232,17 @@ class DeckSwiper extends Component {
+       // reached end -> only display static renderEmpty() -> no swiping
+       if (currentIndex === dataSource.length - 1) {
+         return this.setState({
+-          disabled: true
++          disabled: true,
+         });
+       } else if (currentIndex === dataSource.length - 2) {
+         // show last card with renderEmpty() component behind it
+         return setTimeout(() => {
+           this.setState({
+-            selectedItem: dataSource[currentIndex + 1]
++            selectedItem: dataSource[currentIndex + 1],
+           });
+           setTimeout(() => {
+             this.setState({
+-              lastCard: true
++              lastCard: true,
+             });
+           }, 350);
+         }, 50);
+@@ -232,11 +252,11 @@ class DeckSwiper extends Component {
+     const nextIndexes = this.findNextIndexes(currentIndex);
+     setTimeout(() => {
+       this.setState({
+-        selectedItem: this.props.dataSource[nextIndexes[0]]
++        selectedItem: this.props.dataSource[nextIndexes[0]],
+       });
+       setTimeout(() => {
+         this.setState({
+-          selectedItem2: this.props.dataSource[nextIndexes[1]]
++          selectedItem2: this.props.dataSource[nextIndexes[1]],
+         });
+       }, 350);
+     }, 50);
+@@ -279,7 +299,7 @@ class DeckSwiper extends Component {
+                 style={[
+                   this.getCardStyles()[1],
+                   this.getInitialStyle().topCard,
+-                  { opacity: this.state.fadeAnim }
++                  { opacity: this.state.fadeAnim },
+                 ]}
+                 {...this._panResponder.panHandlers}
+               >
+@@ -288,7 +308,7 @@ class DeckSwiper extends Component {
+               <Animated.View
+                 style={[
+                   this.getCardStyles()[0],
+-                  this.getInitialStyle().topCard
++                  this.getInitialStyle().topCard,
+                 ]}
+                 {...this._panResponder.panHandlers}
+               >
+@@ -309,7 +329,7 @@ class DeckSwiper extends Component {
+               style={[
+                 this.getCardStyles()[1],
+                 this.getInitialStyle().topCard,
+-                { opacity: this.state.fadeAnim }
++                { opacity: this.state.fadeAnim },
+               ]}
+               {...this._panResponder.panHandlers}
+             >
+@@ -337,10 +357,10 @@ DeckSwiper.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
++    PropTypes.array,
+   ]),
+   // eslint-disable-next-line react/forbid-prop-types
+-  dataSource: PropTypes.array
++  dataSource: PropTypes.array,
+ };
+ 
+ const StyledDeckSwiper = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Footer.js b/node_modules/native-base/src/basic/Footer.js
+index b4cb747..fe36a7a 100644
+--- a/node_modules/native-base/src/basic/Footer.js
++++ b/node_modules/native-base/src/basic/Footer.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes, SafeAreaView } from 'react-native';
++import { View, SafeAreaView } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -8,7 +9,7 @@ import getStyle from '../utils/getStyle';
+ 
+ class Footer extends Component {
+   static contextTypes = {
+-    theme: PropTypes.object
++    theme: PropTypes.object,
+   };
+ 
+   render() {
+@@ -17,10 +18,10 @@ class Footer extends Component {
+     return (
+       <SafeAreaView
+         style={{
+-          backgroundColor: getStyle(style).backgroundColor
++          backgroundColor: getStyle(style).backgroundColor,
+         }}
+       >
+-        <View ref={c => (this._root = c)} {...this.props} />
++        <View ref={(c) => (this._root = c)} {...this.props} />
+       </SafeAreaView>
+     );
+   }
+@@ -31,8 +32,8 @@ Footer.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledFooter = connectStyle(
+diff --git a/node_modules/native-base/src/basic/FooterTab.js b/node_modules/native-base/src/basic/FooterTab.js
+index 7934cb2..51bfbb3 100644
+--- a/node_modules/native-base/src/basic/FooterTab.js
++++ b/node_modules/native-base/src/basic/FooterTab.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -8,7 +9,7 @@ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ class FooterTab extends Component {
+   render() {
+     return (
+-      <View ref={c => (this._root = c)} {...this.props}>
++      <View ref={(c) => (this._root = c)} {...this.props}>
+         {this.props.children}
+       </View>
+     );
+@@ -20,8 +21,8 @@ FooterTab.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledFooterTab = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Form.js b/node_modules/native-base/src/basic/Form.js
+index 96ce051..2c1ec21 100644
+--- a/node_modules/native-base/src/basic/Form.js
++++ b/node_modules/native-base/src/basic/Form.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Form extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,12 +17,14 @@ Form.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledForm = connectStyle('NativeBase.Form', {}, mapPropsToStyleNames)(
+-  Form
+-);
++const StyledForm = connectStyle(
++  'NativeBase.Form',
++  {},
++  mapPropsToStyleNames
++)(Form);
+ 
+ export { StyledForm as Form };
+diff --git a/node_modules/native-base/src/basic/Header.js b/node_modules/native-base/src/basic/Header.js
+index 621e7e7..868c490 100644
+--- a/node_modules/native-base/src/basic/Header.js
++++ b/node_modules/native-base/src/basic/Header.js
+@@ -3,7 +3,8 @@
+ import { connectStyle } from 'native-base-shoutem-theme';
+ import PropTypes from 'prop-types';
+ import React, { Component } from 'react';
+-import { View, StatusBar, ViewPropTypes, SafeAreaView } from 'react-native';
++import { View, StatusBar, SafeAreaView } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ import getStyle from '../utils/getStyle';
+@@ -11,7 +12,7 @@ import variable from '../theme/variables/platform';
+ 
+ class Header extends Component {
+   static contextTypes = {
+-    theme: PropTypes.object
++    theme: PropTypes.object,
+   };
+ 
+   render() {
+@@ -20,7 +21,7 @@ class Header extends Component {
+       iosBarStyle,
+       style,
+       transparent,
+-      translucent
++      translucent,
+     } = this.props;
+ 
+     const variables = this.context.theme
+@@ -48,10 +49,10 @@ class Header extends Component {
+         />
+         <SafeAreaView
+           style={{
+-            backgroundColor: getStyle(style).backgroundColor
++            backgroundColor: getStyle(style).backgroundColor,
+           }}
+         >
+-          <View ref={c => (this._root = c)} {...this.props} />
++          <View ref={(c) => (this._root = c)} {...this.props} />
+         </SafeAreaView>
+       </View>
+     );
+@@ -63,10 +64,10 @@ Header.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
++    PropTypes.array,
+   ]),
+   searchBar: PropTypes.bool,
+-  rounded: PropTypes.bool
++  rounded: PropTypes.bool,
+ };
+ 
+ const StyledHeader = connectStyle(
+diff --git a/node_modules/native-base/src/basic/InputGroup.js b/node_modules/native-base/src/basic/InputGroup.js
+index 5b5dfb6..c3ba04d 100644
+--- a/node_modules/native-base/src/basic/InputGroup.js
++++ b/node_modules/native-base/src/basic/InputGroup.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import variables from '../theme/variables/platform';
+@@ -14,21 +15,21 @@ class InputGroup extends Component {
+         borderWidth: this.props.rounded ? 1 : undefined,
+         borderRadius: this.props.rounded
+           ? variables.inputGroupRoundedBorderRadius
+-          : undefined
+-      }
++          : undefined,
++      },
+     };
+   }
+ 
+   prepareRootProps() {
+     const defaultProps = {
+-      style: this.getInitialStyle().roundedInputGroup
++      style: this.getInitialStyle().roundedInputGroup,
+     };
+ 
+     return computeProps(this.props, defaultProps);
+   }
+   render() {
+     return (
+-      <View ref={c => (this._root = c)} {...this.prepareRootProps()}>
++      <View ref={(c) => (this._root = c)} {...this.prepareRootProps()}>
+         {this.props.children}
+       </View>
+     );
+@@ -42,7 +43,7 @@ InputGroup.propTypes = {
+   rounded: PropTypes.bool,
+   success: PropTypes.bool,
+   error: PropTypes.bool,
+-  disabled: PropTypes.bool
++  disabled: PropTypes.bool,
+ };
+ 
+ const StyledInputGroup = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Left.js b/node_modules/native-base/src/basic/Left.js
+index c23487d..2a3db0d 100644
+--- a/node_modules/native-base/src/basic/Left.js
++++ b/node_modules/native-base/src/basic/Left.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Left extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,12 +17,14 @@ Left.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledLeft = connectStyle('NativeBase.Left', {}, mapPropsToStyleNames)(
+-  Left
+-);
++const StyledLeft = connectStyle(
++  'NativeBase.Left',
++  {},
++  mapPropsToStyleNames
++)(Left);
+ 
+ export { StyledLeft as Left };
+diff --git a/node_modules/native-base/src/basic/Picker.ios.js b/node_modules/native-base/src/basic/Picker.ios.js
+index 7cf65e8..134b49a 100644
+--- a/node_modules/native-base/src/basic/Picker.ios.js
++++ b/node_modules/native-base/src/basic/Picker.ios.js
+@@ -4,7 +4,8 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+ import createReactClass from 'create-react-class';
+-import { FlatList, Modal, View, ViewPropTypes } from 'react-native';
++import { FlatList, Modal, View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { Picker } from '@react-native-picker/picker';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ import { find, get } from 'lodash';
+@@ -30,7 +31,7 @@ class PickerNB extends Component {
+     this.state = {
+       modalVisible: false,
+       currentLabel: this.getLabel(props),
+-      dataSource: this.getChildren(props.children)
++      dataSource: this.getChildren(props.children),
+     };
+   }
+ 
+@@ -39,7 +40,7 @@ class PickerNB extends Component {
+       picker: {
+         // alignItems: 'flex-end'
+       },
+-      pickerItem: {}
++      pickerItem: {},
+     };
+   };
+ 
+@@ -47,7 +48,7 @@ class PickerNB extends Component {
+     const children = this.getChildren(props.children);
+     const item = find(
+       children,
+-      child => child.props.value === props.selectedValue
++      (child) => child.props.value === props.selectedValue
+     );
+     return get(item, 'props.label');
+   }
+@@ -55,11 +56,11 @@ class PickerNB extends Component {
+   getSelectedItem() {
+     return find(
+       this.props.children,
+-      child => child.props.value === this.props.selectedValue
++      (child) => child.props.value === this.props.selectedValue
+     );
+   }
+ 
+-  getChildren = children => {
++  getChildren = (children) => {
+     if (children && !Array.isArray(children)) {
+       return [].concat(children);
+     }
+@@ -71,7 +72,7 @@ class PickerNB extends Component {
+   prepareRootProps() {
+     const defaultProps = {
+       style: this.getInitialStyle().picker,
+-      itemStyle: this.getInitialStyle().pickerItem
++      itemStyle: this.getInitialStyle().pickerItem,
+     };
+ 
+     return computeProps(this.props, defaultProps);
+@@ -86,10 +87,10 @@ class PickerNB extends Component {
+       style: [
+         {
+           fontSize: 22,
+-          lineHeight: 26
++          lineHeight: 26,
+         },
+-        { ...this.props.iosIcon.props.style }
+-      ]
++        { ...this.props.iosIcon.props.style },
++      ],
+     });
+   }
+ 
+@@ -106,7 +107,7 @@ class PickerNB extends Component {
+         onPress,
+         text,
+         picker: this,
+-        selectedItem: this.getSelectedItem()
++        selectedItem: this.getSelectedItem(),
+       });
+     }
+     return (
+@@ -154,7 +155,7 @@ class PickerNB extends Component {
+               shadowRadius: null,
+               shadowOpacity: null,
+               marginLeft: 3,
+-              ...this.props.headerBackButtonStyle
++              ...this.props.headerBackButtonStyle,
+             }}
+             transparent
+             onPress={() => {
+@@ -185,19 +186,19 @@ class PickerNB extends Component {
+ 
+     if (currentLabel !== nextLabel) {
+       this.setState({
+-        currentLabel: nextLabel
++        currentLabel: nextLabel,
+       });
+     }
+     if (currentDS !== nextDS) {
+       this.setState({
+-        dataSource: nextDS
++        dataSource: nextDS,
+       });
+     }
+   }
+ 
+   render() {
+     return (
+-      <View ref={c => (this._root = c)}>
++      <View ref={(c) => (this._root = c)}>
+         {this.renderButton()}
+         <Modal
+           // supportedOrientations={this.props.supportedOrientations || null}
+@@ -254,12 +255,12 @@ class PickerNB extends Component {
+ PickerNB.Item = createReactClass({
+   render() {
+     return <Picker.Item {...this.props()} />;
+-  }
++  },
+ });
+ 
+ PickerNB.propTypes = {
+   ...ViewPropTypes,
+-  renderButton: PropTypes.func
++  renderButton: PropTypes.func,
+ };
+ 
+ const StyledPickerNB = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Right.js b/node_modules/native-base/src/basic/Right.js
+index 05986bc..eba4512 100644
+--- a/node_modules/native-base/src/basic/Right.js
++++ b/node_modules/native-base/src/basic/Right.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Right extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,12 +17,14 @@ Right.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledRight = connectStyle('NativeBase.Right', {}, mapPropsToStyleNames)(
+-  Right
+-);
++const StyledRight = connectStyle(
++  'NativeBase.Right',
++  {},
++  mapPropsToStyleNames
++)(Right);
+ 
+ export { StyledRight as Right };
+diff --git a/node_modules/native-base/src/basic/Root.js b/node_modules/native-base/src/basic/Root.js
+index 89c0b1b..23d7b46 100644
+--- a/node_modules/native-base/src/basic/Root.js
++++ b/node_modules/native-base/src/basic/Root.js
+@@ -1,5 +1,6 @@
+ import React, { Component } from 'react';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import PropTypes from 'prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+@@ -11,15 +12,15 @@ import { ActionSheetContainer as ActionSheet } from './Actionsheet';
+ class Root extends Component {
+   render() {
+     return (
+-      <View ref={c => (this._root = c)} {...this.props} style={{ flex: 1 }}>
++      <View ref={(c) => (this._root = c)} {...this.props} style={{ flex: 1 }}>
+         {this.props.children}
+         <Toast
+-          ref={c => {
++          ref={(c) => {
+             if (c) Toast.toastInstance = c;
+           }}
+         />
+         <ActionSheet
+-          ref={c => {
++          ref={(c) => {
+             if (c) ActionSheet.actionsheetInstance = c;
+           }}
+         />
+@@ -33,12 +34,14 @@ Root.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledRoot = connectStyle('NativeBase.Root', {}, mapPropsToStyleNames)(
+-  Root
+-);
++const StyledRoot = connectStyle(
++  'NativeBase.Root',
++  {},
++  mapPropsToStyleNames
++)(Root);
+ 
+ export { StyledRoot as Root };
+diff --git a/node_modules/native-base/src/basic/Segment.js b/node_modules/native-base/src/basic/Segment.js
+index ed93874..3229894 100644
+--- a/node_modules/native-base/src/basic/Segment.js
++++ b/node_modules/native-base/src/basic/Segment.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Segment extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,8 +17,8 @@ Segment.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledSegment = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Separator.js b/node_modules/native-base/src/basic/Separator.js
+index c09d537..e2270ed 100644
+--- a/node_modules/native-base/src/basic/Separator.js
++++ b/node_modules/native-base/src/basic/Separator.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Separator extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,8 +17,8 @@ Separator.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledSeparator = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Tab.js b/node_modules/native-base/src/basic/Tab.js
+index ab3b678..70db392 100644
+--- a/node_modules/native-base/src/basic/Tab.js
++++ b/node_modules/native-base/src/basic/Tab.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -8,7 +9,7 @@ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ class Tab extends Component {
+   render() {
+     return (
+-      <View ref={c => (this._root = c)} {...this.props}>
++      <View ref={(c) => (this._root = c)} {...this.props}>
+         {this.props.children}
+       </View>
+     );
+@@ -20,8 +21,8 @@ Tab.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledTab = connectStyle('NativeBase.Tab', {}, mapPropsToStyleNames)(Tab);
+diff --git a/node_modules/native-base/src/basic/TabContainer.js b/node_modules/native-base/src/basic/TabContainer.js
+index a2e6dd7..ecbd03d 100644
+--- a/node_modules/native-base/src/basic/TabContainer.js
++++ b/node_modules/native-base/src/basic/TabContainer.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class TabContainer extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,8 +17,8 @@ TabContainer.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledTabContainer = connectStyle(
+diff --git a/node_modules/native-base/src/basic/TabHeading.js b/node_modules/native-base/src/basic/TabHeading.js
+index 3302b79..83b797a 100644
+--- a/node_modules/native-base/src/basic/TabHeading.js
++++ b/node_modules/native-base/src/basic/TabHeading.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class TabHeadingNB extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,8 +17,8 @@ TabHeadingNB.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledTabHeadingNB = connectStyle(
+diff --git a/node_modules/native-base/src/basic/Toast.js b/node_modules/native-base/src/basic/Toast.js
+index 834dbe7..f7987a9 100644
+--- a/node_modules/native-base/src/basic/Toast.js
++++ b/node_modules/native-base/src/basic/Toast.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class Toast extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,11 +17,13 @@ Toast.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+-const StyledToast = connectStyle('NativeBase.Toast', {}, mapPropsToStyleNames)(
+-  Toast
+-);
++const StyledToast = connectStyle(
++  'NativeBase.Toast',
++  {},
++  mapPropsToStyleNames
++)(Toast);
+ export { StyledToast as Toast };
+diff --git a/node_modules/native-base/src/basic/ToastContainer.js b/node_modules/native-base/src/basic/ToastContainer.js
+index 4bd57ac..0f6cd3b 100644
+--- a/node_modules/native-base/src/basic/ToastContainer.js
++++ b/node_modules/native-base/src/basic/ToastContainer.js
+@@ -1,12 +1,7 @@
+ /* eslint-disable class-methods-use-this */
+ import React, { Component } from 'react';
+-import {
+-  Keyboard,
+-  Platform,
+-  Animated,
+-  ViewPropTypes,
+-  PanResponder,
+-} from 'react-native';
++import { Keyboard, Platform, Animated, PanResponder } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+@@ -51,7 +46,7 @@ class ToastContainer extends Component {
+           Animated.timing(this.state.pan, {
+             toValue: { x: dx, y: 0 },
+             duration: 100,
+-            useNativeDriver: false
++            useNativeDriver: false,
+           }).start(() => this.closeToast('swipe'));
+         }
+       },
+@@ -133,7 +128,7 @@ class ToastContainer extends Component {
+       buttonStyle: config.buttonStyle,
+       textStyle: config.textStyle,
+       onClose: config.onClose,
+-      swipeDisabled: config.swipeDisabled || false
++      swipeDisabled: config.swipeDisabled || false,
+     });
+     // If we have a toast already open, cut off its close timeout so that it won't affect *this* toast.
+     if (this.closeTimeout) {
+@@ -180,7 +175,7 @@ class ToastContainer extends Component {
+       const { x, y } = this.state.pan;
+       return (
+         <Animated.View
+-          {...this.state.swipeDisabled ? {} : this._panResponder.panHandlers}
++          {...(this.state.swipeDisabled ? {} : this._panResponder.panHandlers)}
+           style={[
+             this.getToastStyle(),
+             { transform: [{ translateX: x }, { translateY: y }] },
+diff --git a/node_modules/native-base/src/basic/View.js b/node_modules/native-base/src/basic/View.js
+index 8451873..9068d50 100644
+--- a/node_modules/native-base/src/basic/View.js
++++ b/node_modules/native-base/src/basic/View.js
+@@ -1,13 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import { View, ViewPropTypes } from 'react-native';
++import { View } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import { connectStyle } from 'native-base-shoutem-theme';
+ 
+ import mapPropsToStyleNames from '../utils/mapPropsToStyleNames';
+ 
+ class ViewNB extends Component {
+   render() {
+-    return <View ref={c => (this._root = c)} {...this.props} />;
++    return <View ref={(c) => (this._root = c)} {...this.props} />;
+   }
+ }
+ 
+@@ -16,8 +17,8 @@ ViewNB.propTypes = {
+   style: PropTypes.oneOfType([
+     PropTypes.object,
+     PropTypes.number,
+-    PropTypes.array
+-  ])
++    PropTypes.array,
++  ]),
+ };
+ 
+ const StyledViewNB = connectStyle(

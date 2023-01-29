@@ -1,33 +1,89 @@
 {
   "expo": {
-    "name": "rainworks-app",
-    "slug": "rainworks-app",
-    "version": "1.0.0",
+    "name": "Rainworks",
+    "slug": "Rainworks",
+    "privacy": "unlisted",
+    "description": "View the location of rainworks around the world. https://rain.works/",
+    "version": "1.0.13",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
+    "primaryColor": "#14a9e6",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#00000000"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/bundled/*",
+      "node_modules/native-base/Fonts/Roboto.ttf",
+      "node_modules/native-base/Fonts/Roboto_medium.ttf"
     ],
+    "icon": "assets/icon_expo.png",
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+      "bundleIdentifier": "com.rainworks.rainworks-ios",
+      "buildNumber": "1",
+      "icon": "assets/icon_ios.png",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
+        "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you.",
+        "UIUserInterfaceStyle": "light"
+      },
+      "userInterfaceStyle": "light",
+      "splash": {
+        "image": "./assets/splash_ios.png",
+        "backgroundColor": "#FFFFFF",
+        "resizeMode": "contain"
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyBeju0UvH4Mc44EWb5OGtBOQaEjf7m8GWk"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "android": {
+      "versionCode": 5,
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      },
+      "icon": "assets/icon_android.png",
+      "package": "works.rain.rainworks",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_INTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "splash": {
+        "ldpi": "./assets/splash_android.png",
+        "mdpi": "./assets/splash_android.png",
+        "hdpi": "./assets/splash_android.png",
+        "xhdpi": "./assets/splash_android.png",
+        "xxhdpi": "./assets/splash_android.png",
+        "xxxhdpi": "./assets/splash_android.png",
+        "backgroundColor": "#FFFFFF",
+        "resizeMode": "contain"
+      }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./local/assets/notification-sound.wav",
+            "./local/assets/notification-sound-other.wav"
+          ]
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "This app needs access to the camera to upload photos of rainworks.",
+          "photosPermission": "This app needs access to your photos to upload photos of rainworks."
+        }
+      ]
+    ]
   }
 }

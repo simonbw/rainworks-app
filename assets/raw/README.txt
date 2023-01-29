@@ -1,0 +1,1 @@
+This folder is for assets that are used to make the final assets. These do not get bundled with the app.
