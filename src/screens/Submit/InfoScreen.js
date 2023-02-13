@@ -7,6 +7,7 @@ import {
   ProgressViewIOS,
   StyleSheet,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GRAY, WHITE } from "../../constants/Colors";
 import { SUBMISSIONS_SCREEN } from "../../constants/ScreenNames";
 import {
@@ -45,56 +46,58 @@ const UnconnectedInfoScreen = (props) => {
   }, []);
 
   return (
-    <View>
-      <PhotoSelector
-        ref={photoSelectorRef}
-        imageUri={props.imageUri}
-        setImageUri={(imageUri) => {
-          props.setImageUri(imageUri);
-          // if (!props.name) {
-          //   _titleInput.focus();
-          // }
-        }}
-      />
-      <View style={styles.form}>
-        <TitleInput
-        // inputRef={(c) => (_titleInput = c)}
+    <KeyboardAwareScrollView>
+      <View>
+        <PhotoSelector
+          ref={photoSelectorRef}
+          imageUri={props.imageUri}
+          setImageUri={(imageUri) => {
+            props.setImageUri(imageUri);
+            // if (!props.name) {
+            //   _titleInput.focus();
+            // }
+          }}
         />
-        <InstallationDateInput />
-        <CreatorInput />
-        <EmailInput />
-        <DescriptionInput />
-      </View>
-      <View style={{ height: 60 }} />
+        <View style={styles.form}>
+          <TitleInput
+          // inputRef={(c) => (_titleInput = c)}
+          />
+          <InstallationDateInput />
+          <CreatorInput />
+          <EmailInput />
+          <DescriptionInput />
+        </View>
+        <View style={{ height: 60 }} />
 
-      {props.submitting ? (
-        Platform.select({
-          android: (
-            <ProgressBarAndroid
-              progress={props.uploadProgress}
-              style={styles.progressViewAndroid}
-            />
-          ),
-          ios: (
-            <ProgressViewIOS
-              progress={props.uploadProgress}
-              style={styles.progressViewIOS}
-            />
-          ),
-        })
-      ) : (
-        <Button
-          style={[
-            styles.submitButton,
-            !canSubmit() ? { backgroundColor: GRAY } : {},
-          ]}
-          onPress={submit}
-          isDisabled={!canSubmit()}
-        >
-          <Text style={{ color: WHITE }}>Submit</Text>
-        </Button>
-      )}
-    </View>
+        {props.submitting ? (
+          Platform.select({
+            android: (
+              <ProgressBarAndroid
+                progress={props.uploadProgress}
+                style={styles.progressViewAndroid}
+              />
+            ),
+            ios: (
+              <ProgressViewIOS
+                progress={props.uploadProgress}
+                style={styles.progressViewIOS}
+              />
+            ),
+          })
+        ) : (
+          <Button
+            style={[
+              styles.submitButton,
+              !canSubmit() ? { backgroundColor: GRAY } : {},
+            ]}
+            onPress={submit}
+            isDisabled={!canSubmit()}
+          >
+            <Text style={{ color: WHITE }}>Submit</Text>
+          </Button>
+        )}
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

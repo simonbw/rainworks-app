@@ -26,7 +26,7 @@ const NewSubmissionButton = ({ navigation, tintColor = WHITE }) => (
       borderColor: TRANSPARENT,
     }}
     onPress={() => {
-      navigation.navigate(SUBMIT_STACK, { screen: LOCATION_SELECT_SCREEN });
+      navigation.navigate(SUBMIT_STACK);
     }}
   >
     <Icon as={Ionicons} name="create" size={6} style={{ color: tintColor }} />

@@ -25,9 +25,9 @@
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
         "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you.",
-        "UIUserInterfaceStyle": "light"
+        "UIUserInterfaceStyle": "Light"
       },
-      "userInterfaceStyle": "light",
+      "userInterfaceStyle": "Light",
       "splash": {
         "image": "./assets/splash_ios.png",
         "backgroundColor": "#FFFFFF",
@@ -48,11 +48,12 @@
       "icon": "assets/icon_android.png",
       "package": "works.rain.rainworks",
       "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "CAMERA",
-        "READ_INTERNAL_STORAGE",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.READ_INTERNAL_STORAGE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ],
       "splash": {
         "ldpi": "./assets/splash_android.png",
@@ -67,23 +68,17 @@
     },
     "plugins": [
       [
-        "expo-notifications",
-        {
-          "icon": "./local/assets/notification-icon.png",
-          "color": "#ffffff",
-          "sounds": [
-            "./local/assets/notification-sound.wav",
-            "./local/assets/notification-sound-other.wav"
-          ]
-        }
-      ],
-      [
         "expo-image-picker",
         {
           "cameraPermission": "This app needs access to the camera to upload photos of rainworks.",
           "photosPermission": "This app needs access to your photos to upload photos of rainworks."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b2f12596-8db7-4465-95de-b592b613441d"
+      }
+    }
   }
 }

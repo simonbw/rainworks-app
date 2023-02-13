@@ -27,6 +27,7 @@ const SubmitStack = () => (
       name={GUIDELINES_SCREEN}
       component={GuidelinesScreen}
       options={({ navigation }) => ({
+        headerTitle: "Guidelines",
         headerLeft: () => <DrawerMenuButton navigation={navigation} />,
       })}
     />
