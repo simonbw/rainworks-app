@@ -60,7 +60,9 @@ class UnconnectedEditInfoScreen extends Component {
     if (this.props.rainwork) {
       this.props.setImageUri(this.props.rainwork.image_url);
       this.props.setName(this.props.rainwork.name);
-      this.props.setInstallationDate(new Date(this.props.rainwork.created_at));
+      this.props.setInstallationDate(
+        new Date(this.props.rainwork.installation_date)
+      );
       this.props.setCreatorName(this.props.rainwork.creator_name);
       this.props.setCreatorEmail(this.props.rainwork.creator_email);
       this.props.setDescription(this.props.rainwork.description);
@@ -82,13 +84,14 @@ class UnconnectedEditInfoScreen extends Component {
                   this._titleInput.focus();
                 }
               }}
+              edit
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.container}
               onPress={() => this._photoSelector.openPhotoSelect()}
             >
               <Text style={styles.status}>Change photo?</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.form}>
             <TitleInput inputRef={(c) => (this._titleInput = c)} />

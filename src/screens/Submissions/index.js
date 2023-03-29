@@ -14,7 +14,10 @@ import {
   SUBMISSION_DETAILS_SCREEN,
   EDIT_INFO_SCREEN,
 } from "./ScreenNames";
-import { LOCATION_SELECT_SCREEN } from "../Submit/ScreenNames";
+import {
+  GUIDELINES_SCREEN,
+  LOCATION_SELECT_SCREEN,
+} from "../Submit/ScreenNames";
 import { SUBMIT_STACK } from "../../constants/ScreenNames";
 
 const NewSubmissionButton = ({ navigation, tintColor = WHITE }) => (
@@ -67,6 +70,7 @@ const SubmissionsStack = () => (
       name={EDIT_INFO_SCREEN}
       component={EditInfoScreen}
       options={{
+        title: "Edit Submission",
         headerLeftContainerStyle: {
           paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
         },

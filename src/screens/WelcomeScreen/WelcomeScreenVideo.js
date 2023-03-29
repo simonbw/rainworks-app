@@ -23,7 +23,6 @@ class WelcomeScreenVideo extends Component {
 
   close(duration) {
     if (!this._closing) {
-      console.log("closing");
       this._closing = true;
       this._videoRef.setIsMutedAsync(true);
       this.props.onVideoEnd();
@@ -65,7 +64,6 @@ class WelcomeScreenVideo extends Component {
               durationMillis - positionMillis <
                 NATURAL_FADE + progressUpdateIntervalMillis
             ) {
-              console.log(progressUpdateIntervalMillis);
               this.close(NATURAL_FADE);
             }
             // If we somehow missed the end of the video, close it quickly

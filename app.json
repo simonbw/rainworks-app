@@ -16,36 +16,32 @@
       "node_modules/native-base/Fonts/Roboto.ttf",
       "node_modules/native-base/Fonts/Roboto_medium.ttf"
     ],
-    "icon": "assets/icon_expo.png",
+    "icon": "./assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
-      "buildNumber": "1",
-      "icon": "assets/icon_ios.png",
+      "buildNumber": "6",
+      "icon": "./assets/icon_ios.png",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photos to upload photos of rainworks.",
         "NSLocationWhenInUseUsageDescription": "Enabling location services will make it easier to find and submit rainworks near you.",
         "UIUserInterfaceStyle": "Light"
       },
-      "userInterfaceStyle": "Light",
+      "userInterfaceStyle": "light",
       "splash": {
         "image": "./assets/splash_ios.png",
         "backgroundColor": "#FFFFFF",
         "resizeMode": "contain"
       },
       "config": {
-        "googleMapsApiKey": "AIzaSyBeju0UvH4Mc44EWb5OGtBOQaEjf7m8GWk"
+        "googleMapsApiKey": "AIzaSyBeju0UvH4Mc44EWb5OGtBOQaEjf7m8GWk",
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
       "versionCode": 5,
       "googleServicesFile": "./google-services.json",
-      "config": {
-        "googleMaps": {
-          "apiKey": ""
-        }
-      },
-      "icon": "assets/icon_android.png",
+      "icon": "./assets/icon_android.png",
       "package": "works.rain.rainworks",
       "permissions": [
         "android.permission.ACCESS_FINE_LOCATION",
@@ -64,6 +60,11 @@
         "xxxhdpi": "./assets/splash_android.png",
         "backgroundColor": "#FFFFFF",
         "resizeMode": "contain"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"
+        }
       }
     },
     "plugins": [
@@ -79,6 +80,12 @@
       "eas": {
         "projectId": "b2f12596-8db7-4465-95de-b592b613441d"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b2f12596-8db7-4465-95de-b592b613441d"
     }
   }
 }

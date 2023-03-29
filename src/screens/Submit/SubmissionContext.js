@@ -2,7 +2,8 @@ import React, { Component } from "react";
 // import createContext from "create-react-context";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { SUBMIT_URL, SUBMISSIONS_URL } from "../../constants/urls";
+import * as SecureStore from "expo-secure-store";
+import { SUBMISSIONS_URL } from "../../constants/urls";
 import {
   COMMON_DATE_FORMAT,
   getDeviceId,
@@ -48,19 +49,31 @@ export class SubmissionProvider extends Component {
       lat: 0,
       lng: 0,
       imageUri: null,
-      installationDate: moment().format(COMMON_DATE_FORMAT),
+      // installationDate: moment().format(COMMON_DATE_FORMAT),
     };
   }
 
   makeProviderValue() {
     return {
       ...this.state,
-      setCreatorEmail: (creatorEmail) => this.setState({ creatorEmail }),
-      setCreatorName: (creatorName) => this.setState({ creatorName }),
+      setCreatorEmail: (creatorEmail) => {
+        this.setState({ creatorEmail });
+        SecureStore.setItemAsync("creatorEmail", creatorEmail);
+      },
+      setCreatorName: (creatorName) => {
+        this.setState({ creatorName });
+        SecureStore.setItemAsync("creatorName", creatorName);
+      },
       setDescription: (description) => this.setState({ description }),
       setImageUri: (imageUri) => this.setState({ imageUri }),
-      setInstallationDate: (installationDate) =>
-        this.setState({ installationDate }),
+      setInstallationDate: (installationDate) => {
+        this.setState({ installationDate });
+        SecureStore.setItemAsync(
+          "installationDate",
+          installationDate.toString()
+        );
+      },
+
       setLocation: (lat, lng) => this.setState({ lat, lng }),
       setName: (name) => this.setState({ name }),
       submit: () => this.submit(),
@@ -68,6 +81,41 @@ export class SubmissionProvider extends Component {
       deleteSubmission: (rainworkId) => this.deleteSubmission(rainworkId),
       markSubmissionFade: (rainworkId) => this.markSubmissionFade(rainworkId),
     };
+  }
+
+  async getCreatorNameAndEmail() {
+    const creatorName = await SecureStore.getItemAsync("creatorName");
+    const creatorEmail = await SecureStore.getItemAsync("creatorEmail");
+    const installationDate = await SecureStore.getItemAsync("installationDate");
+
+    if (creatorName) {
+      this.setState({ creatorName });
+    }
+
+    if (creatorEmail) {
+      this.setState({ creatorEmail });
+    }
+
+    if (installationDate) {
+      const today = moment();
+      const installDateFormat = moment(installationDate).toISOString();
+      const dateDifference = today.diff(installDateFormat, "days");
+
+      if (dateDifference > 21) {
+        this.setState({
+          installationDate: moment(),
+        });
+        SecureStore.setItemAsync("installationDate", moment().toString());
+      } else {
+        this.setState({ installationDate });
+      }
+    } else {
+      this.setState({ installationDate: moment().format(COMMON_DATE_FORMAT) });
+    }
+  }
+
+  componentDidMount() {
+    this.getCreatorNameAndEmail();
   }
 
   getPostData = () => {
@@ -88,13 +136,12 @@ export class SubmissionProvider extends Component {
 
   postToApi = async () => {
     const body = JSON.stringify(this.getPostData());
-    const apiPostResult = await fetch(SUBMIT_URL, {
+
+    const apiPostResult = await fetch(SUBMISSIONS_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body,
     });
-
-    console.log("apiPostResultED", apiPostResult);
 
     if (!apiPostResult.ok) {
       throw new Error("Error Submitting Rainwork");
@@ -112,7 +159,7 @@ export class SubmissionProvider extends Component {
   putToApi = async () => {
     const body = JSON.stringify(this.getPostData());
 
-    const apiPutResult = await fetch(SUBMIT_URL, {
+    const apiPutResult = await fetch(SUBMISSIONS_URL, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body,
@@ -148,7 +195,6 @@ export class SubmissionProvider extends Component {
 
   finalize = async (finalizeUrl) => {
     const response = await fetch(finalizeUrl);
-    console.log("responseFRE", response);
     if (!response.ok) {
       throw new Error("Finalize failed", response.errorMessage);
     }
@@ -160,7 +206,6 @@ export class SubmissionProvider extends Component {
   improve = async (improveUrl) => {
     const response = await fetch(improveUrl);
     if (!response.ok) {
-      console.log(response);
       throw new Error("Improve failed", response.errorMessage);
     }
     this.setState({ uploadProgress: calculateProgress(true, true, 1.0, true) });
@@ -170,13 +215,11 @@ export class SubmissionProvider extends Component {
     try {
       this.setState({ submitting: true });
       const { uploadUrl, finalizeUrl } = await this.postToApi();
-      console.log("webjn", uploadUrl, "finalizeUrl", finalizeUrl);
       await this.uploadImage(uploadUrl);
       await this.finalize(finalizeUrl);
       this.setState(this.getResetState());
       showSuccess("Rainwork Submitted");
     } catch (error) {
-      console.log("errorSub", error);
       // Some API error
       showError("Error Submitting Rainwork");
       this.setState({ submitting: false, submitError: error });
@@ -199,19 +242,18 @@ export class SubmissionProvider extends Component {
         headers: { "Content-Type": "application/json" },
         body,
       });
-      const responseData = await apiPutResult.json();
 
+      const responseData = await apiPutResult.json();
+      showSuccess("Rainwork Edited Successfully");
       this.setState({ uploadProgress: calculateProgress(true, true, 0) });
       const uploadUrl = responseData["image_upload_url"];
       const improveUrl = responseData["improve_url"];
       await this.uploadImage(uploadUrl);
       await this.improve(improveUrl);
       this.setState(this.getResetState());
-      showSuccess("Rainwork Edited Successfully");
     } catch (error) {
       // Some API error
       showError("Error Editing Rainwork");
-      console.error(error);
       this.setState({ submitting: false, submitError: error });
       return false;
     }

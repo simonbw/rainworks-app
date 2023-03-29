@@ -101,7 +101,6 @@ export class ReportsProvider extends Component {
       ({ loaded, total }) => null // TODO: progress
     );
     if (response.status >= 400) {
-      console.log(response);
       throw new Error("Image Upload Error", response.errorMessage);
     }
     // TODO: Find an alternative for this

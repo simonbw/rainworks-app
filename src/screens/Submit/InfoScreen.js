@@ -31,7 +31,10 @@ const UnconnectedInfoScreen = (props) => {
   const submit = async () => {
     const success = await props.submit();
     if (success) {
-      props.navigation.navigate(SUBMISSIONS_SCREEN);
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: SUBMISSIONS_SCREEN }],
+      });
     }
   };
 
@@ -46,7 +49,9 @@ const UnconnectedInfoScreen = (props) => {
   }, []);
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
       <View>
         <PhotoSelector
           ref={photoSelectorRef}

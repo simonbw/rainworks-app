@@ -15,10 +15,15 @@ const GalleryStack = () => {
       screenOptions={({ navigation }) => ({
         ...defaultStackNavigatorConfig,
         title: "Gallery",
-        headerLeft: () => <DrawerMenuButton navigation={navigation} />,
       })}
     >
-      <Stack.Screen name={GALLERY_SCREEN} component={GalleryScreen} />
+      <Stack.Screen
+        name={GALLERY_SCREEN}
+        component={GalleryScreen}
+        options={({ navigation }) => ({
+          headerLeft: () => <DrawerMenuButton navigation={navigation} />,
+        })}
+      />
       <Stack.Screen
         name={GALLERY_DETAILS_SCREEN}
         component={GalleryDetailsScreen}

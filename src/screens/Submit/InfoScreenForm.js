@@ -1,10 +1,12 @@
-import { Text, View } from "native-base";
-import React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { Button, Text, View } from "native-base";
+import React, { useState } from "react";
+import { StyleSheet, TextInput, Pressable } from "react-native";
 import DatePicker from "react-native-datepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ACTION_COLOR, GRAY } from "../../constants/Colors";
 import { COMMON_DATE_FORMAT } from "../../../utils/util";
 import { SubmissionConsumer } from "./SubmissionContext";
+import moment from "moment";
 
 export const TitleInput = ({ inputRef }) => (
   <SubmissionConsumer>
@@ -17,39 +19,77 @@ export const TitleInput = ({ inputRef }) => (
           ref={inputRef}
           style={styles.textInput}
           value={name}
+          returnKeyType="done"
         />
       </View>
     )}
   </SubmissionConsumer>
 );
 
-export const InstallationDateInput = () => (
-  <SubmissionConsumer>
-    {({ submitting, installationDate, setInstallationDate }) => (
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Installation Date</Text>
-        <DatePicker
-          cancelBtnText={"Cancel"}
-          confirmBtnText={"OK"}
-          customStyles={{
-            dateInput: styles.dateInput,
-            dateText: styles.dateText,
-            btnTextConfirm: styles.btnTextConfirm,
-            btnTextCancel: styles.btnTextCancel,
-          }}
-          date={installationDate}
-          // disabled={submitting}
-          format={COMMON_DATE_FORMAT}
-          maxDate={new Date()}
-          mode={"date"}
-          onDateChange={(d) => setInstallationDate(d)}
-          showIcon={false}
-          style={styles.datePicker}
-        />
-      </View>
-    )}
-  </SubmissionConsumer>
-);
+export const InstallationDateInput = () => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  return (
+    <SubmissionConsumer>
+      {({ submitting, installationDate, setInstallationDate }) => {
+        return (
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Installation Date</Text>
+            {/* <DatePicker
+              cancelBtnText={"Cancel"}
+              confirmBtnText={"OK"}
+              customStyles={{
+                dateInput: styles.dateInput,
+                dateText: styles.dateText,
+                btnTextConfirm: styles.btnTextConfirm,
+                btnTextCancel: styles.btnTextCancel,
+              }}
+              date={installationDate}
+              // disabled={submitting}
+              format={COMMON_DATE_FORMAT}
+              // maxDate={new Date()}
+              mode={"date"}
+              onDateChange={(d) => {
+                console.log(d);
+                // setInstallationDate(d)
+              }}
+              showIcon={false}
+              style={styles.datePicker}
+            /> */}
+
+            <Pressable style={[styles.textInput]} onPress={showDatePicker}>
+              <Text style={styles.dateText}>
+                {installationDate
+                  ? moment(installationDate).format(COMMON_DATE_FORMAT)
+                  : ""}
+              </Text>
+            </Pressable>
+
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              date={installationDate ? new Date(installationDate) : new Date()}
+              // minimumDate={new Date()}
+              onConfirm={(date) => {
+                setInstallationDate(date);
+                hideDatePicker();
+              }}
+              onCancel={hideDatePicker}
+            />
+          </View>
+        );
+      }}
+    </SubmissionConsumer>
+  );
+};
 
 export const EmailInput = ({ email }) => (
   <SubmissionConsumer>
@@ -64,6 +104,7 @@ export const EmailInput = ({ email }) => (
           style={styles.textInput}
           value={creatorEmail}
           keyboardType="email-address"
+          returnKeyType="done"
         />
       </View>
     )}
@@ -80,6 +121,7 @@ export const CreatorInput = () => (
           onChangeText={setCreatorName}
           style={styles.textInput}
           value={creatorName}
+          returnKeyType="done"
         />
       </View>
     )}
@@ -92,8 +134,6 @@ export const DescriptionInput = () => (
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Description (optional)</Text>
         <TextInput
-          autogrow
-          blurOnSubmit
           disabled={submitting}
           multiline
           onChangeText={setDescription}

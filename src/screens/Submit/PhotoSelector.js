@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import {
   DARK_GRAY,
+  EXPIRED_COLOR,
   GRAY,
   LIGHT_GRAY,
   MENU_BG_GRAY,
@@ -93,7 +94,15 @@ const PhotoSelector = (props) => {
           </View>
         )}
       </TouchableOpacity>
-      <ActionSheet ref={props.ref || actionSheetRef}>
+      {props.edit && (
+        <TouchableOpacity
+          style={styles.changeContainer}
+          onPress={() => openPhotoSelector()}
+        >
+          <Text style={styles.changeText}>Change photo?</Text>
+        </TouchableOpacity>
+      )}
+      <ActionSheet ref={actionSheetRef}>
         <View style={{ marginBottom: 50, marginTop: 20 }}>
           <TouchableOpacity onPress={() => openPhotoSelect(0)}>
             <Text style={styles.actionText}>Take Photo</Text>
@@ -130,6 +139,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: MENU_BG_GRAY,
     marginVertical: 14,
+  },
+  changeContainer: {
+    position: "absolute",
+    width: "100%",
+    top: 100,
+    padding: 12,
+    backgroundColor: EXPIRED_COLOR,
+  },
+  changeText: {
+    color: WHITE,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 14,
   },
 });
 

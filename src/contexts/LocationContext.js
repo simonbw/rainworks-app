@@ -21,7 +21,6 @@ export class LocationProvider extends Component {
   }
 
   async componentDidMount() {
-    console.log("Asking for permission");
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === "granted") {
       await Location.watchPositionAsync({}, (userLocation) => {

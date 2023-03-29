@@ -8,7 +8,7 @@ import Toast from "react-native-toast-message";
 import { STATUS_BAR_COLOR } from "./src/constants/Colors";
 // import Preloader from "./utils/Preloader";
 import { SubmissionProvider } from "./src/screens/Submit/SubmissionContext";
-import { SubmissionsProvider } from "./src/contexts/SubmissionsContext";
+import SubmissionsProvider from "./src/contexts/SubmissionsContext";
 import { RainworksProvider } from "./src/contexts/RainworksContext";
 import { ReportsProvider } from "./src/contexts/ReportsContext";
 import NotificationHandler from "./utils/NotificationHandler";
