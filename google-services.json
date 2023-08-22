@@ -7,27 +7,27 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "",
+        "mobilesdk_app_id": "1:133004763161:android:747043a1671871f5818a88",
         "android_client_info": {
           "package_name": "works.rain.rainworks"
         }
       },
       "oauth_client": [
         {
-          "client_id": "",
+          "client_id": "133004763161-upcr7bs39vd8pju98c6db69sn8nf03cs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": ""
+          "current_key": "AIzaSyCmECLax3CojkmX_6PwlOSHnQOOYpiRPa4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "",
+              "client_id": "133004763161-upcr7bs39vd8pju98c6db69sn8nf03cs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

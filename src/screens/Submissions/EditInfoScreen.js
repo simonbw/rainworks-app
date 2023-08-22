@@ -72,64 +72,65 @@ class UnconnectedEditInfoScreen extends Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        automaticallyAdjustKeyboardInsets
+      >
         <View>
-          <View>
-            <PhotoSelector
-              ref={(c) => (this._photoSelector = c)}
-              imageUri={this.props.imageUri}
-              setImageUri={(imageUri) => {
-                this.props.setImageUri(imageUri);
-                if (!this.props.name) {
-                  this._titleInput.focus();
-                }
-              }}
-              edit
-            />
-            {/* <TouchableOpacity
+          <PhotoSelector
+            ref={(c) => (this._photoSelector = c)}
+            imageUri={this.props.imageUri}
+            setImageUri={(imageUri) => {
+              this.props.setImageUri(imageUri);
+              if (!this.props.name) {
+                this._titleInput.focus();
+              }
+            }}
+            edit
+          />
+          {/* <TouchableOpacity
               style={styles.container}
               onPress={() => this._photoSelector.openPhotoSelect()}
             >
               <Text style={styles.status}>Change photo?</Text>
             </TouchableOpacity> */}
-          </View>
-          <View style={styles.form}>
-            <TitleInput inputRef={(c) => (this._titleInput = c)} />
-            <InstallationDateInput />
-            <CreatorInput />
-            <EmailInput />
-            <DescriptionInput />
-          </View>
-          <View style={{ height: 60 }} />
-
-          {this.props.submitting ? (
-            Platform.select({
-              android: (
-                <ProgressBarAndroid
-                  progress={this.props.uploadProgress}
-                  style={styles.progressViewAndroid}
-                />
-              ),
-              ios: (
-                <ProgressViewIOS
-                  progress={this.props.uploadProgress}
-                  style={styles.progressViewIOS}
-                />
-              ),
-            })
-          ) : (
-            <Button
-              style={[
-                styles.submitButton,
-                !this.canSubmit() ? { backgroundColor: GRAY } : {},
-              ]}
-              onPress={this.editRainwork}
-              isDisabled={!this.canSubmit()}
-            >
-              <Text style={{ color: WHITE }}>Submit</Text>
-            </Button>
-          )}
         </View>
+        <View style={styles.form}>
+          <TitleInput inputRef={(c) => (this._titleInput = c)} />
+          <InstallationDateInput />
+          <CreatorInput />
+          <EmailInput />
+          <DescriptionInput />
+        </View>
+        <View style={{ height: 60 }} />
+
+        {this.props.submitting ? (
+          Platform.select({
+            android: (
+              <ProgressBarAndroid
+                progress={this.props.uploadProgress}
+                style={styles.progressViewAndroid}
+              />
+            ),
+            ios: (
+              <ProgressViewIOS
+                progress={this.props.uploadProgress}
+                style={styles.progressViewIOS}
+              />
+            ),
+          })
+        ) : (
+          <Button
+            style={[
+              styles.submitButton,
+              !this.canSubmit() ? { backgroundColor: GRAY } : {},
+            ]}
+            onPress={this.editRainwork}
+            isDisabled={!this.canSubmit()}
+          >
+            <Text style={{ color: WHITE }}>Submit</Text>
+          </Button>
+        )}
       </KeyboardAwareScrollView>
     );
   }

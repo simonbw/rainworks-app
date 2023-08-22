@@ -19,7 +19,7 @@
     "icon": "./assets/icon_expo.png",
     "ios": {
       "bundleIdentifier": "com.rainworks.rainworks-ios",
-      "buildNumber": "6",
+      "buildNumber": "11",
       "icon": "./assets/icon_ios.png",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to the camera to upload photos of rainworks.",
@@ -39,7 +39,7 @@
       }
     },
     "android": {
-      "versionCode": 5,
+      "versionCode": 6,
       "googleServicesFile": "./google-services.json",
       "icon": "./assets/icon_android.png",
       "package": "works.rain.rainworks",

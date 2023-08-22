@@ -95,7 +95,6 @@ export class SubmissionProvider extends Component {
     if (creatorEmail) {
       this.setState({ creatorEmail });
     }
-
     if (installationDate) {
       const today = moment();
       const installDateFormat = moment(installationDate).toISOString();
@@ -110,7 +109,7 @@ export class SubmissionProvider extends Component {
         this.setState({ installationDate });
       }
     } else {
-      this.setState({ installationDate: moment().format(COMMON_DATE_FORMAT) });
+      this.setState({ installationDate: moment().toString() });
     }
   }
 
@@ -126,10 +125,7 @@ export class SubmissionProvider extends Component {
       name: this.state.name,
       lat: this.state.lat,
       lng: this.state.lng,
-      installation_date: moment(
-        this.state.installationDate,
-        COMMON_DATE_FORMAT
-      ).toISOString(),
+      installation_date: this.state.installationDate,
       device_uuid: getDeviceId(),
     };
   };

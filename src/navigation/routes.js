@@ -31,7 +31,7 @@ const AppRoutes = () => {
         headerShown: false,
         drawerType: "front",
         drawerContentStyle: {
-          marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
+          marginTop: 0,
         },
         drawerItemStyle: {
           marginHorizontal: 0,

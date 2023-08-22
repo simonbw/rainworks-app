@@ -41,8 +41,6 @@ const DetailsContent = (props) => {
     submission = false,
   } = props;
 
-  console.log("rainworkDS", rainwork["image_url"]);
-
   return (
     <ScrollView style={{ backgroundColor: WHITE }}>
       <DetailsImage imageUrl={rainwork["image_url"]} />

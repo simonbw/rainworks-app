@@ -30,6 +30,7 @@
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
+    "metro-config": "^0.76.2",
     "moment": "^2.29.4",
     "native-base": "^3.4.25",
     "prop-types": "^15.8.1",
