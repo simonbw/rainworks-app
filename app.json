@@ -51,16 +51,16 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ],
-      "splash": {
-        "ldpi": "./assets/splash_android.png",
-        "mdpi": "./assets/splash_android.png",
-        "hdpi": "./assets/splash_android.png",
-        "xhdpi": "./assets/splash_android.png",
-        "xxhdpi": "./assets/splash_android.png",
-        "xxxhdpi": "./assets/splash_android.png",
-        "backgroundColor": "#FFFFFF",
-        "resizeMode": "contain"
-      },
+      // "splash": {
+      //   "ldpi": "./assets/splash_android.png",
+      //   "mdpi": "./assets/splash_android.png",
+      //   "hdpi": "./assets/splash_android.png",
+      //   "xhdpi": "./assets/splash_android.png",
+      //   "xxhdpi": "./assets/splash_android.png",
+      //   "xxxhdpi": "./assets/splash_android.png",
+      //   "backgroundColor": "#FFFFFF",
+      //   "resizeMode": "contain"
+      // },
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBZ2snsO83-_tYED6ghHrRnBj0zHbsZ7pM"
